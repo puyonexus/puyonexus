@@ -1,0 +1,90 @@
+[submodule "home"]
+	path = home
+	url = git@github.com:puyonexus/home
+[submodule "chainsim"]
+	path = chainsim
+	url = git@github.com:puyonexus/puyosim
+[submodule "forum/phpbb-ext-mediaembed"]
+	path = forum/ext/phpbb/mediaembed
+	url = git@github.com:phpbb-extensions/mediaembed
+[submodule "forum/phpbb-ext-recenttopics"]
+	path = forum/ext/paybas/recenttopics
+	url = git@github.com:Sajaki/RecentTopics
+[submodule "forum/phpbb-ext-textenhancements"]
+	path = forum/ext/puyonexus/textenhancements
+	url = git@github.com:puyonexus/phpbb-ext-textenhancements
+[submodule "forum/phpbb-ext-additions"]
+	path = forum/ext/puyonexus/additions
+	url = git@github.com:puyonexus/phpbb-ext-additions
+[submodule "forum/phpbb"]
+	path = forum/phpbb
+	url = git@github.com:phpbb/phpbb
+[submodule "wiki/mediawiki"]
+	path = wiki/mediawiki
+	url = git@github.com:wikimedia/mediawiki
+[submodule "wiki/mediawiki-extensions-InputBox"]
+	path = wiki/extensions/InputBox
+	url = git@github.com:wikimedia/mediawiki-extensions-InputBox
+[submodule "wiki/mediawiki-extensions-Renameuser"]
+	path = wiki/extensions/Renameuser
+	url = git@github.com:wikimedia/mediawiki-extensions-Renameuser
+[submodule "wiki/mediawiki-extensions-Math"]
+	path = wiki/extensions/Math
+	url = git@github.com:wikimedia/mediawiki-extensions-Math
+[submodule "wiki/mediawiki-extensions-EmbedVideo"]
+	path = wiki/extensions/EmbedVideo
+	url = git@github.com:HydraWiki/mediawiki-embedvideo
+[submodule "wiki/mediawiki-extensions-ConfirmEdit"]
+	path = wiki/extensions/ConfirmEdit
+	url = git@github.com:wikimedia/mediawiki-extensions-ConfirmEdit
+[submodule "wiki/mediawiki-extensions-Nuke"]
+	path = wiki/extensions/Nuke
+	url = git@github.com:wikimedia/mediawiki-extensions-Nuke
+[submodule "wiki/mediawiki-extensions-Cite"]
+	path = wiki/extensions/Cite
+	url = git@github.com:wikimedia/mediawiki-extensions-Cite
+[submodule "wiki/mediawiki-extensions-ImageMap"]
+	path = wiki/extensions/ImageMap
+	url = git@github.com:wikimedia/mediawiki-extensions-ImageMap
+[submodule "wiki/mediawiki-extensions-Moderation"]
+	path = wiki/extensions/Moderation
+	url = git@github.com:edwardspec/mediawiki-moderation
+[submodule "wiki/mediawiki-extensions-Poem"]
+	path = wiki/extensions/Poem
+	url = git@github.com:wikimedia/mediawiki-extensions-Poem
+[submodule "wiki/mediawiki-extensions-Gadgets"]
+	path = wiki/extensions/Gadgets
+	url = git@github.com:wikimedia/mediawiki-extensions-Gadgets
+[submodule "wiki/mediawiki-extensions-CheckUser"]
+	path = wiki/extensions/CheckUser
+	url = git@github.com:wikimedia/mediawiki-extensions-CheckUser
+[submodule "wiki/mediawiki-extensions-WikiEditor"]
+	path = wiki/extensions/WikiEditor
+	url = git@github.com:wikimedia/mediawiki-extensions-WikiEditor
+[submodule "wiki/mediawiki-extensions-ParserFunctions"]
+	path = wiki/extensions/ParserFunctions
+	url = git@github.com:wikimedia/mediawiki-extensions-ParserFunctions
+[submodule "wiki/mediawiki-extensions-SpamBlacklist"]
+	path = wiki/extensions/SpamBlacklist
+	url = git@github.com:wikimedia/mediawiki-extensions-SpamBlacklist
+[submodule "wiki/mediawiki-extensions-AbuseFilter"]
+	path = wiki/extensions/AbuseFilter
+	url = git@github.com:wikimedia/mediawiki-extensions-AbuseFilter
+[submodule "wiki/mediawiki-extensions-SyntaxHighlight_GeSHi"]
+	path = wiki/extensions/SyntaxHighlight_GeSHi
+	url = git@github.com:wikimedia/mediawiki-extensions-SyntaxHighlight_GeSHi
+[submodule "wiki/mediawiki-skins-VectorNexus"]
+	path = wiki/skins/VectorNexus
+	url = git@github.com:puyonexus/mediawiki-skins-VectorNexus
+[submodule "wiki/mediawiki-extensions-PuyoChain"]
+	path = wiki/extensions/PuyoChain
+	url = git@github.com:puyonexus/mediawiki-extensions-PuyoChain
+[submodule "forum/styles/pronexus"]
+	path = forum/styles/pronexus
+	url = git@github.com:puyonexus/phpbb-style-pronexus
+[submodule "forum/styles/prosilver"]
+	path = forum/styles/prosilver
+	url = git@github.com:puyonexus/phpbb-style-prosilver
+[submodule "forum/styles/all"]
+	path = forum/styles/all
+	url = git@github.com:puyonexus/phpbb-style-all
