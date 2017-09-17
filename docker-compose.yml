@@ -1,0 +1,34 @@
+version: "3"
+services:
+  puyonexus:
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - "mariadb"
+    volumes:
+      # Data volumes
+      - "./_data/volumes/forum-avatars:/www/forum/images/avatars/upload"
+      - "./_data/volumes/forum-ranks:/www/forum/images/ranks"
+      - "./_data/volumes/forum-files:/www/forum/files/"
+      - "./_data/volumes/wiki-images:/www/mediawiki/images/"
+      # Forum (only extensions+styles are mounted)
+      - "./forum/ext:/www/forum/ext"
+      - "./forum/styles:/www/forum/styles"
+      # Wiki (only extensions+skins are mounted)
+      - "./wiki/extensions/:/www/mediawiki/extensions"
+      - "./wiki/skins/:/www/mediawiki/skins"
+      # Chainsim (most sources are mounted)
+      - "./chainsim/puyosim/public:/www/chainsim/public"
+      - "./chainsim/puyosim/resources:/www/chainsim/resources"
+      - "./chainsim/puyosim/src:/www/chainsim/src"
+      - "./chainsim/puyosim/views:/www/chainsim/views"
+  mariadb:
+    image: mariadb:10.0
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_USER=puyonexus"
+      - "MYSQL_PASSWORD=puyonexus"
+      - "MYSQL_DATABASE=puyonexus"
+    volumes:
+      - "./_data/puyonexus.sql:/docker-entrypoint-initdb.d/puyonexus.sql"

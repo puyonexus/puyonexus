@@ -1,0 +1,41 @@
+{$SITE_ROOT} {
+    startup php-fpm7 &
+    root /www/
+    fastcgi / 127.0.0.1:9000 php
+
+    rewrite /wiki/ {
+        to {path} /mediawiki/index.php?{query}
+    }
+
+    errors {
+        401 /www/errors/401.html
+        404 /www/errors/404.html
+        500 /www/errors/500.html
+        * /www/errors/any.html
+    }
+}
+
+{$SITE_ROOT}/chainsim/ {
+    root /www/chainsim/public/
+    fastcgi / 127.0.0.1:9000 php
+    rewrite {
+        if {path} not_starts_with /chainsim/assets
+        to /index.php
+
+    }
+
+    errors {
+        401 /www/errors/401.html
+        404 /www/errors/404.html
+        500 /www/errors/500.html
+        * /www/errors/any.html
+    }
+}
+
+{$WWW_ROOT} {
+  redir {$SITE_ROOT}{uri}
+}
+
+:80 {
+  redir https://{host}{uri}
+}

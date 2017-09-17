@@ -1,8 +1,8 @@
 [submodule "home"]
 	path = home
 	url = git@github.com:puyonexus/home
-[submodule "chainsim"]
-	path = chainsim
+[submodule "puyosim"]
+	path = chainsim/puyosim
 	url = git@github.com:puyonexus/puyosim
 [submodule "forum/phpbb-ext-mediaembed"]
 	path = forum/ext/phpbb/mediaembed
@@ -88,3 +88,15 @@
 [submodule "forum/styles/all"]
 	path = forum/styles/all
 	url = git@github.com:puyonexus/phpbb-style-all
+[submodule "wiki/skins/MonoBook"]
+	path = wiki/skins/MonoBook
+	url = https://github.com/wikimedia/mediawiki-skins-MonoBook.git
+[submodule "wiki/skins/Modern"]
+	path = wiki/skins/Modern
+	url = https://github.com/wikimedia/mediawiki-skins-Modern.git
+[submodule "wiki/skins/CologneBlue"]
+	path = wiki/skins/CologneBlue
+	url = https://github.com/wikimedia/mediawiki-skins-CologneBlue.git
+[submodule "wiki/skins/Vector"]
+	path = wiki/skins/Vector
+	url = https://github.com/wikimedia/mediawiki-skins-Vector.git
