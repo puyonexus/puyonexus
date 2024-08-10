@@ -1,10 +1,12 @@
 keys:
+- &local age1yqjv68jw7drsrm4yk7kzgg7sv0ykeerc7ptkauk3l3v3csagad8sf9fdgy
 - &admin_john age1lj4gknnm9yxtcj8z279rnf2cya9kqt4pr28yca3cc9ejgcl9uqfsldn2r6
 - &ojama_local age1jvj79veklvf9p5tvf2jfkvdhgm9dk90tr9x4ql8sua88a52l9v9sy4kh6j
 creation_rules:
 - path_regex: ^secrets/local.yaml$
   key_groups:
     - age:
+      - *local
       - *admin_john
       - *ojama_local
 - path_regex: ^secrets/staging.yaml$
