@@ -1,0 +1,10 @@
+{
+	"manifest_version": 1,
+	"name": "ScaledImage",
+	"AutoloadClasses": {
+		"ScaledImage": "ScaledImage.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "ScaledImage::onParserInit"
+	}
+}

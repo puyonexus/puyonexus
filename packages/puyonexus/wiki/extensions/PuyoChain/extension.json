@@ -1,0 +1,10 @@
+{
+	"manifest_version": 1,
+	"name": "PuyoChain",
+	"AutoloadClasses": {
+		"PuyoChain": "PuyoChain.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "PuyoChain::onParserInit"
+	}
+}

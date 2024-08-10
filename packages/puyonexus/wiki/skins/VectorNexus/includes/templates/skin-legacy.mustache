@@ -1,0 +1,86 @@
+<header id="pn-header" class="noprint">
+	<nav id="pn-navbar">
+		<div class="container">
+			<h1 id="pn-navbar-brand">
+				<a href="/">Puyo Nexus</a>
+			</h1>
+			<button class="pn-navbar-toggle collapsed"><span class="pn-navbar-toggle-icon" aria-hidden="true"></span></button>
+			<div class="pn-navbar-collapse collapse">
+				<ul class="pn-nav">
+					<li class="active"><a href="/wiki/">Wiki</a></li>
+					<li><a href="/forum/">Forum</a></li>
+					<li><a href="/chainsim/">Chain Simulator</a></li>
+				</ul>
+				{{#data-search-box}}{{>LegacySearchBox}}{{/data-search-box}}
+			</div>
+		</div>
+	</nav>
+</header>
+<div id="mw-head" class="noprint">
+	<div class="container">
+	   {{!
+		<div id="mw-panel">
+			<div class="vectorMenu" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+				<h3 id="p-navigation-label" tabindex="0"><span>Navigation</span><a href="#" tabindex="-1" style="z-index: auto;"></a></h3>
+				<div class="menu">
+					<ul>
+						<li id="n-mainpage-description"><a href="/wiki/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li>
+						<li id="n-Tools"><a href="/wiki/Category:Tools">Tools</a></li>
+						<li id="n-Links"><a href="/wiki/PuyoNexus:Links">Links</a></li>
+						<li id="n-recentchanges"><a href="/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li>
+						<li id="n-randompage"><a href="/wiki/Special:Random" title="Load a random page [Alt+Shift+x]" accesskey="x">Random page</a></li>
+						<li id="n-help"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/Help:Contents" title="The place to find out">Help</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="vectorMenu" role="navigation" id="p-Puyo_Puyo" aria-labelledby="p-Puyo_Puyo-label">
+				<h3 id="p-Puyo_Puyo-label" tabindex="0"><span>Puyo Puyo</span><a href="#" tabindex="-1" style="z-index: auto;"></a></h3>
+				<div class="menu">
+					<ul>
+						<li id="n-Characters"><a href="/wiki/List_of_Characters">Characters</a></li><li id="n-Games"><a href="/wiki/List_of_games">Games</a></li>
+						<li id="n-Game-Modes"><a href="/wiki/Category:Game_Modes">Game Modes</a></li><li id="n-Game-Rules"><a href="/wiki/Category:Rules">Game Rules</a></li>
+						<li id="n-Guides"><a href="/wiki/Category:Guides">Guides</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		}}
+		{{#data-portlets-main-menu}}{{>LegacySidebar}}{{/data-portlets-main-menu}}
+		{{#data-portlets}}{{>LegacyUserLinks}}{{/data-portlets}}
+	</div>
+	<div class="container">
+		{{#data-portlets}}
+		<div id="left-navigation">
+			{{#data-namespaces}}{{>LegacyMenu}}{{/data-namespaces}}
+			{{#data-variants}}{{>LegacyMenu}}{{/data-variants}}
+		</div>
+		<div id="right-navigation">
+			{{#data-views}}{{>LegacyMenu}}{{/data-views}}
+			{{#data-actions}}{{>LegacyMenu}}{{/data-actions}}
+		</div>
+		{{/data-portlets}}
+	</div>
+</div>
+<div id="content" class="mw-body container" role="main">
+	<a id="top"></a>
+	<div id="siteNotice">{{{html-site-notice}}}</div>
+	{{>Indicators}}
+	{{{html-title-heading}}}
+	<div id="bodyContent" class="vector-body">
+		{{#is-article}}<div id="siteSub" class="noprint">{{msg-tagline}}</div>{{/is-article}}
+		<div id="contentSub"{{{html-user-language-attributes}}}>{{{html-subtitle}}}</div>
+		<div id="contentSub2">{{{html-undelete-link}}}</div>
+		{{{html-user-message}}}
+		{{!
+			Keep this empty `div` for compatibility with gadgets and user scripts
+			using this place to insert extra elements before.
+		}}
+		<div id="jump-to-nav"></div>
+		<a class="mw-jump-link" href="#mw-head">{{msg-vector-jumptonavigation}}</a>
+		<a class="mw-jump-link" href="#searchInput">{{msg-vector-jumptosearch}}</a>
+		{{{html-body-content}}}
+		{{{html-categories}}}
+	</div>
+</div>
+{{{html-after-content}}}
+{{#data-footer}}{{>Footer}}{{/data-footer}}

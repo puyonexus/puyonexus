@@ -1,0 +1,97 @@
+{
+	"name": "VectorNexus",
+	"author": [
+		"John Chadwick",
+		"Nick Woronekin"
+	],
+	"url": "",
+	"description": "Adaptation of Vector theme for Puyo Nexus Wiki",
+	"license-name": "GPL-2.0+",
+	"type": "skin",
+	"ValidSkinNames": {
+		"vectornexus": "VectorNexus"
+	},
+	"ValidSkinNames": {
+		"vectornexus": {
+		  "class": "MediaWiki\\Skins\\Vector\\SkinVectorLegacy",
+			"args": [
+			  {
+					"name": "vectornexus",
+					"template": "skin-legacy",
+					"clientPrefEnabled": true,
+					"templateDirectory": "includes/templates",
+					"responsive": true,
+					"link": {
+						"text-wrapper": {
+							"tag": "span"
+						}
+					},
+					"bodyClasses": [
+						"skin-vector-legacy",
+						"skin-vectornexus-legacy"
+					],
+					"scripts": [
+						"skins.vector.legacy.js"
+					],
+					"styles": [
+						"skins.vector.styles.legacy",
+						"skins.vectornexus.styles.legacy",
+						"puyonexus.styles.common"
+					],
+					"messages": [
+						"tooltip-p-logo",
+						"vector-opt-out-tooltip",
+						"vector-opt-out",
+						"navigation-heading",
+						"vector-action-toggle-sidebar",
+						"vector-main-menu-tooltip",
+						"vector-jumptonavigation",
+						"vector-jumptosearch",
+						"vector-jumptocontent",
+						"search",
+						"searchbutton",
+						"searcharticle",
+						"searchsuggest-search",
+						"sitesubtitle",
+						"sitetitle",
+						"tagline"
+					]
+				}
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteSkinPath": "VectorNexus"
+	},
+	"ResourceModules": {
+  	"skins.vectornexus.styles.legacy": {
+  		"class": "MediaWiki\\ResourceLoader\\SkinModule",
+  		"features": {
+  			"normalize": true,
+  			"elements": true,
+  			"logo": true,
+  			"content-media": true,
+  			"content-links": true,
+  			"content-links-external": false,
+  			"interface": true,
+  			"interface-message-box": true,
+  			"interface-category": true,
+  			"content-tables": true,
+  			"i18n-ordered-lists": true,
+  			"i18n-all-lists-margins": true,
+  			"i18n-headings": true
+  		},
+  		"styles": [
+  			"resources/skins.vectornexus.styles.legacy/skin-legacy.less"
+  		]
+  	},
+    "puyonexus.styles.common": {
+      "class": "MediaWiki\\ResourceLoader\\SkinModule",
+	    "styles": [
+				"resources/puyonexus.styles.common/common.css"
+			]
+    }
+	},
+	"manifest_version": 2
+}
