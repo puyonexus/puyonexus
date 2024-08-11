@@ -10,9 +10,7 @@ in
         type = lib.types.int;
         default = 3020;
       };
-      targets = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-      };
+      targets = lib.mkOption { type = lib.types.listOf lib.types.str; };
     };
   };
 
@@ -23,9 +21,7 @@ in
       scrapeConfigs = [
         {
           job_name = "nodes";
-          static_configs = [{
-            targets = cfg.targets;
-          }];
+          static_configs = [ { targets = cfg.targets; } ];
         }
       ];
     };

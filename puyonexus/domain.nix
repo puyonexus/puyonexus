@@ -5,9 +5,7 @@ in
 {
   options = {
     puyonexus.domain = {
-      root = lib.mkOption {
-        type = lib.types.str;
-      };
+      root = lib.mkOption { type = lib.types.str; };
     };
   };
 

@@ -189,9 +189,7 @@ php.buildComposerProject (finalAttrs: {
     ext.wikiEditor
   ];
 
-  skins = [
-    skin.vector
-  ];
+  skins = [ skin.vector ];
 
   localSettings =
     let

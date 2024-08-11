@@ -17,9 +17,7 @@ in
     };
     services.restic.backups.main = {
       initialize = true;
-      paths = [
-        "/var/backup"
-      ];
+      paths = [ "/var/backup" ];
       repositoryFile = config.sops.secrets."backup/repository".path;
       passwordFile = config.sops.secrets."backup/password".path;
       environmentFile = config.sops.secrets."backup/environment".path;

@@ -1,7 +1,6 @@
-{ lib, ... }: {
-  imports = [
-    ./..
-  ];
+{ lib, ... }:
+{
+  imports = [ ./.. ];
 
   config = {
     puyonexus.environment.name = "local";

@@ -24,9 +24,7 @@
   };
 
   config = lib.mkIf config.puyonexus.php.enable {
-    environment.systemPackages = [
-      config.puyonexus.php.package
-    ];
+    environment.systemPackages = [ config.puyonexus.php.package ];
     environment.pathsToLink = [ "/share/php" ];
     services.phpfpm.pools.www = {
       user = config.users.users.puyonexus.name;

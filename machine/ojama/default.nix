@@ -1,7 +1,5 @@
 {
-  imports = [
-    ../../puyonexus
-  ];
+  imports = [ ../../puyonexus ];
 
   config = {
     system.stateVersion = "24.05";

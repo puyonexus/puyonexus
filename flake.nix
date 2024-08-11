@@ -125,15 +125,17 @@
       nixosConfigurations =
         let
           inherit (nixpkgs.lib) mapCartesianProduct nameValuePair nixosSystem;
-          mkSystems = key: modules: builtins.listToAttrs (
-            mapCartesianProduct (
-              { machine, environment }:
-              nameValuePair "${key}.${machine}.${environment}" (nixosSystem {
-                system = "x86_64-linux";
-                modules = (machineEnvironmentModules machine environment) ++ modules;
-              })
-            ) configMatrix
-          );
+          mkSystems =
+            key: modules:
+            builtins.listToAttrs (
+              mapCartesianProduct (
+                { machine, environment }:
+                nameValuePair "${key}.${machine}.${environment}" (nixosSystem {
+                  system = "x86_64-linux";
+                  modules = (machineEnvironmentModules machine environment) ++ modules;
+                })
+              ) configMatrix
+            );
           vm = mkSystems "vm" [ ./modules/qemu-vm.nix ];
           do = mkSystems "do" [ (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix") ];
         in
@@ -153,7 +155,10 @@
         sshUser = "root";
         nodes = {
           ojamaLocal = {
-            sshOpts = [ "-p" "2222" ];
+            sshOpts = [
+              "-p"
+              "2222"
+            ];
             hostname = "puyonexus.localhost";
             profiles.system = {
               path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."vm.ojama.local";

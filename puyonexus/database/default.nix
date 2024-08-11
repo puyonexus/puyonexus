@@ -1,5 +1,1 @@
-{
-  imports = [
-    ./mysql
-  ];
-}
+{ imports = [ ./mysql ]; }

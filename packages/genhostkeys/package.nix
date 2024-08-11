@@ -1,7 +1,4 @@
-{
-  lib,
-  buildGoModule,
-}:
+{ lib, buildGoModule }:
 buildGoModule {
   pname = "genhostkeys";
   version = "unstable";

@@ -18,9 +18,7 @@ in
     services.mysql = {
       enable = true;
       package = pkgs.mariadb;
-      initialDatabases = [
-        { name = "puyonexus"; }
-      ];
+      initialDatabases = [ { name = "puyonexus"; } ];
       ensureUsers = [
         {
           name = "puyonexus";

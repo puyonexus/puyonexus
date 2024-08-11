@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.puyonexus.mail;
 in
@@ -25,14 +30,30 @@ in
           "smtp/port" = { };
           "smtp/username" = { };
           "smtp/password" = { };
-          "grafana/smtp/host" = { key = "smtp/host"; } // grafanaOwnership;
-          "grafana/smtp/port" = { key = "smtp/port"; } // grafanaOwnership;
-          "grafana/smtp/username" = { key = "smtp/username"; } // grafanaOwnership;
-          "grafana/smtp/password" = { key = "smtp/password"; } // grafanaOwnership;
-          "puyonexus/smtp/host" = { key = "smtp/host"; } // puyonexusOwnership;
-          "puyonexus/smtp/port" = { key = "smtp/port"; } // puyonexusOwnership;
-          "puyonexus/smtp/username" = { key = "smtp/username"; } // puyonexusOwnership;
-          "puyonexus/smtp/password" = { key = "smtp/password"; } // puyonexusOwnership;
+          "grafana/smtp/host" = {
+            key = "smtp/host";
+          } // grafanaOwnership;
+          "grafana/smtp/port" = {
+            key = "smtp/port";
+          } // grafanaOwnership;
+          "grafana/smtp/username" = {
+            key = "smtp/username";
+          } // grafanaOwnership;
+          "grafana/smtp/password" = {
+            key = "smtp/password";
+          } // grafanaOwnership;
+          "puyonexus/smtp/host" = {
+            key = "smtp/host";
+          } // puyonexusOwnership;
+          "puyonexus/smtp/port" = {
+            key = "smtp/port";
+          } // puyonexusOwnership;
+          "puyonexus/smtp/username" = {
+            key = "smtp/username";
+          } // puyonexusOwnership;
+          "puyonexus/smtp/password" = {
+            key = "smtp/password";
+          } // puyonexusOwnership;
         };
       templates = {
         "msmtp-config" = {
@@ -53,9 +74,7 @@ in
 
     # Sendmail to external MTA
     environment.systemPackages = [ pkgs.msmtp ];
-    environment.etc."msmtprc" = lib.mkForce {
-      source = config.sops.templates."msmtp-config".path;
-    };
+    environment.etc."msmtprc" = lib.mkForce { source = config.sops.templates."msmtp-config".path; };
     services.mail.sendmailSetuidWrapper = {
       program = "sendmail";
       source = "${pkgs.msmtp}/bin/sendmail";
@@ -90,7 +109,12 @@ in
       in
       {
         wiki.smtp = {
-          inherit hostPath portPath usernamePath passwordPath;
+          inherit
+            hostPath
+            portPath
+            usernamePath
+            passwordPath
+            ;
         };
       };
   };

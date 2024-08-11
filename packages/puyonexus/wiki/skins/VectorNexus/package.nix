@@ -1,4 +1,8 @@
-{ stdenvNoCC, fetchgit, puyonexusHome }:
+{
+  stdenvNoCC,
+  fetchgit,
+  puyonexusHome,
+}:
 stdenvNoCC.mkDerivation {
   pname = "mediawiki-skins-VectorNexus";
   version = "unstable";

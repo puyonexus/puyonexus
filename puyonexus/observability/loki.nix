@@ -38,16 +38,18 @@ in
           chunk_retain_period = "30s";
         };
         schema_config = {
-          configs = [{
-            from = "2023-12-29";
-            store = "tsdb";
-            object_store = "filesystem";
-            schema = "v13";
-            index = {
-              prefix = "index_";
-              period = "24h";
-            };
-          }];
+          configs = [
+            {
+              from = "2023-12-29";
+              store = "tsdb";
+              object_store = "filesystem";
+              schema = "v13";
+              index = {
+                prefix = "index_";
+                period = "24h";
+              };
+            }
+          ];
         };
         storage_config = {
           filesystem = {

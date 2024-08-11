@@ -11,7 +11,5 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    puyonexus.wiki.mysql.server = "${cfg.host}:${toString cfg.port}";
-  };
+  config = lib.mkIf cfg.enable { puyonexus.wiki.mysql.server = "${cfg.host}:${toString cfg.port}"; };
 }
