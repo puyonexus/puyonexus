@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:700&text=Puyo%20Nexus');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css');
+@import 'icomoon.css';
+#pn-header,
+#pn-footer {
+  font: 14px/1.5 "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.pn-nav {
+  float: left;
+  list-style: none;
+  margin: 0 0 0 -15px;
+  padding: 0;
+}
+.pn-nav li {
+  float: left;
+  margin: 0;
+}
+.pn-nav li a {
+  display: block;
+  line-height: 20px;
+  padding: 0 15px;
+  text-decoration: none;
+}
+.pn-nav.pn-nav-right {
+  float: right;
+  margin: 0 -15px 0 0;
+}
+.pn-nav.pn-nav-right.pn-nav-social a {
+  font-size: 18px;
+  padding: 0 10px;
+}
+.pn-nav.pn-nav-right.pn-nav-social a i:before {
+  line-height: 20px;
+}
+#pn-navbar {
+  background-color: #34495E;
+}
+#pn-navbar a {
+  color: #FFF;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+#pn-navbar a:hover {
+  color: #18BC9C;
+}
+#pn-navbar .active a {
+  background-color: #2C3E50;
+  color: #FFF;
+}
+#pn-navbar .im {
+  display: inline-block;
+}
+#pn-navbar .fa,
+#pn-navbar .im {
+  vertical-align: bottom;
+  width: 18px;
+  text-align: center;
+}
+#pn-navbar .pn-navbar-toggle {
+  display: none;
+  float: right;
+  border: 0;
+  background: transparent;
+  color: #FFF;
+  font-size: 20px;
+  line-height: 1;
+  margin: 10px 0 10px 15px;
+  padding: 10px;
+  border-radius: 5px;
+}
+#pn-navbar-sub {
+  background-color: #F8F8F8;
+  border-bottom: 1px solid #E7E7E7;
+}
+#pn-navbar-sub a {
+  color: #777;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#pn-navbar-sub a:hover {
+  color: #333;
+}
+#pn-navbar-sub .active a {
+  background-color: #E7E7E7;
+  color: #555;
+}
+#pn-navbar:before,
+#pn-navbar-sub:before,
+#pn-navbar:after,
+#pn-navbar-sub:after {
+  content: " ";
+  display: table;
+}
+#pn-navbar:after,
+#pn-navbar-sub:after {
+  clear: both;
+}
+#pn-navbar-brand {
+  border: 0;
+  color: #FFF;
+  font: bold 30px/1 "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  float: left;
+  margin: 0 15px 0 -15px;
+}
+#pn-navbar-brand a {
+  background: url('../images/logo.svg') no-repeat 15px center;
+  padding: 15px 15px 15px 65px;
+  text-decoration: none;
+  display: block;
+}
+#pn-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #F5F5F5;
+  border-top: 1px solid #E5E5E5;
+  min-height: 60px;
+}
+#pn-footer p {
+  color: #777;
+  margin: 19px 0;
+}
+#pn-footer.pn-footer-alt {
+  border-top-color: #F5F5F5;
+}
+#pn-footer:before,
+#pn-footer:after {
+  content: " ";
+  display: table;
+}
+#pn-footer:after {
+  clear: both;
+}
+@media (max-width: 767px) {
+  #pn-navbar .pn-navbar-collapse {
+    margin: 0 -15px 0;
+    overflow: hidden;
+    clear: both;
+    transition: height 0.35s ease-in-out;
+  }
+  #pn-navbar .pn-navbar-collapse.collapse {
+    height: 0;
+  }
+  #pn-navbar .pn-nav {
+    float: none;
+    margin: 10px 0 0;
+  }
+  #pn-navbar .pn-nav li {
+    float: none;
+    display: block;
+  }
+  #pn-navbar .pn-nav li a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  #pn-navbar .pn-nav:first-of-type {
+    margin-top: 0;
+  }
+  #pn-navbar .pn-nav.pn-nav-social li {
+    float: left;
+  }
+  #pn-navbar .pn-nav.pn-nav-social li a {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  #pn-navbar .pn-nav.pn-nav-social:before,
+  #pn-navbar .pn-nav.pn-nav-social:after {
+    content: " ";
+    display: table;
+  }
+  #pn-navbar .pn-nav.pn-nav-social:after {
+    clear: both;
+  }
+  #pn-navbar .pn-navbar-toggle {
+    display: block;
+    background-color: #2C3E50;
+  }
+  #pn-navbar .pn-navbar-toggle.collapsed {
+    background-color: transparent;
+  }
+}

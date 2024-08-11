@@ -1,0 +1,73 @@
+html, body, h1, p { /* Reset (some) Styles */
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	background: #264D6F;
+	font: 16px/1.5 Helvetica, Arial, sans-serif;
+}
+
+a:link, a:visited {
+	color: #008AD5;
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	color: #A00004;
+	text-decoration: underline;
+}
+
+p {
+	margin: 1em 0;
+}
+
+#wrap {
+	max-width: 960px;
+	min-width: 720px;
+	margin: 20px auto;
+	padding: 0 20px;
+	height: 100%;
+}
+
+#content {
+	background: #FFF;
+	position: relative;
+	top: 50%;
+	overflow: hidden;
+
+	-moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+	-webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+}
+#content.error404 {
+	margin-top: -170px;
+}
+#content.error500 {
+	margin-top: -150px;
+}
+
+#message {
+	margin: 20px;
+}
+.error404 #message {
+	height: 260px;
+	padding-left: 220px;
+	background: url('/images/error/sonic.png') no-repeat left center;
+}
+.error500 #message {
+	height: 220px;
+	padding-left: 166px;
+	background: url('/images/error/arle.png') no-repeat left center;
+}
+
+#message-header {
+	font-size: 20px;
+	font-weight: normal;
+	color: #888;
+	border-bottom: 1px solid #CCC;
+}

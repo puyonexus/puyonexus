@@ -1,0 +1,60 @@
+/*
+ * Puyo Nexus Header
+ */
+#header-wrap {
+	background: #222E3E;
+	min-width: 320px;
+}
+#pn-header, #pn-nav {
+	max-width: 940px;
+	margin: 0 auto;
+}
+#pn-header {
+	padding: 10px 20px;
+	height: 40px;
+}
+#pn-header.pn-header-large {
+	padding: 20px;
+	height: 70px;
+}
+#pn-logo {
+	width: 167px;
+	height: 40px;
+	background: url('../images/logo_small.png') no-repeat;
+	float: left;
+}
+.pn-header-large #pn-logo {
+	width: 384px;
+	height: 70px;
+	background: url('../images/logo_large.png') no-repeat;
+}
+#pn-nav-wrap {
+	background: #1B2532;
+}
+#pn-nav {
+	list-style: none;
+	font: 13px/40px Helvetica, Arial, sans-serif;
+	padding: 0 20px;
+}
+#pn-nav li {
+	float: left;
+}
+#pn-nav li a {
+	display: block;
+	padding: 0 10px;
+}
+#pn-nav li a {
+	color: #898989;
+	text-decoration: none;
+}
+#pn-nav li a:hover, #pn-nav li.current a {
+	color: #FFF;
+}
+@media (max-width: 500px) {
+	#pn-header #pn-logo {
+		background-size: contain;
+		max-width: 100%;
+		background-position: 50% 50%;
+	}
+}
+

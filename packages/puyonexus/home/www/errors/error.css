@@ -1,0 +1,42 @@
+body {
+	background-color: #FFF;
+	font: 16px/1.5 Helvetica, Arial, sans-serif;
+	margin: 80px 0 0;
+	padding: 0;
+}
+
+a {
+	color: #0069D6;
+	text-decoration: none;
+}
+a:hover {
+	color: #00438A;
+	text-decoration: underline;
+}
+
+#wrap {
+	width: 940px;
+	margin: 0 auto;
+	padding: 20px;
+	text-align: center;
+}
+
+img {
+	display: block;
+	margin: 0 auto;
+}
+
+h1, h2 {
+	font-family: 'Segoe UI', Tahoma, Helvetica, Arial, sans-serif;
+	font-weight: normal;
+	margin: 10px 0;
+}
+h1 {
+	font-size: 30px;
+	color: #000;
+}
+h2 {
+	font-size: 20px;
+	color: #999;
+	margin-bottom: 40px;
+}

@@ -1,0 +1,69 @@
+/* Puyo Nexus Top Bar
+---------------------------------------- */
+#pn-top-bar {
+	background: url('top_bar_bg.png') repeat-x;
+	height: 40px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+	min-width: 720px;
+	position: relative;
+	z-index: 1;
+}
+
+#pn-logo {
+	background: url('top_bar_logo.png') no-repeat;
+	width: 170px;
+	height: 31px;
+	margin: 4px 8px 0px 0px;
+	float: right;
+}
+
+#pn-nav {
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font: 13px/40px Helvetica, Arial, sans-serif;
+}
+#pn-nav li {
+	float: left;
+}
+#pn-nav li a {
+	display: block;
+	padding: 0 12px;
+}
+#pn-nav li a {
+	color: #898989;
+	text-decoration: none;
+}
+#pn-nav li.current a {
+	background: url('top_bar_bg.png') repeat-x bottom left;
+}
+#pn-nav li a:hover, #pn-nav li.current a {
+	color: #FFF;
+}
+
+/* Fixed width header
+---------------------------------------- */
+.pn-header-fixed #pn-top-bar {
+	padding: 0 20px;
+}
+.pn-header-fixed #pn-header-wrap {
+	max-width: 960px;
+	min-width: 720px;
+	margin: 0 auto;
+	padding: 0 20px;
+	height: 50px;
+}
+.pn-header-fixed #pn-logo {
+	background: url('pn_logo_gray.png') no-repeat;
+	width: 148px;
+	height: 40px;
+	margin: 5px 0;
+	float: left;
+}
+.pn-header-fixed #pn-nav {
+	float: none;
+	margin: 0 auto;
+	max-width: 960px;
+	min-width: 720px;
+}
