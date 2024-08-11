@@ -13,7 +13,7 @@
 
     # Do not allow attempts to grab ACME certs in local vm.
     puyonexus.acme.enable = lib.mkForce false;
-
+    virtualisation.diskSize = 10240;
     virtualisation.forwardPorts = [
       # SSH
       {
