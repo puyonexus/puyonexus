@@ -77,6 +77,7 @@ in
       pkgs.puyonexusWiki
       pkgs.initWiki
       pkgs.updateWiki
+      pkgs.multiUpdateWiki
     ];
 
     environment.etc."puyonexus/wiki/LocalSettings.php" =

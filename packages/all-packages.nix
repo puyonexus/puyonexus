@@ -9,6 +9,8 @@ in
 
   puyonexusWiki = puyonexusPackages.wiki;
 
+  puyonexusWiki1_35 = puyonexusPackages.wiki1_35;
+
   initWiki = pkgs.writeShellApplication {
     name = "init-wiki";
 
@@ -40,18 +42,34 @@ in
   };
 
   updateWiki = pkgs.writeShellApplication {
-      name = "update-wiki";
+    name = "update-wiki";
 
-      runtimeInputs = [ pkgs.php ];
+    text = ''
+      set -euo pipefail
 
-      text = ''
-        set -euo pipefail
-        cd ${puyonexusPackages.wiki}/share/php/puyonexus-wiki
+      cd ${puyonexusPackages.wiki}/share/php/puyonexus-wiki
+      echo "Running migrations."
+      sudo -u puyonexus ${pkgs.php}/bin/php maintenance/run.php update.php
 
-        echo "Running migrations."
-        sudo -u puyonexus php maintenance/run.php update.php
+      echo "Done."
+    '';
+  };
 
-        echo "Done."
-      '';
-    };
+  multiUpdateWiki = pkgs.writeShellApplication {
+    name = "multi-update-wiki";
+
+    text = ''
+      set -euo pipefail
+
+      cd ${puyonexusPackages.wiki1_35}/share/php/puyonexus-wiki
+      echo "Running migrations for MediaWiki 1.35."
+      sudo -u puyonexus ${pkgs.php}/bin/php maintenance/update.php
+
+      cd ${puyonexusPackages.wiki}/share/php/puyonexus-wiki
+      echo "Running migrations for MediaWiki 1.42."
+      sudo -u puyonexus ${pkgs.php}/bin/php maintenance/run.php update.php
+
+      echo "Done."
+    '';
+  };
 }
