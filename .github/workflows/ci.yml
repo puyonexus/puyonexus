@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 14 * * *'
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    permissions:
+      id-token: "write"
+      contents: "read"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v11
+      - uses: cachix/cachix-action@v14
+        with:
+          name: puyonexus
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+      - uses: DeterminateSystems/flake-checker-action@v7
+        with:
+          ignore-missing-flake-lock: false
+          fail-mode: true
+      - name: Check Nix formatting
+        run: nix shell .#nixfmt -c bash -c "find . -name '*.nix' | xargs nixfmt -c"
+      - name: Run Nix flake checks
+        run: nix flake check
+      - name: Build test VM setup
+        run: nix build .#nixosConfigurations.'"vm.ojama.local"'.config.system.build.vm

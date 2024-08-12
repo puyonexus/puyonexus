@@ -120,8 +120,6 @@
         };
       };
 
-      defaultApp."${system}" = self.apps.${system}.apply;
-
       nixosConfigurations =
         let
           inherit (nixpkgs.lib) mapCartesianProduct nameValuePair nixosSystem;
@@ -148,6 +146,8 @@
           modules = [ ./machine/base ];
           format = "do";
         };
+        nixfmt = pkgs.nixfmt-rfc-style;
+        deploy = pkgs.deploy-rs;
       };
 
       deploy = {
