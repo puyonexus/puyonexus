@@ -146,5 +146,24 @@ in
     services.phpfpm.pools.www.phpEnv = {
       inherit (config.environment.variables) PUYONEXUS_WIKI_LOCALSETTINGS_PATH;
     };
+
+    systemd.services.mwjobrunner = {
+      description = "MediaWiki job runner";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      restartIfChanged = true;
+      environment = {
+        inherit (config.environment.variables) PUYONEXUS_WIKI_LOCALSETTINGS_PATH;
+      };
+      serviceConfig = {
+        ProtectSystem = "full";
+        User = config.users.users.puyonexus.name;
+        Nice = 20;
+        OOMScoreAdjust = 200;
+        StandardOutput = "journal";
+        Type = "exec";
+        ExecStart = ''${pkgs.puyonexusWiki}/bin/mwjobrunner'';
+      };
+    };
   };
 }

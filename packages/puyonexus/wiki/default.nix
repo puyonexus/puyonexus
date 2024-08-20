@@ -7,6 +7,7 @@
   writeText,
   php,
   callPackage,
+  writeShellApplication,
 }:
 let
   mkExtension =
@@ -173,6 +174,28 @@ php.buildComposerProject (finalAttrs: {
 
     runHook postPatch
   '';
+
+  postInstall =
+    let
+      jobRunner = writeShellApplication {
+        name = "mwjobrunner";
+        text = ''
+          cd @out@/share/php/puyonexus-wiki
+          while true; do
+            echo "[mwjobrunner]: Running jobs."
+            ${php}/bin/php @out@/share/php/puyonexus-wiki/maintenance/run.php runJobs --wait --maxjobs=10
+            echo "[mwjobrunner]: Done, sleeping."
+            sleep 0.5
+          done
+        '';
+      };
+    in
+    ''
+      mkdir -p $out/bin
+      cp ${jobRunner}/bin/mwjobrunner $out/bin/mwjobrunner
+      substituteAllInPlace $out/bin/mwjobrunner
+      chmod +x $out/bin/mwjobrunner
+    '';
 
   vendorHash = "sha256-fuCb+SGrHKHcuzEiJ2bJEkR9YOP7DvtCpiUtEvLJylg=";
   composerLock = ./composer.lock;
