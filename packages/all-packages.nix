@@ -26,7 +26,7 @@ in
 
       echo "Setting up initial database tables."
       sudo -u puyonexus \
-        env MW_CONFIG_FILE=/fail.php \
+        env MW_CONFIG_FILE=/fail.php PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" \
         php maintenance/run.php install.php \
         --dbuser "puyonexus" \
         --dbname "puyonexus" \
@@ -49,7 +49,7 @@ in
 
       cd ${puyonexusPackages.wiki}/share/php/puyonexus-wiki
       echo "Running migrations."
-      sudo -u puyonexus ${pkgs.php}/bin/php maintenance/run.php update.php
+      sudo -u puyonexus env PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" ${pkgs.php}/bin/php maintenance/run.php update.php
 
       echo "Done."
     '';
@@ -63,11 +63,11 @@ in
 
       cd ${puyonexusPackages.wiki1_35}/share/php/puyonexus-wiki
       echo "Running migrations for MediaWiki 1.35."
-      sudo -u puyonexus ${pkgs.php}/bin/php maintenance/update.php
+      sudo -u puyonexus env PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" ${pkgs.php}/bin/php maintenance/update.php
 
       cd ${puyonexusPackages.wiki}/share/php/puyonexus-wiki
       echo "Running migrations for MediaWiki 1.42."
-      sudo -u puyonexus ${pkgs.php}/bin/php maintenance/run.php update.php
+      sudo -u puyonexus env PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" ${pkgs.php}/bin/php maintenance/run.php update.php
 
       echo "Done."
     '';
@@ -104,6 +104,7 @@ in
 
         ${pkgs.gettext}/bin/envsubst "\$MYSQL_SERVER_SOCKET" <${
           pkgs.writeText "LocalSettings.php" (mkLocalSettings {
+            inherit (pkgs) lib;
             server = "https://puyonexus.com";
             domain = "puyonexus.com";
             secretKey = "0";
@@ -116,6 +117,7 @@ in
             smtpUsername = "nosmtp";
             smtpPassword = "nosmtp";
             uploadDir = "/var/empty";
+            enableEmail = false;
           })
         } >"$PUYONEXUS_WIKI_LOCALSETTINGS_PATH"
 

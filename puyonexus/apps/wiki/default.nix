@@ -13,6 +13,7 @@ in
   options = {
     puyonexus.wiki = {
       enable = lib.mkEnableOption "Puyo Nexus Wiki";
+      enableEmail = lib.mkEnableOption "Puyo Nexus Wiki E-mail";
       domain = lib.mkOption {
         type = lib.types.str;
         default = config.puyonexus.domain.root;
@@ -123,6 +124,7 @@ in
 
     sops.templates."puyonexus-wiki-localsettings.php" = {
       content = mkLocalSettings {
+        inherit lib;
         server = cfg.urlPrefix;
         domain = cfg.domain;
         secretKey = cfg.secretKey;
@@ -135,6 +137,7 @@ in
         smtpUsername = cfg.smtp.username;
         smtpPassword = cfg.smtp.password;
         uploadDir = cfg.imagesDir;
+        enableEmail = cfg.enableEmail;
       };
       owner = config.users.users.puyonexus.name;
     };

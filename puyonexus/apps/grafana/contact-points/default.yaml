@@ -1,0 +1,15 @@
+apiVersion: 1
+contactPoints:
+- orgId: 1
+  name: grafana-default-email
+  receivers:
+  - uid: b6a04c4a-f9f0-42e3-98e1-e111c16af866
+    type: email
+    settings:
+      addresses: <puyonexus-alerts@jchw.io>
+      singleEmail: false
+    disableResolveMessage: false
+  deleteReceivers:
+deleteContactPoints:
+- orgId: 1
+  uid: ""

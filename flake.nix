@@ -139,7 +139,17 @@
           vm = mkSystems "vm" [ ./modules/qemu-vm.nix ];
           do = mkSystems "do" [ (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix") ];
         in
-        vm // do;
+        vm
+        // do
+        // {
+          base = nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              ./machine/base
+              (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix")
+            ];
+          };
+        };
 
       # DigitalOcean configuration
       packages."${system}" = overlayPackages // {
@@ -149,7 +159,6 @@
           format = "do";
         };
         nixfmt = pkgs.nixfmt-rfc-style;
-        deploy = pkgs.deploy-rs;
       };
 
       deploy = {
@@ -167,7 +176,7 @@
             };
           };
           ojamaStaging = {
-            hostname = "ojama.testnexus.cc";
+            hostname = "ojama.puyonexus-staging.com";
             profiles.system = {
               path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."do.ojama.staging";
             };

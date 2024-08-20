@@ -11,6 +11,12 @@ in
   options = {
     puyonexus.home = {
       enable = lib.mkEnableOption "Puyo Nexus Homepage";
+      robots = {
+        denyAll = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+        };
+      };
     };
   };
 
@@ -36,6 +42,12 @@ in
                 fastcgi_param SCRIPT_FILENAME $request_filename;
                 fastcgi_intercept_errors on;
               }
+            '';
+          };
+          "= /robots.txt" = lib.mkIf cfg.robots.denyAll {
+            alias = pkgs.writeText "robots.txt" ''
+              User-agent: *
+              Disallow: /
             '';
           };
         };

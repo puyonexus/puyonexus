@@ -1,4 +1,5 @@
 {
+  lib,
   server,
   domain,
   secretKey,
@@ -11,6 +12,7 @@
   smtpPort,
   smtpUsername,
   smtpPassword,
+  enableEmail,
 }:
 let
   mkNowDoc = value: "<<<'ENDVAL'\n${value}\nENDVAL";
@@ -56,7 +58,7 @@ in
   $wgDBTableOptions = 'ENGINE=InnoDB, DEFAULT CHARSET=utf8';
 
   # E-mail
-  $wgEnableEmail = true;
+  $wgEnableEmail = ${lib.boolToString enableEmail};
   $wgEnableUserEmail = true;
   $wgEmailAuthentication = true;
   $wgEmergencyContact = ${mkNowDoc "support@${domain}"};
