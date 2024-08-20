@@ -21,9 +21,6 @@ in
           grafanaOwnership = {
             owner = config.users.users.grafana.name;
           };
-          puyonexusOwnership = {
-            owner = config.users.users.puyonexus.name;
-          };
         in
         {
           "smtp/host" = { };
@@ -42,18 +39,6 @@ in
           "grafana/smtp/password" = {
             key = "smtp/password";
           } // grafanaOwnership;
-          "puyonexus/smtp/host" = {
-            key = "smtp/host";
-          } // puyonexusOwnership;
-          "puyonexus/smtp/port" = {
-            key = "smtp/port";
-          } // puyonexusOwnership;
-          "puyonexus/smtp/username" = {
-            key = "smtp/username";
-          } // puyonexusOwnership;
-          "puyonexus/smtp/password" = {
-            key = "smtp/password";
-          } // puyonexusOwnership;
         };
       templates = {
         "msmtp-config" = {
@@ -100,22 +85,13 @@ in
       };
 
     # Puyo Nexus MTA settings
-    puyonexus =
-      let
-        hostPath = config.sops.secrets."puyonexus/smtp/host".path;
-        portPath = config.sops.secrets."puyonexus/smtp/port".path;
-        usernamePath = config.sops.secrets."puyonexus/smtp/username".path;
-        passwordPath = config.sops.secrets."puyonexus/smtp/password".path;
-      in
-      {
-        wiki.smtp = {
-          inherit
-            hostPath
-            portPath
-            usernamePath
-            passwordPath
-            ;
-        };
+    puyonexus = {
+      wiki.smtp = {
+        host = config.sops.placeholder."smtp/host";
+        port = config.sops.placeholder."smtp/port";
+        username = config.sops.placeholder."smtp/username";
+        password = config.sops.placeholder."smtp/password";
       };
+    };
   };
 }

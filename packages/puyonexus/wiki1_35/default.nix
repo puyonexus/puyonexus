@@ -204,7 +204,7 @@ php.buildComposerProject (finalAttrs: {
       <?php
       if (!defined('MEDIAWIKI')) { exit; }
 
-      require_once('/etc/puyonexus/wiki/LocalSettings.php');
+      require_once(getenv('PUYONEXUS_WIKI_LOCALSETTINGS_PATH'));
 
       # Extensions
       ${loadExts}

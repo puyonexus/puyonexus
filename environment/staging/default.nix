@@ -3,7 +3,7 @@
 
   config = {
     puyonexus.environment.name = "staging";
-    puyonexus.domain.root = "puyonexus.internal";
+    puyonexus.domain.root = "puyonexus-staging.com";
     puyonexus.mysql.local.enable = true;
 
     # Use external MTA in staging

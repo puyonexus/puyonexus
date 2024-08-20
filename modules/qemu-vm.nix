@@ -57,9 +57,20 @@
         '';
       in
       [ "-virtfs local,path=$(${copyHostKeys} $TMPDIR),security_model=none,mount_tag=host-keys" ];
+    virtualisation.msize = 524288;
     virtualisation.fileSystems = {
       "/etc/hostkeys" = {
         device = "host-keys";
+        fsType = "9p";
+        neededForBoot = true;
+        options = [
+          "trans=virtio"
+          "version=9p2000.L"
+          "msize=${toString config.virtualisation.msize}"
+        ];
+      };
+      "/data" = {
+        device = "puyonexus-data";
         fsType = "9p";
         neededForBoot = true;
         options = [
@@ -74,6 +85,9 @@
         cp /etc/hostkeys/ssh_host_* /etc/ssh
         chmod 600 /etc/ssh/ssh_host_*
         chmod 644 /etc/ssh/ssh_host_*.pub
+      '';
+      datamode.text = ''
+        chmod 777 /data/wiki-images || echo "Could not set permissions for /data/wiki-images"
       '';
     };
   };

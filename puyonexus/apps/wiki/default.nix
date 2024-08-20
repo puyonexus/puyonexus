@@ -6,27 +6,67 @@
 }:
 let
   cfg = config.puyonexus.wiki;
+  mkLocalSettings = import ./make-local-settings.nix;
+  withTrailingSlash = str: if lib.hasSuffix "/" str then str else "${str}/";
 in
 {
   options = {
     puyonexus.wiki = {
       enable = lib.mkEnableOption "Puyo Nexus Wiki";
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = config.puyonexus.domain.root;
+      };
+      urlPrefix = lib.mkOption {
+        type = lib.types.str;
+        default =
+          let
+            scheme = if config.puyonexus.acme.enable then "https" else "http";
+            suffix = if config.puyonexus.acme.enable then "" else ":8080";
+          in
+          "${scheme}://${cfg.domain}${suffix}";
+      };
+      secretKey = lib.mkOption {
+        type = lib.types.str;
+        default = config.sops.placeholder."wiki/secretKey";
+      };
+      upgradeKey = lib.mkOption {
+        type = lib.types.str;
+        default = config.sops.placeholder."wiki/upgradeKey";
+      };
       smtp = {
-        hostPath = lib.mkOption { type = lib.types.str; };
-        portPath = lib.mkOption { type = lib.types.str; };
-        usernamePath = lib.mkOption { type = lib.types.str; };
-        passwordPath = lib.mkOption { type = lib.types.str; };
+        host = lib.mkOption { type = lib.types.str; };
+        port = lib.mkOption { type = lib.types.str; };
+        username = lib.mkOption { type = lib.types.str; };
+        password = lib.mkOption { type = lib.types.str; };
       };
       mysql = {
         server = lib.mkOption { type = lib.types.str; };
-        usernamePath = lib.mkOption { type = lib.types.str; };
-        passwordPath = lib.mkOption { type = lib.types.str; };
+        username = lib.mkOption {
+          type = lib.types.str;
+          default = config.sops.placeholder."mysql/username";
+        };
+        password = lib.mkOption {
+          type = lib.types.str;
+          default = config.sops.placeholder."mysql/password";
+        };
+      };
+      imagesDir = lib.mkOption {
+        type = lib.types.path;
+        default = "/data/wiki-images/";
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
     puyonexus.php.enable = true;
+
+    sops.secrets = {
+      "wiki/secretKey" = { };
+      "wiki/upgradeKey" = { };
+      "mysql/username" = { };
+      "mysql/password" = { };
+    };
 
     services.nginx = {
       enable = true;
@@ -38,12 +78,13 @@ in
           "= /wiki".extraConfig = ''
             return 301 /wiki/;
           '';
-          "/wiki/images/" = {
-            # TODO: uploads directory
-            #alias = withTrailingSlash cfg.uploadsDir;
-            # TODO: make sure images directory is marked no-sniff
+          "/mediawiki/images/" = {
+            alias = withTrailingSlash cfg.imagesDir;
+            extraConfig = ''
+              add_header X-Content-Type-Options nosniff;
+            '';
           };
-          "/wiki/images/deleted" = {
+          "/mediawiki/images/deleted" = {
             extraConfig = ''
               deny all;
             '';
@@ -80,93 +121,30 @@ in
       pkgs.multiUpdateWiki
     ];
 
-    environment.etc."puyonexus/wiki/LocalSettings.php" =
-      let
-        scheme = if config.puyonexus.acme.enable then "https" else "http";
-        suffix = if config.puyonexus.acme.enable then "" else ":8080";
-        domain = config.puyonexus.domain.root;
-        server = "${scheme}://${domain}${suffix}";
-      in
-      {
-        text = ''
-          <?php
-          # URL setup
-          $wgServer = '${server}';
-          $wgScriptPath = '${server}/mediawiki';
-          $wgStylePath = '${server}/mediawiki/skins';
-          $wgArticlePath = '/wiki/$1';
-          $wgLogo = '/images/wiki/logo.png';
-
-          # General Configuration
-          $wgSitename = 'Puyo Nexus Wiki';
-          $wgMetaNamespace = 'PuyoNexus';
-          $wgLanguageCode = 'en';
-          $wgSecretKey = 'fakesecretkey';
-          $wgUpgradeKey = 'fakeupgradekey';
-          $wgScriptExtension  = '.php';
-          $wgEnotifUserTalk = false;
-          $wgEnotifWatchlist = false;
-          $wgEnableUploads = true;
-          $wgAllowExternalImages = true;
-          $wgAllowCopyUploads = true;
-          $wgCopyUploadsFromSpecialUpload = true;
-          $wgUseInstantCommons = false;
-          $wgShellLocale = 'en_US.utf8';
-          $wgSpamBlacklistFiles = array(); # Don't use WikiMedia blacklist
-          $wgJobRunRate = 0;
-          $wgModerationEnable = true;
-          $wgMiserMode = true;
-          $wgMaxImageArea = 50000000;
-
-          # Database
-          $wgDBtype = 'mysql';
-          $wgDBserver = '${cfg.mysql.server}';
-          $wgDBname = 'puyonexus';
-          $wgDBuser = file_get_contents('${cfg.mysql.usernamePath}');
-          $wgDBpassword = file_get_contents('${cfg.mysql.passwordPath}');
-          $wgDBprefix = 'mw_';
-          $wgDBTableOptions = 'ENGINE=InnoDB, DEFAULT CHARSET=utf8';
-
-          # E-mail
-          $wgEnableEmail = true;
-          $wgEnableUserEmail = true;
-          $wgEmailAuthentication = true;
-          $wgEmergencyContact = 'support@${domain}';
-          $wgPasswordSender = 'support@${domain}';
-          $wgSMTP = array(
-            'auth' => true,
-            'host' => file_get_contents('${cfg.smtp.hostPath}'),
-            'port' => file_get_contents('${cfg.smtp.portPath}'),
-            'username' => file_get_contents('${cfg.smtp.usernamePath}'),
-            'password' => file_get_contents('${cfg.smtp.passwordPath}'),
-            'IDHost' => '${domain}',
-          );
-          $wgPasswordSender = "no-reply@${domain}";
-          $wgUserEmailUseReplyTo = true;
-          $wgShowExceptionDetails = true;
-
-          # Caching
-          $wgMainCacheType = CACHE_NONE; # TODO
-          $wgMemCachedServers = array();
-          $wgCacheDirectory = "/tmp/puyonexus-wiki/cache/$wgDBname";
-
-          # CAPTCHA
-          wfLoadExtension('ConfirmEdit/QuestyCaptcha');
-          $wgCaptchaClass = 'QuestyCaptcha';
-          $wgCaptchaQuestions[] = array(
-            'question' => 'What is the name (in English) of the protagonist\'s pet/sidekick in the video game Puyo Puyo?',
-            'answer' => 'Carbuncle'
-          );
-
-          # Skins
-          $wgDefaultSkin = 'vectornexus';
-          # $wgDefaultSkin = 'vector';
-          $wgVectorUseSimpleSearch = true;
-          $wgDefaultUserOptions['usebetatoolbar'] = 1;
-          $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
-          $wgDefaultUserOptions['wikieditor-preview'] = 1;
-          $wgDefaultUserOptions['vector-collapsiblenav'] = 1;
-        '';
+    sops.templates."puyonexus-wiki-localsettings.php" = {
+      content = mkLocalSettings {
+        server = cfg.urlPrefix;
+        domain = cfg.domain;
+        secretKey = cfg.secretKey;
+        upgradeKey = cfg.upgradeKey;
+        mysqlServer = cfg.mysql.server;
+        mysqlUsername = cfg.mysql.username;
+        mysqlPassword = cfg.mysql.password;
+        smtpHost = cfg.smtp.host;
+        smtpPort = cfg.smtp.port;
+        smtpUsername = cfg.smtp.username;
+        smtpPassword = cfg.smtp.password;
+        uploadDir = cfg.imagesDir;
       };
+      owner = config.users.users.puyonexus.name;
+    };
+
+    environment.variables = {
+      PUYONEXUS_WIKI_LOCALSETTINGS_PATH = config.sops.templates."puyonexus-wiki-localsettings.php".path;
+    };
+
+    services.phpfpm.pools.www.phpEnv = {
+      inherit (config.environment.variables) PUYONEXUS_WIKI_LOCALSETTINGS_PATH;
+    };
   };
 }

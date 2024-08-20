@@ -73,10 +73,10 @@ in
 
     # Mailpit settings for Puyo Nexus Wiki
     puyonexus.wiki.smtp = {
-      hostPath = toString (pkgs.writeText "mailpit-host" "127.0.0.1");
-      portPath = toString (pkgs.writeText "mailpit-port" "1025");
-      usernamePath = toString (pkgs.writeText "mailpit-username" "test");
-      passwordPath = toString (pkgs.writeText "mailpit-password" "test");
+      host = "127.0.0.1";
+      port = "1025";
+      username = "test";
+      password = "test";
     };
   };
 }
