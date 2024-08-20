@@ -47,6 +47,7 @@ in
   $wgModerationEnable = true;
   $wgMiserMode = true;
   $wgMaxImageArea = 50000000;
+  $wgPFEnableStringFunctions = true;
 
   # Database
   $wgDBtype = 'mysql';
