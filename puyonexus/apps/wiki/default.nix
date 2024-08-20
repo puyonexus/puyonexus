@@ -107,7 +107,7 @@ in
                 fastcgi_index index.php;
                 include ${pkgs.nginx.out}/conf/fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $request_filename;
-                fastcgi_intercept_errors on;
+                fastcgi_intercept_errors off;
               }
             '';
           };

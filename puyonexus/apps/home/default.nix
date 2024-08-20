@@ -40,7 +40,7 @@ in
                 fastcgi_index index.php;
                 include ${pkgs.nginx.out}/conf/fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $request_filename;
-                fastcgi_intercept_errors on;
+                fastcgi_intercept_errors off;
               }
             '';
           };
@@ -51,6 +51,11 @@ in
             '';
           };
         };
+        extraConfig = ''
+          error_page 401 /errors/401.html;
+          error_page 404 /errors/404.html;
+          error_page 500 502 503 504 /errors/500.html;
+        '';
       };
     };
 
