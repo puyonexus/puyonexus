@@ -1,4 +1,10 @@
-@import url("https://fonts.googleapis.com/css?family=PT+Sans:700&text=Puyo%20Nexus");
+@font-face {
+  font-family: 'PT Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/assets/fonts/home/logofont.woff2) format('woff2');
+}
+
 #pn-header,
 #pn-footer {
   font: 14px/1.5 -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
