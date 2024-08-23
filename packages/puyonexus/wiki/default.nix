@@ -5,11 +5,12 @@
   fetchFromGitHub,
   lib,
   writeText,
-  php,
+  php83,
   callPackage,
   writeShellApplication,
 }:
 let
+  php = php83;
   mkExtension =
     name: src:
     stdenvNoCC.mkDerivation {
@@ -183,7 +184,7 @@ php.buildComposerProject (finalAttrs: {
           cd @out@/share/php/puyonexus-wiki
           while true; do
             echo "[mwjobrunner]: Running jobs."
-            ${php}/bin/php @out@/share/php/puyonexus-wiki/maintenance/run.php runJobs --wait --maxjobs=10
+            ${php}/bin/php -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M @out@/share/php/puyonexus-wiki/maintenance/run.php runJobs --wait --maxjobs=100
             echo "[mwjobrunner]: Done, sleeping."
             sleep 0.5
           done
