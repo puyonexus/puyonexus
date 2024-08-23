@@ -14,19 +14,9 @@
 
 	<link rel="stylesheet" href="/assets/css/common.css">
 	<link rel="stylesheet" href="/assets/css/home.css">
-	
+
 	<link rel="shortcut icon" href="/assets/images/favicon.ico">
 	<link rel="apple-touch-icon-precomposed" href="/assets/images/apple-touch-icon-precomposed.png">
-
-	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-		ga('create', 'UA-8256078-1', 'auto');
-		ga('send', 'pageview');
-	</script>
 </head>
 <body>
 	<header id="pn-header">
@@ -116,7 +106,7 @@
 			<p>&copy; 2007-2024 Puyo Nexus</p>
 		</div>
 	</footer>
-	
+
 	<script src="/assets/js/common.min.js"></script>
 </body>
 </html>
