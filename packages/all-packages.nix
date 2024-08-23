@@ -5,6 +5,8 @@ in
 {
   genhostkeys = pkgs.callPackage ./genhostkeys/package.nix { };
 
+  puyonexusChainsim = puyonexusPackages.chainsim;
+
   puyonexusHome = puyonexusPackages.home;
 
   puyonexusWiki = puyonexusPackages.wiki;

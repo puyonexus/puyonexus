@@ -3,17 +3,25 @@
   stdenv,
   fetchFromGitHub,
   php,
+  writeText,
 }:
+let
+  localSettings = writeText "localsettings.php" "<?php return require_once(getenv('PUYONEXUS_CHAINSIM_LOCALSETTINGS_PATH')); ?>";
+in
 php.buildComposerProject {
   pname = "puyonexus-chainsim";
-  version = "unstable";
+  version = "4.3.0";
 
   src = fetchFromGitHub {
     owner = "puyonexus";
     repo = "puyosim";
-    rev = "4f8e37ead837d7c5401a7c871b77dedd1b022e96";
-    hash = "sha256-O1pOsu5273VriSiaS38DzO4t934spjfIBg3loCaSBgA=";
+    rev = "234a706bb11a651f1a6beab943afceb6a26b3b79";
+    hash = "sha256-T0zz0YwU+oUHN2lAfL2POGqRYWtJB3z8A9hxDsFoi3E=";
   };
 
-  vendorHash = "sha256-UNlev3W1LKc3Jyo9WdGZmoXm8aFb+3JsX1XkJ2KWFRU=";
+  postPatch = ''
+    cp ${localSettings} config/localsettings.php
+  '';
+
+  vendorHash = "sha256-F2QdqqGW02m+2a5cI9c/cYo3dH7+YV9MelsEKVk2f2I=";
 }

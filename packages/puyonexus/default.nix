@@ -1,5 +1,7 @@
 { pkgs, ... }:
 {
+  chainsim = pkgs.callPackage ./chainsim { };
+
   home = pkgs.callPackage ./home { };
 
   wiki = pkgs.callPackage ./wiki { };
