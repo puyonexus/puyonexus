@@ -7,11 +7,11 @@
 function get_recent_posts($forums, $limit = 5)
 {
 	global $auth, $db, $phpEx, $phpbb_content_visibility;
-	
+
 	$urls = [
 		'topic'  => '/forum/viewtopic.' . $phpEx . '?f=%s&amp;t=%s',
 	];
-	
+
 	// Build & execute the query
 	$sql_array = [
         'SELECT' => 'p.post_time, p.post_text, p.bbcode_bitfield, p.bbcode_uid, t.topic_id, t.forum_id, t.topic_title, t.topic_posts_approved, t.topic_posts_unapproved, t.topic_posts_softdeleted',
@@ -31,11 +31,11 @@ function get_recent_posts($forums, $limit = 5)
 			AND t.topic_visibility = ' . ITEM_APPROVED,
         'ORDER_BY' => 'p.post_id DESC',
     ];
-    
+
     $sql = $db->sql_build_query('SELECT', $sql_array);
 
 	$result = $db->sql_query_limit($sql, $limit);
-	
+
 	// Fill the posts array
 	$posts = [];
 	while ($row = $db->sql_fetchrow($result))
@@ -48,9 +48,9 @@ function get_recent_posts($forums, $limit = 5)
 			'post_text'     => generate_text_for_display($row['post_text'], $row['bbcode_uid'], $row['bbcode_bitfield'], ($row['bbcode_bitfield'] ? OPTION_FLAG_BBCODE : 0) | OPTION_FLAG_SMILIES, true),
 		];
 	}
-	
+
 	$db->sql_freeresult($result);
-	
+
 	return $posts;
 }
 
@@ -62,7 +62,7 @@ if ($limit === false || $limit < 0 || $limit > 10)
 }
 
 // File paths
-define('PHPBB_ABS_PATH', '/home/puyonexus/apps/forum/phpbb/phpBB');
+define('PHPBB_ABS_PATH', '/run/current-system/sw/share/php/puyonexus-forum');
 define('PHPBB_PATH',     '/forum');
 
 // Initalize phpbb session

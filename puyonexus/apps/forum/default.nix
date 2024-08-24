@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.puyonexus.forum;
   mkConfig = import ./make-config.nix;
@@ -52,7 +57,10 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.puyonexusForum pkgs.updateForum ];
+    environment.systemPackages = [
+      pkgs.puyonexusForum
+      pkgs.updateForum
+    ];
 
     sops.templates."puyonexus-forum-config.php" = {
       content = mkConfig {
@@ -65,8 +73,7 @@ in
     };
 
     environment.variables = {
-      PUYONEXUS_FORUM_CONFIG_PATH =
-          config.sops.templates."puyonexus-forum-config.php".path;
+      PUYONEXUS_FORUM_CONFIG_PATH = config.sops.templates."puyonexus-forum-config.php".path;
     };
 
     services.phpfpm.pools.www.phpEnv = {

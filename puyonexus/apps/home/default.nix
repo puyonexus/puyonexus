@@ -11,6 +11,10 @@ in
   options = {
     puyonexus.home = {
       enable = lib.mkEnableOption "Puyo Nexus Homepage";
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = config.puyonexus.domain.root;
+      };
       robots = {
         denyAll = lib.mkOption {
           type = lib.types.bool;
@@ -88,5 +92,17 @@ in
     };
 
     environment.systemPackages = [ pkgs.puyonexusHome ];
+
+    environment.variables = {
+      PUYONEXUS_BASE_URL =
+        let
+          scheme = if config.puyonexus.acme.enable then "https" else "http";
+        in
+        "${scheme}://${cfg.domain}";
+    };
+
+    services.phpfpm.pools.www.phpEnv = {
+      inherit (config.environment.variables) PUYONEXUS_BASE_URL;
+    };
   };
 }

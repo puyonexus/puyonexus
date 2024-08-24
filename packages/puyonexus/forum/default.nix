@@ -1,4 +1,10 @@
-{ stdenvNoCC, writeText, fetchurl, fetchFromGitHub, unzip }:
+{
+  stdenvNoCC,
+  writeText,
+  fetchurl,
+  fetchFromGitHub,
+  unzip,
+}:
 let
   config = writeText "config.php" "<?php return require_once(getenv('PUYONEXUS_FORUM_CONFIG_PATH')); ?>";
   pronexus = fetchFromGitHub {
