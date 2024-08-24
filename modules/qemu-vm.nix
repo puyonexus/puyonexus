@@ -69,7 +69,7 @@
           "msize=${toString config.virtualisation.msize}"
         ];
       };
-      "/data" = {
+      "/hostdata" = {
         device = "puyonexus-data";
         fsType = "9p";
         neededForBoot = true;
@@ -80,6 +80,7 @@
         ];
       };
     };
+    boot.initrd.kernelModules = [ "fuse" ];
     system.activationScripts = {
       hostkeys.text = ''
         cp /etc/hostkeys/ssh_host_* /etc/ssh
@@ -87,7 +88,8 @@
         chmod 644 /etc/ssh/ssh_host_*.pub
       '';
       datamode.text = ''
-        chmod 777 /data/wiki-images || echo "Could not set permissions for /data/wiki-images"
+        mkdir -p /data
+        ${pkgs.bindfs}/bin/bindfs -u puyonexus -g users /hostdata /data
       '';
     };
   };
