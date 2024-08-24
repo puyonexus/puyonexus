@@ -1,4 +1,4 @@
-{ stdenvNoCC, writeText, fetchurl, fetchFromGitHub }:
+{ stdenvNoCC, writeText, fetchurl, fetchFromGitHub, unzip }:
 let
   config = writeText "config.php" "<?php return require_once(getenv('PUYONEXUS_FORUM_CONFIG_PATH')); ?>";
   pronexus = fetchFromGitHub {
@@ -6,6 +6,16 @@ let
     repo = "phpbb-style-pronexus";
     rev = "de67f1e521934eb5a10a63701b97a260b840fa10";
     hash = "sha256-rEn6qUYTSkOVvDLliSKR6Kngd3eNUi3rAKFvRPQPhaY=";
+  };
+  additions = fetchFromGitHub {
+    owner = "puyonexus";
+    repo = "phpbb-ext-additions";
+    rev = "ae9aa388f96deb696b2070df44be4f6a79401038";
+    hash = "sha256-EFlkw0aHGMVpi2QpWjFXxEY069MaMDUEevfqwtjP/zg=";
+  };
+  mediaembed = fetchurl {
+    url = "https://www.phpbb.com/customise/db/download/205090?sid=709c826797e2aba7b13eafec4ffee73a";
+    hash = "sha256-SrcZWUqk0H92ONx+TMM4Hcr0tOdMM2f5pTUFLF/oVCg=";
   };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -27,6 +37,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp -r . "$DESTDIR"
     rm -fr "$DESTDIR"/install
     cp -r ${pronexus} "$DESTDIR"/styles/pronexus
+    mkdir -p "$DESTDIR"/ext/puyonexus
+    cp -r ${additions} "$DESTDIR"/ext/puyonexus/additions
+    ${unzip}/bin/unzip ${mediaembed} -d "$DESTDIR"/ext
 
     # phpBB does not have a proper way to override all of the directories.
     # We will use out-of-store symlinks as a workaround...
