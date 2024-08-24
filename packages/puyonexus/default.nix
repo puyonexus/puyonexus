@@ -2,6 +2,8 @@
 {
   chainsim = pkgs.callPackage ./chainsim { };
 
+  forum = pkgs.callPackage ./forum { };
+
   home = pkgs.callPackage ./home { };
 
   wiki = pkgs.callPackage ./wiki { };

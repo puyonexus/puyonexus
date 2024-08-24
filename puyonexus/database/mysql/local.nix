@@ -32,5 +32,7 @@ in
 
     puyonexus.wiki.mysql.server = "localhost:/run/mysqld/mysqld.sock";
     puyonexus.chainsim.database.dsn = "mysql:unix_socket=/run/mysqld/mysqld.sock;dbname=puyonexus";
+    puyonexus.forum.mysql.host = "localhost";
+    puyonexus.forum.mysql.port = 3306;
   };
 }

@@ -7,6 +7,8 @@ in
 
   puyonexusChainsim = puyonexusPackages.chainsim;
 
+  puyonexusForum = puyonexusPackages.forum;
+
   puyonexusHome = puyonexusPackages.home;
 
   puyonexusWiki = puyonexusPackages.wiki;
@@ -38,6 +40,20 @@ in
 
       echo "Running migrations."
       sudo -u puyonexus php maintenance/run.php update.php
+
+      echo "Done."
+    '';
+  };
+
+  updateForum = pkgs.writeShellApplication {
+    name = "update-forum";
+
+    text = ''
+      set -euo pipefail
+
+      cd ${puyonexusPackages.forum}/share/php/puyonexus-forum
+      echo "Running migrations."
+      sudo -u puyonexus env PUYONEXUS_FORUM_CONFIG_PATH="$PUYONEXUS_FORUM_CONFIG_PATH" ${pkgs.php}/bin/php bin/phpbbcli.php db:migrate --safe-mode
 
       echo "Done."
     '';
