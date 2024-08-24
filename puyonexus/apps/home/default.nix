@@ -40,6 +40,11 @@ in
               padding: 20px;
               position: absolute;
             }
+            @media (max-width: 767px) {
+              ul.pn-nav:first-child::after {
+                position: static;
+              }
+            }
             EOF
           '';
         };
