@@ -27,6 +27,7 @@
       system = "x86_64-linux";
       inputsOverlay = (final: prev: { inherit inputs; });
       localOverlay = (final: prev: (import ./packages/all-packages.nix prev));
+      rev = self.shortRev or self.dirtyShortRev;
       overlays = [
         (final: prev: {
           # Workaround for an obscure issue in build-vm with nixos-24.05.
@@ -58,7 +59,18 @@
         (./environment + "/${environment}")
         (./machine + "/${machine}")
         sops-nix.nixosModules.sops
-        { nixpkgs.overlays = overlays; }
+        { nixpkgs.overlays = pkgs.lib.mkBefore overlays; }
+        (
+          { lib, ... }:
+          {
+            options = {
+              puyonexus.rev = lib.mkOption { type = lib.types.nullOr lib.types.str; };
+            };
+            config = {
+              puyonexus.rev = rev;
+            };
+          }
+        )
       ];
       overlayPackages = import ./packages/all-packages.nix pkgs;
     in

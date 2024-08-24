@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 {
   imports = [ ./.. ];
 
@@ -6,6 +6,8 @@
     puyonexus.environment.name = "local";
     puyonexus.domain.root = "puyonexus.localhost";
     puyonexus.mysql.local.enable = true;
+    puyonexus.home.navbarText.enable = true;
+    puyonexus.home.navbarText.string = "Local Dev Mode (${config.puyonexus.rev})";
 
     # Use local dev MTA on local environment
     puyonexus.mail.enableMailpit = true;

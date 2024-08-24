@@ -17,11 +17,34 @@ in
           default = false;
         };
       };
+      navbarText = {
+        enable = lib.mkEnableOption "Navbar Text";
+        string = lib.mkOption { type = lib.types.str; };
+      };
     };
   };
 
   config = lib.mkIf cfg.enable {
     puyonexus.php.enable = true;
+
+    nixpkgs.overlays = lib.mkIf cfg.navbarText.enable [
+      (final: prev: {
+        puyonexusHome = prev.puyonexusHome.overrideAttrs {
+          patchPhase = ''
+            cat >> assets/css/common.css << 'EOF'
+            ul.pn-nav:first-child::after {
+              content: '${cfg.navbarText.string}';
+              color: #ff8300;
+              display: inline-block;
+              line-height: 20px;
+              padding: 20px;
+              position: absolute;
+            }
+            EOF
+          '';
+        };
+      })
+    ];
 
     services.nginx = {
       enable = true;
