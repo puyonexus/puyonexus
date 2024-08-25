@@ -3,6 +3,9 @@
   imports = [ ./.. ];
 
   config = {
+    puyonexus.acme.enable = lib.mkForce false;
+    puyonexus.nginx.httpPort = 8080;
+    puyonexus.nginx.httpsPort = 8443;
     puyonexus.environment.name = "local";
     puyonexus.domain.root = "puyonexus.localhost";
     puyonexus.mysql.local.enable = true;

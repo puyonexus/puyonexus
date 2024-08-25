@@ -12,11 +12,12 @@
     puyonexus.ssh.enable = true;
 
     # Public web apps
+    puyonexus.badhost.enable = true;
     puyonexus.chainsim.enable = true;
+    puyonexus.files.enable = true;
     puyonexus.forum.enable = true;
     puyonexus.home.enable = true;
     puyonexus.wiki.enable = true;
-    puyonexus.badhost.enable = true;
 
     # Internal web apps
     puyonexus.grafana.enable = true;

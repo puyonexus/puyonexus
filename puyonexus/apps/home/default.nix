@@ -15,6 +15,10 @@ in
         type = lib.types.str;
         default = config.puyonexus.domain.root;
       };
+      urlPrefix = lib.mkOption {
+        type = lib.types.str;
+        default = config.puyonexus.nginx.urlPrefix;
+      };
       robots = {
         denyAll = lib.mkOption {
           type = lib.types.bool;
@@ -33,12 +37,11 @@ in
 
     services.nginx = {
       enable = true;
-      virtualHosts.${config.puyonexus.domain.root} = {
+      virtualHosts.${cfg.domain} = {
         locations = {
           "/" = {
             alias = "${pkgs.puyonexusPackages.home}/share/php/puyonexus-home/";
             extraConfig = ''
-              autoindex on;
               index index.php;
               try_files $uri $uri/ $uri.php;
               location ~ \.php$ {
@@ -48,7 +51,6 @@ in
                 fastcgi_index index.php;
                 include ${pkgs.nginx.out}/conf/fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $request_filename;
-                fastcgi_intercept_errors off;
               }
             '';
           };
@@ -95,11 +97,7 @@ in
     environment.systemPackages = [ pkgs.puyonexusPackages.home ];
 
     environment.variables = {
-      PUYONEXUS_BASE_URL =
-        let
-          scheme = if config.puyonexus.acme.enable then "https" else "http";
-        in
-        "${scheme}://${cfg.domain}";
+      PUYONEXUS_BASE_URL = cfg.urlPrefix;
     };
 
     services.phpfpm.pools.www.phpEnv = {

@@ -12,6 +12,18 @@ in
   options = {
     puyonexus.forum = {
       enable = lib.mkEnableOption "Puyo Nexus Forum";
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = config.puyonexus.domain.root;
+      };
+      path = lib.mkOption {
+        type = lib.types.str;
+        default = "/forum";
+      };
+      urlPrefix = lib.mkOption {
+        type = lib.types.str;
+        default = "${config.puyonexus.nginx.urlPrefix}${cfg.path}";
+      };
       mysql = {
         host = lib.mkOption { type = lib.types.str; };
         port = lib.mkOption { type = lib.types.int; };
@@ -32,12 +44,11 @@ in
 
     services.nginx = {
       enable = true;
-      virtualHosts.${config.puyonexus.domain.root} = {
+      virtualHosts.${cfg.domain} = {
         locations = {
-          "/forum/" = {
+          "${cfg.path}/" = {
             alias = "${pkgs.puyonexusPackages.forum}/share/php/puyonexus-forum/";
             extraConfig = ''
-              autoindex on;
               index index.php;
               location ~ \.php$ {
                 try_files $uri =404;
@@ -46,13 +57,10 @@ in
                 fastcgi_index index.php;
                 include ${pkgs.nginx.out}/conf/fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $request_filename;
-                fastcgi_intercept_errors off;
               }
             '';
           };
-          "= /forum".extraConfig = ''
-            return 301 /forum/;
-          '';
+          "= ${cfg.path}".return = "301 ${cfg.urlPrefix}/";
         };
       };
     };

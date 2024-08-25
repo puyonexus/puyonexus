@@ -16,18 +16,13 @@ in
         type = lib.types.str;
         default = config.puyonexus.domain.root;
       };
-      basePath = lib.mkOption {
+      path = lib.mkOption {
         type = lib.types.str;
         default = "/chainsim";
       };
-      baseUrl = lib.mkOption {
+      urlPrefix = lib.mkOption {
         type = lib.types.str;
-        default =
-          let
-            scheme = if config.puyonexus.acme.enable then "https" else "http";
-            suffix = if config.puyonexus.acme.enable then "" else ":8080";
-          in
-          "${scheme}://${cfg.domain}${suffix}${cfg.basePath}";
+        default = "${config.puyonexus.nginx.urlPrefix}${cfg.path}";
       };
       database = {
         dsn = lib.mkOption { type = lib.types.str; };
@@ -53,24 +48,21 @@ in
 
     services.nginx = {
       enable = true;
-      virtualHosts.${config.puyonexus.domain.root} = {
+      virtualHosts.${cfg.domain} = {
         locations = {
-          "/chainsim/" = {
+          "${cfg.path}/" = {
             alias = "${pkgs.puyonexusPackages.chainsim}/share/php/puyonexus-chainsim/public/";
             extraConfig = ''
               fastcgi_pass unix:${config.services.phpfpm.pools.www.socket};
               fastcgi_index index.php;
               include ${pkgs.nginx.out}/conf/fastcgi_params;
               fastcgi_param SCRIPT_FILENAME ${pkgs.puyonexusPackages.chainsim}/share/php/puyonexus-chainsim/public/index.php;
-              fastcgi_intercept_errors off;
             '';
           };
-          "/chainsim/assets/" = {
+          "${cfg.path}/assets/" = {
             alias = "${pkgs.puyonexusPackages.chainsim}/share/php/puyonexus-chainsim/public/assets/";
           };
-          "= /chainsim".extraConfig = ''
-            return 301 /chainsim/;
-          '';
+          "= ${cfg.path}".return = "301 ${cfg.urlPrefix}/";
         };
       };
     };
@@ -79,8 +71,8 @@ in
 
     sops.templates."puyonexus-chainsim-localsettings.php" = {
       content = mkLocalSettings {
-        basePath = cfg.basePath;
-        baseUrl = cfg.baseUrl;
+        basePath = cfg.path;
+        baseUrl = cfg.urlPrefix;
         databaseDsn = cfg.database.dsn;
         databaseUsername = cfg.database.username;
         databasePassword = cfg.database.password;

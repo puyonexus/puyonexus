@@ -16,16 +16,23 @@ in
       enableEmail = lib.mkEnableOption "Puyo Nexus Wiki E-mail";
       domain = lib.mkOption {
         type = lib.types.str;
-        default = config.puyonexus.domain.root;
+        default = config.puyonexus.nginx.domain;
+      };
+      path = lib.mkOption {
+        type = lib.types.str;
+        default = "/wiki";
+      };
+      scriptPath = lib.mkOption {
+        type = lib.types.str;
+        default = "/mediawiki";
+      };
+      serverUrlPrefix = lib.mkOption {
+        type = lib.types.str;
+        default = config.puyonexus.nginx.urlPrefix;
       };
       urlPrefix = lib.mkOption {
         type = lib.types.str;
-        default =
-          let
-            scheme = if config.puyonexus.acme.enable then "https" else "http";
-            suffix = if config.puyonexus.acme.enable then "" else ":8080";
-          in
-          "${scheme}://${cfg.domain}${suffix}";
+        default = "${cfg.serverUrlPrefix}${cfg.path}";
       };
       secretKey = lib.mkOption {
         type = lib.types.str;
@@ -71,33 +78,30 @@ in
 
     services.nginx = {
       enable = true;
-      virtualHosts.${config.puyonexus.domain.root} = {
+      virtualHosts.${cfg.domain} = {
         locations = {
-          "/wiki/".extraConfig = ''
-            rewrite ^/wiki/(?<pagename>.*)$ /mediawiki/index.php;
+          "${cfg.path}/".extraConfig = ''
+            rewrite ^${cfg.path}/(?<pagename>.*)$ ${cfg.scriptPath}/index.php;
           '';
-          "= /wiki".extraConfig = ''
-            return 301 /wiki/;
-          '';
-          "/mediawiki/images/" = {
+          "= ${cfg.path}".return = "301 ${cfg.urlPrefix}/";
+          "${cfg.scriptPath}/images/" = {
             alias = withTrailingSlash cfg.imagesDir;
             extraConfig = ''
               add_header X-Content-Type-Options nosniff;
             '';
           };
-          "/mediawiki/images/deleted" = {
+          "${cfg.scriptPath}/images/deleted" = {
             extraConfig = ''
               deny all;
             '';
           };
-          "/wiki/rest.php/" = {
+          "${cfg.path}/rest.php/" = {
             # Handling for Mediawiki REST API, see [[mw:API:REST_API]]
-            tryFiles = "$uri $uri/ /mediawiki/rest.php?$query_string";
+            tryFiles = "$uri $uri/ ${cfg.scriptPath}/rest.php?$query_string";
           };
-          "/mediawiki/" = {
+          "${cfg.scriptPath}/" = {
             alias = "${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki/";
             extraConfig = ''
-              autoindex on;
               index index.php;
               try_files $uri $uri/ $uri.php;
               location ~ \.php$ {
@@ -107,7 +111,6 @@ in
                 fastcgi_index index.php;
                 include ${pkgs.nginx.out}/conf/fastcgi_params;
                 fastcgi_param SCRIPT_FILENAME $request_filename;
-                fastcgi_intercept_errors off;
               }
             '';
           };
@@ -134,7 +137,9 @@ in
     sops.templates."puyonexus-wiki-localsettings.php" = {
       content = mkLocalSettings {
         inherit lib;
-        server = cfg.urlPrefix;
+        server = cfg.serverUrlPrefix;
+        path = cfg.path;
+        scriptPath = cfg.scriptPath;
         domain = cfg.domain;
         secretKey = cfg.secretKey;
         upgradeKey = cfg.upgradeKey;
@@ -145,6 +150,7 @@ in
         smtpPort = cfg.smtp.port;
         smtpUsername = cfg.smtp.username;
         smtpPassword = cfg.smtp.password;
+        redisSocket = config.services.redis.servers.wiki.unixSocket;
         uploadDir = cfg.imagesDir;
         enableEmail = cfg.enableEmail;
       };
@@ -159,6 +165,7 @@ in
       inherit (config.environment.variables) PUYONEXUS_WIKI_LOCALSETTINGS_PATH;
     };
 
+    # TODO: Replace with Redis-based job runner.
     systemd.services.mwjobrunner = {
       description = "MediaWiki job runner";
       after = [ "network.target" ];

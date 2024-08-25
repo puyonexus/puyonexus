@@ -1,6 +1,8 @@
 {
   lib,
   server,
+  path ? "/wiki",
+  scriptPath ? "/mediawiki",
   domain,
   secretKey,
   upgradeKey,
@@ -12,6 +14,7 @@
   smtpPort,
   smtpUsername,
   smtpPassword,
+  redisSocket ? null,
   enableEmail,
 }:
 let
@@ -21,9 +24,9 @@ in
   <?php
   # URL setup
   $wgServer = ${mkNowDoc server};
-  $wgScriptPath = ${mkNowDoc "${server}/mediawiki"};
-  $wgStylePath = ${mkNowDoc "${server}/mediawiki/skins"};
-  $wgArticlePath = '/wiki/$1';
+  $wgScriptPath = ${mkNowDoc "${server}${scriptPath}"};
+  $wgStylePath = ${mkNowDoc "${server}${scriptPath}/skins"};
+  $wgArticlePath = '${path}/$1';
   $wgLogo = '/images/wiki/logo.png';
 
   # General Configuration
@@ -114,11 +117,13 @@ in
   $wgShowExceptionDetails = true;
 
   # Caching
-  $wgObjectCaches['redis'] = [
-    'class'   => 'RedisBagOStuff',
-    'servers' => [ '/run/redis-wiki/redis.sock' ],
-  ];
-  $wgMainCacheType = 'redis';
+  ${lib.optionalString (redisSocket != null) ''
+    $wgObjectCaches['redis'] = [
+      'class'   => 'RedisBagOStuff',
+      'servers' => [ '${redisSocket}' ],
+    ];
+    $wgMainCacheType = 'redis';
+  ''}
   $wgCacheDirectory = "/tmp/puyonexus-wiki/cache/$wgDBname";
 
   # CAPTCHA

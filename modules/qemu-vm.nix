@@ -11,8 +11,6 @@
   config = {
     boot.loader.grub.forceInstall = true;
 
-    # Do not allow attempts to grab ACME certs in local vm.
-    puyonexus.acme.enable = lib.mkForce false;
     virtualisation.diskSize = 10240;
     virtualisation.forwardPorts = [
       # SSH
@@ -30,8 +28,15 @@
       # HTTP
       {
         from = "host";
-        host.port = 8080;
-        guest.port = 80;
+        host.port = config.puyonexus.nginx.httpPort;
+        guest.port = config.puyonexus.nginx.httpPort;
+      }
+    ] ++ lib.optionals config.puyonexus.nginx.useHttps [
+      # HTTPS
+      {
+        from = "host";
+        host.port = config.puyonexus.nginx.httpsPort;
+        guest.port = config.puyonexus.nginx.httpsPort;
       }
     ];
     virtualisation.qemu.options =
