@@ -12,33 +12,35 @@
     boot.loader.grub.forceInstall = true;
 
     virtualisation.diskSize = 10240;
-    virtualisation.forwardPorts = [
-      # SSH
-      {
-        from = "host";
-        host.port = 2222;
-        guest.port = 22;
-      }
-      # mailpit dashboard
-      {
-        from = "host";
-        host.port = 8025;
-        guest.port = 8025;
-      }
-      # HTTP
-      {
-        from = "host";
-        host.port = config.puyonexus.nginx.httpPort;
-        guest.port = config.puyonexus.nginx.httpPort;
-      }
-    ] ++ lib.optionals config.puyonexus.nginx.useHttps [
-      # HTTPS
-      {
-        from = "host";
-        host.port = config.puyonexus.nginx.httpsPort;
-        guest.port = config.puyonexus.nginx.httpsPort;
-      }
-    ];
+    virtualisation.forwardPorts =
+      [
+        # SSH
+        {
+          from = "host";
+          host.port = 2222;
+          guest.port = 22;
+        }
+        # mailpit dashboard
+        {
+          from = "host";
+          host.port = 8025;
+          guest.port = 8025;
+        }
+        # HTTP
+        {
+          from = "host";
+          host.port = config.puyonexus.nginx.httpPort;
+          guest.port = config.puyonexus.nginx.httpPort;
+        }
+      ]
+      ++ lib.optionals config.puyonexus.nginx.useHttps [
+        # HTTPS
+        {
+          from = "host";
+          host.port = config.puyonexus.nginx.httpsPort;
+          guest.port = config.puyonexus.nginx.httpsPort;
+        }
+      ];
     virtualisation.qemu.options =
       let
         sopsBin = "${pkgs.sops.out}/bin/sops";
