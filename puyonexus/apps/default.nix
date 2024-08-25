@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./badhost
     ./chainsim
     ./forum
     ./grafana
