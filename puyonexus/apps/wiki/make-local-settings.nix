@@ -114,8 +114,11 @@ in
   $wgShowExceptionDetails = true;
 
   # Caching
-  $wgMainCacheType = CACHE_NONE; # TODO
-  $wgMemCachedServers = array();
+  $wgObjectCaches['redis'] = [
+    'class'   => 'RedisBagOStuff',
+    'servers' => [ '/run/redis-wiki/redis.sock' ],
+  ];
+  $wgMainCacheType = 'redis';
   $wgCacheDirectory = "/tmp/puyonexus-wiki/cache/$wgDBname";
 
   # CAPTCHA
