@@ -267,5 +267,14 @@ php.buildComposerProject (finalAttrs: {
 
       # Skins
       ${loadSkins}
+
+      # This hack is needed because MediaWiki is stubborn.
+      # Putting it in the body results in flickering.
+      # Putting it in resource loader is inconvenient.
+      $wgHooks['BeforePageDisplay'][] = function(MediaWiki\Output\OutputPage $out, Skin $skin) {
+        if ($skin->getSkinName() == "vectornexus") {
+          $out->addStyle('/assets/css/common.css', 'screen');
+        }
+      };
     '';
 })

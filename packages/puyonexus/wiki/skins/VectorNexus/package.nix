@@ -21,8 +21,6 @@ stdenvNoCC.mkDerivation {
     cp -r $vector/includes/templates/* $out/includes/templates
     chmod -R +w $out/includes/templates
     cp -r . $out
-    mkdir -p $out/resources/puyonexus.styles.common
-    cp ${puyonexusHome}/share/php/puyonexus-home/assets/css/common.css $out/resources/puyonexus.styles.common/common.css
 
     runHook postInstall
   '';

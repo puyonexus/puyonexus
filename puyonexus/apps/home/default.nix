@@ -31,30 +31,6 @@ in
   config = lib.mkIf cfg.enable {
     puyonexus.php.enable = true;
 
-    nixpkgs.overlays = lib.mkIf cfg.navbarText.enable [
-      (final: prev: {
-        puyonexusHome = prev.puyonexusHome.overrideAttrs {
-          patchPhase = ''
-            cat >> assets/css/common.css << 'EOF'
-            ul.pn-nav:first-child::after {
-              content: '${cfg.navbarText.string}';
-              color: #ff8300;
-              display: inline-block;
-              line-height: 20px;
-              padding: 20px;
-              position: absolute;
-            }
-            @media (max-width: 767px) {
-              ul.pn-nav:first-child::after {
-                position: static;
-              }
-            }
-            EOF
-          '';
-        };
-      })
-    ];
-
     services.nginx = {
       enable = true;
       virtualHosts.${config.puyonexus.domain.root} = {
@@ -75,6 +51,31 @@ in
                 fastcgi_intercept_errors off;
               }
             '';
+          };
+          "= /assets/css/common.css" = lib.mkIf cfg.navbarText.enable {
+            alias = "${pkgs.stdenvNoCC.mkDerivation {
+              name = "common.css";
+              dontUnpack = true;
+              dontBuild = true;
+              installPhase = ''
+                cat > $out < ${pkgs.puyonexusHome}/share/php/puyonexus-home/assets/css/common.css
+                cat >> $out << 'EOF'
+                ul.pn-nav:first-child::after {
+                  content: '${cfg.navbarText.string}';
+                  color: #ff8300;
+                  display: inline-block;
+                  line-height: 20px;
+                  padding: 20px;
+                  position: absolute;
+                }
+                @media (max-width: 767px) {
+                  ul.pn-nav:first-child::after {
+                    position: static;
+                  }
+                }
+                EOF
+              '';
+            }}";
           };
           "= /robots.txt" = lib.mkIf cfg.robots.denyAll {
             alias = pkgs.writeText "robots.txt" ''

@@ -14,9 +14,9 @@
 	},
 	"ValidSkinNames": {
 		"vectornexus": {
-		  "class": "MediaWiki\\Skins\\Vector\\SkinVectorLegacy",
+			"class": "MediaWiki\\Skins\\Vector\\SkinVectorLegacy",
 			"args": [
-			  {
+				{
 					"name": "vectornexus",
 					"template": "skin-legacy",
 					"clientPrefEnabled": true,
@@ -36,8 +36,7 @@
 					],
 					"styles": [
 						"skins.vector.styles.legacy",
-						"skins.vectornexus.styles.legacy",
-						"puyonexus.styles.common"
+						"skins.vectornexus.styles.legacy"
 					],
 					"messages": [
 						"tooltip-p-logo",
@@ -66,33 +65,27 @@
 		"remoteSkinPath": "VectorNexus"
 	},
 	"ResourceModules": {
-  	"skins.vectornexus.styles.legacy": {
-  		"class": "MediaWiki\\ResourceLoader\\SkinModule",
-  		"features": {
-  			"normalize": true,
-  			"elements": true,
-  			"logo": true,
-  			"content-media": true,
-  			"content-links": true,
-  			"content-links-external": false,
-  			"interface": true,
-  			"interface-message-box": true,
-  			"interface-category": true,
-  			"content-tables": true,
-  			"i18n-ordered-lists": true,
-  			"i18n-all-lists-margins": true,
-  			"i18n-headings": true
-  		},
-  		"styles": [
-  			"resources/skins.vectornexus.styles.legacy/skin-legacy.less"
-  		]
-  	},
-    "puyonexus.styles.common": {
-      "class": "MediaWiki\\ResourceLoader\\SkinModule",
-	    "styles": [
-				"resources/puyonexus.styles.common/common.css"
+		"skins.vectornexus.styles.legacy": {
+			"class": "MediaWiki\\ResourceLoader\\SkinModule",
+			"features": {
+				"normalize": true,
+				"elements": true,
+				"logo": true,
+				"content-media": true,
+				"content-links": true,
+				"content-links-external": false,
+				"interface": true,
+				"interface-message-box": true,
+				"interface-category": true,
+				"content-tables": true,
+				"i18n-ordered-lists": true,
+				"i18n-all-lists-margins": true,
+				"i18n-headings": true
+			},
+			"styles": [
+				"resources/skins.vectornexus.styles.legacy/skin-legacy.less"
 			]
-    }
+		}
 	},
 	"manifest_version": 2
 }
