@@ -122,6 +122,14 @@ in
       pkgs.multiUpdateWiki
     ];
 
+    services.redis.servers.wiki = {
+      enable = true;
+      settings = {
+        maxmemory = "512mb";
+        maxmemory-policy = "volatile-lru";
+      };
+    };
+
     sops.templates."puyonexus-wiki-localsettings.php" = {
       content = mkLocalSettings {
         inherit lib;

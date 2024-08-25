@@ -65,13 +65,14 @@ in
       };
     };
 
-    # Ingress TODO
-    #puyonexus.ingress.services."${cfg.domain}".service = "unix:/run/nginx/grafana.socket";
-
     # NGINX proxy configuration
+    security.acme.certs.${cfg.domain} = lib.mkIf config.puyonexus.acme.enable {
+      group = config.services.nginx.group;
+    };
     services.nginx = {
-      virtualHosts."${cfg.domain}" = {
-        # listen = lib.singleton { addr = "unix:/run/nginx/grafana.socket"; };
+      virtualHosts.${cfg.domain} = {
+        useACMEHost = lib.mkIf config.puyonexus.acme.enable cfg.domain;
+        forceSSL = config.puyonexus.acme.enable;
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.grafana.settings.server.http_port}";
           proxyWebsockets = true;

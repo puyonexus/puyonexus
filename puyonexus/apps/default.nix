@@ -41,14 +41,29 @@
         "pm.max_requests" = 500;
       };
     };
+    security.acme.certs.${config.puyonexus.domain.root} = lib.mkIf config.puyonexus.acme.enable {
+      group = config.services.nginx.group;
+      extraDomainNames = [ "www.${config.puyonexus.domain.root}" ];
+    };
     services.nginx = {
       enable = true;
-      virtualHosts.${config.puyonexus.domain.root} = {
-        enableACME = config.puyonexus.acme.enable;
-        forceSSL = config.puyonexus.acme.enable;
+      enableReload = true;
+      virtualHosts = {
+        ${config.puyonexus.domain.root} = {
+          useACMEHost = lib.mkIf config.puyonexus.acme.enable config.puyonexus.domain.root;
+          forceSSL = config.puyonexus.acme.enable;
+          # This will be the default host if the badhost handler is disabled.
+          default = config.puyonexus.badhost.enable == false;
+        };
+        "www.${config.puyonexus.domain.root}" = {
+          useACMEHost = lib.mkIf config.puyonexus.acme.enable config.puyonexus.domain.root;
+          forceSSL = config.puyonexus.acme.enable;
+          locations."/" = {
+            return = "301 http://${config.puyonexus.domain.root}$request_uri";
+          };
+        };
       };
     };
-    # TODO
     networking.firewall.allowedTCPPorts = [
       80
       443
