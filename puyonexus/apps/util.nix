@@ -32,7 +32,9 @@
               "Puyo Nexus Wiki" "admin"
 
             echo "Running migrations."
-            sudo -u puyonexus php maintenance/run.php update.php
+            sudo -u puyonexus \
+              env PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" \
+              php maintenance/run.php update.php
 
             echo "Done."
           '';
