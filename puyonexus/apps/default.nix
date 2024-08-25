@@ -12,6 +12,7 @@
     ./grafana
     ./home
     ./wiki
+    ./util.nix
   ];
 
   options = {
@@ -19,7 +20,22 @@
       enable = lib.mkEnableOption "Puyo Nexus PHP setup";
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.php83;
+        default = (
+          pkgs.php83.buildEnv {
+            extensions =
+              { enabled, all }:
+              enabled
+              ++ [
+                all.apcu
+                all.redis
+              ];
+            extraConfig = ''
+              apc.enable_cli = 1
+              opcache.enable_cli=1
+              opcache.jit_buffer_size=100M
+            '';
+          }
+        );
       };
     };
   };

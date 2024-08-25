@@ -35,7 +35,7 @@ in
       virtualHosts.${config.puyonexus.domain.root} = {
         locations = {
           "/forum/" = {
-            alias = "${pkgs.puyonexusForum}/share/php/puyonexus-forum/";
+            alias = "${pkgs.puyonexusPackages.forum}/share/php/puyonexus-forum/";
             extraConfig = ''
               autoindex on;
               index index.php;
@@ -58,7 +58,7 @@ in
     };
 
     environment.systemPackages = [
-      pkgs.puyonexusForum
+      pkgs.puyonexusPackages.forum
       pkgs.updateForum
     ];
 

@@ -36,7 +36,7 @@ in
       virtualHosts.${config.puyonexus.domain.root} = {
         locations = {
           "/" = {
-            alias = "${pkgs.puyonexusHome}/share/php/puyonexus-home/";
+            alias = "${pkgs.puyonexusPackages.home}/share/php/puyonexus-home/";
             extraConfig = ''
               autoindex on;
               index index.php;
@@ -58,7 +58,7 @@ in
               dontUnpack = true;
               dontBuild = true;
               installPhase = ''
-                cat > $out < ${pkgs.puyonexusHome}/share/php/puyonexus-home/assets/css/common.css
+                cat > $out < ${pkgs.puyonexusPackages.home}/share/php/puyonexus-home/assets/css/common.css
                 cat >> $out << 'EOF'
                 ul.pn-nav:first-child::after {
                   content: '${cfg.navbarText.string}';
@@ -92,7 +92,7 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.puyonexusHome ];
+    environment.systemPackages = [ pkgs.puyonexusPackages.home ];
 
     environment.variables = {
       PUYONEXUS_BASE_URL =

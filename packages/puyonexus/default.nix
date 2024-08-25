@@ -1,12 +1,18 @@
-{ pkgs, ... }:
-{
-  chainsim = pkgs.callPackage ./chainsim { };
+{ pkgs, lib, ... }:
+lib.makeScope pkgs.newScope (
+  self:
+  let
+    inherit (self) callPackage;
+  in
+  {
+    chainsim = callPackage ./chainsim { };
 
-  forum = pkgs.callPackage ./forum { };
+    forum = callPackage ./forum { };
 
-  home = pkgs.callPackage ./home { };
+    home = callPackage ./home { };
 
-  wiki = pkgs.callPackage ./wiki { };
+    wiki = callPackage ./wiki { };
 
-  wiki1_35 = pkgs.callPackage ./wiki1_35 { };
-}
+    wiki1_35 = callPackage ./wiki1_35 { };
+  }
+)

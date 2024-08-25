@@ -95,7 +95,7 @@ in
             tryFiles = "$uri $uri/ /mediawiki/rest.php?$query_string";
           };
           "/mediawiki/" = {
-            alias = "${pkgs.puyonexusWiki}/share/php/puyonexus-wiki/";
+            alias = "${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki/";
             extraConfig = ''
               autoindex on;
               index index.php;
@@ -116,7 +116,7 @@ in
     };
 
     environment.systemPackages = [
-      pkgs.puyonexusWiki
+      pkgs.puyonexusPackages.wiki
       pkgs.initWiki
       pkgs.updateWiki
       pkgs.multiUpdateWiki
@@ -124,6 +124,7 @@ in
 
     services.redis.servers.wiki = {
       enable = true;
+      user = config.users.users.puyonexus.name;
       settings = {
         maxmemory = "512mb";
         maxmemory-policy = "volatile-lru";
@@ -173,7 +174,21 @@ in
         OOMScoreAdjust = 200;
         StandardOutput = "journal";
         Type = "exec";
-        ExecStart = ''${pkgs.puyonexusWiki}/bin/mwjobrunner'';
+        ExecStart = ''${
+          pkgs.writeShellApplication {
+            name = "mwjobrunner";
+            runtimeInputs = [ config.puyonexus.php.package ];
+            text = ''
+              cd ${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki
+              while true; do
+                echo "[mwjobrunner]: Running jobs."
+                php ${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki/maintenance/run.php runJobs --wait --maxjobs=100
+                echo "[mwjobrunner]: Done, sleeping."
+                sleep 0.5
+              done
+            '';
+          }
+        }/bin/mwjobrunner'';
       };
     };
   };

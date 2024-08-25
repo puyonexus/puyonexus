@@ -26,7 +26,7 @@
     let
       system = "x86_64-linux";
       inputsOverlay = (final: prev: { inherit inputs; });
-      localOverlay = (final: prev: (import ./packages/all-packages.nix prev));
+      localOverlay = import ./packages/overlay.nix;
       rev = self.shortRev or self.dirtyShortRev;
       overlays = [
         (final: prev: {
@@ -72,7 +72,6 @@
           }
         )
       ];
-      overlayPackages = import ./packages/all-packages.nix pkgs;
     in
     {
       apps."${system}" = rec {
@@ -163,14 +162,20 @@
           };
         };
 
-      # DigitalOcean configuration
-      packages."${system}" = overlayPackages // {
+      packages."${system}" = {
         digitalOceanImage = nixos-generators.nixosGenerate {
           pkgs = nixpkgs.legacyPackages."${system}";
           modules = [ ./machine/base ];
           format = "do";
         };
         nixfmt = pkgs.nixfmt-rfc-style;
+        genhostkeys = pkgs.genhostkeys;
+
+        chainsim = pkgs.puyonexusPackages.chainsim;
+        forum = pkgs.puyonexusPackages.forum;
+        home = pkgs.puyonexusPackages.home;
+        wiki = pkgs.puyonexusPackages.wiki;
+        wiki1_35 = pkgs.puyonexusPackages.wiki1_35;
       };
 
       deploy = {

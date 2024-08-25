@@ -56,17 +56,17 @@ in
       virtualHosts.${config.puyonexus.domain.root} = {
         locations = {
           "/chainsim/" = {
-            alias = "${pkgs.puyonexusChainsim}/share/php/puyonexus-chainsim/public/";
+            alias = "${pkgs.puyonexusPackages.chainsim}/share/php/puyonexus-chainsim/public/";
             extraConfig = ''
               fastcgi_pass unix:${config.services.phpfpm.pools.www.socket};
               fastcgi_index index.php;
               include ${pkgs.nginx.out}/conf/fastcgi_params;
-              fastcgi_param SCRIPT_FILENAME ${pkgs.puyonexusChainsim}/share/php/puyonexus-chainsim/public/index.php;
+              fastcgi_param SCRIPT_FILENAME ${pkgs.puyonexusPackages.chainsim}/share/php/puyonexus-chainsim/public/index.php;
               fastcgi_intercept_errors off;
             '';
           };
           "/chainsim/assets/" = {
-            alias = "${pkgs.puyonexusChainsim}/share/php/puyonexus-chainsim/public/assets/";
+            alias = "${pkgs.puyonexusPackages.chainsim}/share/php/puyonexus-chainsim/public/assets/";
           };
           "= /chainsim".extraConfig = ''
             return 301 /chainsim/;
@@ -75,7 +75,7 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.puyonexusChainsim ];
+    environment.systemPackages = [ pkgs.puyonexusPackages.chainsim ];
 
     sops.templates."puyonexus-chainsim-localsettings.php" = {
       content = mkLocalSettings {
