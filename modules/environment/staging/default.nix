@@ -12,6 +12,6 @@
     puyonexus.home.navbarText.string = "Staging Mode (${config.puyonexus.rev})";
 
     # Use external MTA in staging
-    puyonexus.mail.enableExternalMta = true;
+    puyonexus.mail.externalMta.enable = true;
   };
 }

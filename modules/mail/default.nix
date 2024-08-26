@@ -21,7 +21,7 @@ in
   config = {
     assertions = [
       {
-        assertion = cfg.enableExternalMta != cfg.enableMailpit;
+        assertion = cfg.externalMta.enable != cfg.mailpit.enable;
         message = "one and only one MTA should be enabled";
       }
     ];

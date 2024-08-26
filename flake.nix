@@ -56,8 +56,8 @@
         ];
       };
       machineEnvironmentModules = machine: environment: [
-        (./environment + "/${environment}")
-        (./machine + "/${machine}")
+        (./modules/environment + "/${environment}")
+        (./modules/machine + "/${machine}")
         sops-nix.nixosModules.sops
         { nixpkgs.overlays = pkgs.lib.mkBefore overlays; }
         (
@@ -121,7 +121,7 @@
               echo "Once the VM is running, the following services should be available:"
               echo "- Puyo Nexus: http://puyonexus.localhost:8080"
               echo "- Grafana: http://grafana.puyonexus.localhost:8080"
-              echo "- Mailpit: http://puyonexus.localhost:8025"
+              echo "- Mailpit: http://mailpit.puyonexus.localhost:8080"
               echo "Login with SSH: ssh -p 2222 root@puyonexus.localhost"
               echo "Hit Ctrl+C to shut down."
               echo "If your VM is corrupted, delete ojama.qcow2 to reset it."
@@ -156,7 +156,7 @@
           base = nixosSystem {
             system = "x86_64-linux";
             modules = [
-              ./machine/base
+              ./modules/machine/base
               (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix")
             ];
           };
@@ -165,7 +165,7 @@
       packages."${system}" = {
         digitalOceanImage = nixos-generators.nixosGenerate {
           pkgs = nixpkgs.legacyPackages."${system}";
-          modules = [ ./machine/base ];
+          modules = [ ./modules/machine/base ];
           format = "do";
         };
         nixfmt = pkgs.nixfmt-rfc-style;

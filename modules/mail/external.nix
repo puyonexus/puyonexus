@@ -5,16 +5,18 @@
   ...
 }:
 let
-  cfg = config.puyonexus.mail;
+  cfg = config.puyonexus.mail.externalMta;
 in
 {
   options = {
     puyonexus.mail = {
-      enableExternalMta = lib.mkEnableOption "external MTA";
+      externalMta = {
+        enable = lib.mkEnableOption "external MTA";
+      };
     };
   };
 
-  config = lib.mkIf cfg.enableExternalMta {
+  config = lib.mkIf cfg.enable {
     sops = {
       secrets =
         let

@@ -5,16 +5,26 @@
   ...
 }:
 let
-  cfg = config.puyonexus.mail;
+  cfg = config.puyonexus.mail.mailpit;
 in
 {
   options = {
     puyonexus.mail = {
-      enableMailpit = lib.mkEnableOption "mailpit MTA";
+      mailpit = {
+        enable = lib.mkEnableOption "mailpit MTA";
+        httpPort = lib.mkOption {
+          type = lib.types.int;
+          default = 8025;
+        };
+        domain = lib.mkOption {
+          type = lib.types.str;
+          default = "mailpit.${config.puyonexus.domain.root}";
+        };
+      };
     };
   };
 
-  config = lib.mkIf cfg.enableMailpit {
+  config = lib.mkIf cfg.enable {
     # Mailpit service
     systemd.services.mailpit = {
       description = "Mock e-mail server";
@@ -31,12 +41,28 @@ in
         ProtectControlGroups = true;
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         Type = "exec";
-        ExecStart = ''${pkgs.mailpit.out}/bin/mailpit'';
+        ExecStart = ''${pkgs.mailpit.out}/bin/mailpit --listen "[::]:${toString cfg.httpPort}"'';
       };
     };
 
     # Allow mailpit access externally
-    networking.firewall.allowedTCPPorts = [ 8025 ];
+    security.acme.certs.${cfg.domain} = lib.mkIf config.puyonexus.acme.enable {
+      group = config.services.nginx.group;
+    };
+    services.nginx = {
+      virtualHosts.${cfg.domain} = {
+        useACMEHost = lib.mkIf config.puyonexus.acme.enable cfg.domain;
+        forceSSL = config.puyonexus.acme.enable;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.httpPort}";
+          proxyWebsockets = true;
+          basicAuthFile = config.puyonexus.users.basicAuthFile;
+          extraConfig = ''
+            proxy_set_header Host $host;
+          '';
+        };
+      };
+    };
 
     # Sendmail to mailpit
     environment.systemPackages = [ pkgs.msmtp ];
@@ -54,6 +80,7 @@ in
       '';
       mode = "0600";
     };
+
     services.mail.sendmailSetuidWrapper = {
       program = "sendmail";
       source = "${pkgs.msmtp}/bin/sendmail";

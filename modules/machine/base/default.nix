@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../puyonexus/openssh.nix
-    ../../puyonexus/users.nix
+    ../../openssh.nix
+    ../../users.nix
   ];
 
   config = {

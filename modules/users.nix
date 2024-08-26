@@ -7,7 +7,7 @@
 {
   options = {
     puyonexus.users = {
-      basicAuthFile = lib.mkOption { type = lib.types.path; };
+      basicAuthFile = lib.mkOption { type = lib.types.nullOr lib.types.path; };
     };
   };
 

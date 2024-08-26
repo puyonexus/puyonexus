@@ -8,6 +8,6 @@
     puyonexus.home.navbarText.enable = false;
 
     # Use external MTA in production
-    puyonexus.mail.enableExternalMta = true;
+    puyonexus.mail.externalMta.enable = true;
   };
 }

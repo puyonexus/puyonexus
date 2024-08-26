@@ -13,32 +13,31 @@
 
     virtualisation.diskSize = 10240;
     virtualisation.forwardPorts =
+      let
+        sshPort = config.puyonexus.ssh.port;
+        httpPort = config.puyonexus.nginx.httpPort;
+        httpsPort = config.puyonexus.nginx.httpsPort;
+      in
       [
         # SSH
         {
           from = "host";
-          host.port = 2222;
-          guest.port = 22;
-        }
-        # mailpit dashboard
-        {
-          from = "host";
-          host.port = 8025;
-          guest.port = 8025;
+          host.port = sshPort;
+          guest.port = sshPort;
         }
         # HTTP
         {
           from = "host";
-          host.port = config.puyonexus.nginx.httpPort;
-          guest.port = config.puyonexus.nginx.httpPort;
+          host.port = httpPort;
+          guest.port = httpPort;
         }
       ]
       ++ lib.optionals config.puyonexus.nginx.useHttps [
         # HTTPS
         {
           from = "host";
-          host.port = config.puyonexus.nginx.httpsPort;
-          guest.port = config.puyonexus.nginx.httpsPort;
+          host.port = httpsPort;
+          guest.port = httpsPort;
         }
       ];
     virtualisation.qemu.options =
