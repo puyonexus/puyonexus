@@ -73,7 +73,7 @@ in
         tls on
         host 127.0.0.1
         port 1025
-        from noreply@${cfg.domain}
+        from noreply@${config.puyonexus.mail.domain}
         user test
         password test
         account default: outgoing

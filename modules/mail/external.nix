@@ -50,7 +50,7 @@ in
             tls on
             host ${config.sops.placeholder."smtp/host"}
             port ${toString config.sops.placeholder."smtp/port"}
-            from noreply@${cfg.domain}
+            from noreply@${config.puyonexus.mail.domain}
             user ${config.sops.placeholder."smtp/username"}
             password ${config.sops.placeholder."smtp/password"}
             account default: outgoing
