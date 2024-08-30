@@ -3,6 +3,7 @@ keys:
 - &admin_john age1lj4gknnm9yxtcj8z279rnf2cya9kqt4pr28yca3cc9ejgcl9uqfsldn2r6
 - &ojama_local age1jvj79veklvf9p5tvf2jfkvdhgm9dk90tr9x4ql8sua88a52l9v9sy4kh6j
 - &ojama_staging age1ep026v9cuj00l8m0wc4tr48u30y9cl5qxf5hnv4wgq27k4tvvg8q5x74at
+- &ojama_production age173ur9j9j0ezfmqxx66kcsltq5aykerjaykhynteaha6fpl7jzcgqwqfvy4
 creation_rules:
 - path_regex: ^secrets/local.yaml$
   key_groups:
@@ -19,3 +20,4 @@ creation_rules:
   key_groups:
     - age:
       - *admin_john
+      - *ojama_production
