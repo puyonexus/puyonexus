@@ -198,7 +198,7 @@ in
               cd ${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki
               while true; do
                 echo "[mwjobrunner]: Running jobs."
-                php ${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki/maintenance/run.php runJobs --wait --maxjobs=5 || echo "Ignoring PHP crash."
+                php -d memory_limit=512M ${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki/maintenance/run.php runJobs --wait --maxjobs=5 || echo "Ignoring PHP crash."
                 echo "[mwjobrunner]: Done, sleeping."
                 sleep 1
               done
