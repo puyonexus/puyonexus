@@ -28,7 +28,7 @@ in
         smtp = {
           enabled = true;
           from_name = "Puyo Nexus Grafana";
-          from_address = "grafana@${config.puyonexus.domain.root}";
+          from_address = "grafana@${config.puyonexus.mail.domain}";
         };
       };
 
