@@ -134,6 +134,13 @@ in
       };
     };
 
+    systemd.services.redis-wiki.serviceConfig = {
+      Restart = "always";
+      RestartSec = 1;
+      RestartSteps = 5;
+      RestartMaxDelaySec = 10;
+    };
+
     sops.templates."puyonexus-wiki-localsettings.php" = {
       content = mkLocalSettings {
         inherit lib;
@@ -180,6 +187,8 @@ in
         Nice = 20;
         OOMScoreAdjust = 200;
         StandardOutput = "journal";
+        Restart = "always";
+        RestartSec = "1min";
         Type = "exec";
         ExecStart = ''${
           pkgs.writeShellApplication {
@@ -189,9 +198,9 @@ in
               cd ${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki
               while true; do
                 echo "[mwjobrunner]: Running jobs."
-                php ${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki/maintenance/run.php runJobs --wait --maxjobs=100
+                php ${pkgs.puyonexusPackages.wiki}/share/php/puyonexus-wiki/maintenance/run.php runJobs --wait --maxjobs=5 || echo "Ignoring PHP crash."
                 echo "[mwjobrunner]: Done, sleeping."
-                sleep 0.5
+                sleep 1
               done
             '';
           }
