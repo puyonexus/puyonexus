@@ -40,7 +40,7 @@
       settings = {
         "listen.owner" = config.services.nginx.user;
         "pm" = "dynamic";
-        "pm.max_children" = 75;
+        "pm.max_children" = 25;
         "pm.start_servers" = 10;
         "pm.min_spare_servers" = 5;
         "pm.max_spare_servers" = 20;
