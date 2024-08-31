@@ -13,5 +13,6 @@
 
     # Use external MTA in staging
     puyonexus.mail.externalMta.enable = true;
+    puyonexus.mail.domain = "sandbox2cad93530245423fa4399fafb87f1f5e.mailgun.org";
   };
 }
