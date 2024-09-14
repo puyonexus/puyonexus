@@ -111,6 +111,11 @@ let
       rev = "f1687b749a8af6c91596ca25325fa4264e43bbae";
       hash = "sha256-BnzHwxmvLOf+9vkX2zEiR78coeoYxS8SwdWv/9kb7kw=";
     });
+    replaceText = mkExtension "ReplaceText" (fetchgit {
+      url = "https://gerrit.wikimedia.org/r/mediawiki/extensions/ReplaceText";
+      rev = "3450fd0f3209441213eb7924a1a35378a86d6f9a";
+      hash = "sha256-ClVPXS24KvJCqSL5a3yCZyRkDHt7TYKwFKQggTCy8wc=";
+    });
     scaledImage = mkExtension "ScaledImage" ./extensions/ScaledImage;
     spamBlacklist = mkExtension "SpamBlacklist" (fetchgit {
       url = "https://gerrit.wikimedia.org/r/mediawiki/extensions/SpamBlacklist";
@@ -210,6 +215,7 @@ php.buildComposerProject (finalAttrs: {
     ext.poem
     ext.puyoChain
     ext.renameuser
+    ext.replaceText
     ext.scaledImage
     ext.spamBlacklist
     ext.syntaxHighlight
