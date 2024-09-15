@@ -127,6 +127,11 @@ let
       rev = "e4fabbb7b4665e6066e931c5c48f39e0774c803a";
       hash = "sha256-B9AwpXZBSI5gQgv8b3m6rxPng2ajXMPTO5l7OPE3bII=";
     });
+    templateStyles = mkExtension "TemplateStyles" (fetchgit {
+      url = "https://gerrit.wikimedia.org/r/mediawiki/extensions/TemplateStyles";
+      rev = "8cb3a92f8b963ed317f5645d737dbed4df404e62";
+      hash = "sha256-T6IumsUW4nI79puZDifbAadd7YMkeGwVYmUdMtuELoY=";
+    });
     wikiEditor = mkExtension "WikiEditor" (fetchgit {
       url = "https://gerrit.wikimedia.org/r/mediawiki/extensions/WikiEditor";
       rev = "4859a5ed5e77965cdee1f489940fe6440306e273";
@@ -221,6 +226,7 @@ php.buildComposerProject (finalAttrs: {
     ext.scaledImage
     ext.spamBlacklist
     ext.syntaxHighlight
+    ext.templateStyles
     ext.wikiEditor
   ];
 
