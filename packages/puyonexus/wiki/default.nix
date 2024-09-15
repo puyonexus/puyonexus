@@ -48,6 +48,11 @@ let
       rev = "c5b39084ea772cf80d9d25e7e590a1aa63ac7676";
       hash = "sha256-bZCBeUKFZkTnb9/RXYHKFP1KKYE/YGMDbwQAIR7dTKc=";
     });
+    codeEditor = mkExtension "CodeEditor" (fetchgit {
+      url = "https://gerrit.wikimedia.org/r/mediawiki/extensions/CodeEditor";
+      rev = "549934791b8be819921e4d7910830dbd70c5f788";
+      hash = "sha256-5ubdgGlLzNgNLUTvzO8XiNKco5qTY2Jv+i0364wTbGo=";
+    });
     confirmEdit = mkExtension "ConfirmEdit" (fetchgit {
       url = "https://gerrit.wikimedia.org/r/mediawiki/extensions/ConfirmEdit";
       rev = "48757725a81a500c5121517ea7c72c6926279718";
@@ -185,7 +190,7 @@ php.buildComposerProject (finalAttrs: {
     runHook postPatch
   '';
 
-  vendorHash = "sha256-fuCb+SGrHKHcuzEiJ2bJEkR9YOP7DvtCpiUtEvLJylg=";
+  vendorHash = "sha256-d7NsCIQXcAotGVHKzIJ8TLf5yJjLW8Ox74jQs8NI+2A=";
   composerLock = ./composer.lock;
 
   composerRepository = php.mkComposerRepository {
@@ -209,6 +214,7 @@ php.buildComposerProject (finalAttrs: {
     ext.abuseFilter
     ext.checkUser
     ext.cite
+    ext.codeEditor
     ext.confirmEdit
     ext.embedVideo
     ext.gadgets
