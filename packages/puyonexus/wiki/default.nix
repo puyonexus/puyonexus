@@ -191,6 +191,8 @@ php.buildComposerProject (finalAttrs: {
       composerLock
       vendorHash
       version
+      extensions
+      skins
       ;
     composerNoDev = true;
     composerNoPlugins = false;
