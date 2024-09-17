@@ -20,9 +20,10 @@
                 all.redis
               ];
             extraConfig = ''
+              memory_limit = 192M
               apc.enable_cli = 1
-              opcache.enable_cli=1
-              opcache.jit_buffer_size=100M
+              opcache.enable_cli = 1
+              opcache.jit_buffer_size = 100M
             '';
           }
         );
