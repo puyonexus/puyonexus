@@ -15,8 +15,8 @@ php.buildComposerProject {
   src = fetchFromGitHub {
     owner = "puyonexus";
     repo = "puyosim";
-    rev = "aad1853bf61896924336e6607d44de5b90f60bab";
-    hash = "sha256-F/nmb3ScS9p3T+IjDt0LHJ+jDKspAu32NlYdOXJWVD8=";
+    rev = "f1d7e8a0b3060c6ca036f11ecae249c865703d95";
+    hash = "sha256-CuCjjw1ARt7pJRJ2Lws2mcyOkxghw8WUIGj52Msqk1Q=";
   };
 
   postPatch = ''
