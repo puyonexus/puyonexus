@@ -141,4 +141,11 @@ in
   $wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
   $wgDefaultUserOptions['wikieditor-preview'] = 1;
   $wgDefaultUserOptions['vector-collapsiblenav'] = 1;
+
+  # Misc
+  $wgTemplateStylesAllowedUrls['audio'] = ["<^/mediawiki/images/>"];
+  $wgTemplateStylesAllowedUrls['image'] = ["<^/mediawiki/images/>"];
+  $wgTemplateStylesAllowedUrls['svg'] = ["<^/mediawiki/images/>"];
+  $wgTemplateStylesAllowedUrls['font'] = [];
+  $wtTemplateStylesAllowedUrls['namespace'] = ["<.>"];
 ''
