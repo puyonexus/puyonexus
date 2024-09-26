@@ -6,10 +6,10 @@ groups:
   interval: 5m
   rules:
   - uid: a34f2752-193a-4b2a-b3d9-09f7ed8807d7
-    title: DiskWillFillIn1Day
-    condition: A
+    title: DiskAvailableBelowThreshold
+    condition: MinThreshold
     data:
-    - refId: A
+    - refId: DiskAvail
       relativeTimeRange:
         from: 600
         to: 0
@@ -19,18 +19,43 @@ groups:
           type: prometheus
           uid: prometheusDataSource
         editorMode: code
-        expr: predict_linear(node_filesystem_free_bytes{job="nodes", mountpoint="/"}[1h], 24 * 3600) < 0
-        hide: false
+        expr: node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}
         instant: true
         intervalMs: 1000
         legendFormat: __auto
         maxDataPoints: 43200
         range: false
-        refId: A
-    noDataState: OK
+        refId: DiskAvail
+    - refId: MinThreshold
+      relativeTimeRange:
+        from: 600
+        to: 0
+      datasourceUid: __expr__
+      model:
+        conditions:
+        - evaluator:
+            params:
+            - 0.15
+            type: lt
+          operator:
+            type: and
+          query:
+            params: []
+          reducer:
+            params: []
+            type: avg
+          type: query
+        datasource:
+            name: Expression
+            type: __expr__
+            uid: __expr__
+        expression: DiskAvail
+        hide: false
+        refId: MinThreshold
+        type: threshold
+    noDataState: NoData
     execErrState: Error
-    for: 30m
-    annotations: {}
+    for: 5m
     labels: {}
     isPaused: false
   - uid: d1563530-a1ac-4fe6-8103-e4751f49fa16
@@ -68,8 +93,7 @@ groups:
           operator:
             type: and
           query:
-            params:
-            - C
+            params: []
           reducer:
             params: []
             type: last
