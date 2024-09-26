@@ -35,9 +35,9 @@ groups:
     isPaused: false
   - uid: d1563530-a1ac-4fe6-8103-e4751f49fa16
     title: MemoryAvailableBelowThreshold
-    condition: C
+    condition: MinThreshold
     data:
-    - refId: A
+    - refId: MemAvail
       relativeTimeRange:
         from: 600
         to: 0
@@ -53,8 +53,8 @@ groups:
         legendFormat: __auto
         maxDataPoints: 43200
         range: false
-        refId: A
-    - refId: C
+        refId: MemAvail
+    - refId: MinThreshold
       relativeTimeRange:
         from: 600
         to: 0
@@ -77,10 +77,10 @@ groups:
         datasource:
           type: __expr__
           uid: __expr__
-        expression: A
+        expression: MemAvail
         intervalMs: 1000
         maxDataPoints: 43200
-        refId: C
+        refId: MinThreshold
         type: threshold
     noDataState: NoData
     execErrState: Error
