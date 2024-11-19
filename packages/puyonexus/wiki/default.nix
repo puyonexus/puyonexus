@@ -89,6 +89,11 @@ let
       rev = "48757725a81a500c5121517ea7c72c6926279718";
       hash = "sha256-MTv3OGxnemWYNSHCov8XdYVmKui3q3rMDsgdvRYqwsg=";
     };
+    echo = mkWikimediaExtension {
+      name = "Echo";
+      rev = "7491afeffdb5abc8e8a97d17c50d13c5fbc24cf4";
+      hash = "sha256-35FQl8qQRk79kYO0XGitZYwboqFIiw78aIR6+yD3Y7A=";
+    };
     embedVideo = mkExtension "EmbedVideo" (fetchFromGitHub {
       owner = "StarCitizenWiki";
       repo = "mediawiki-extensions-EmbedVideo";
@@ -167,6 +172,11 @@ let
       name = "TemplateStyles";
       rev = "8cb3a92f8b963ed317f5645d737dbed4df404e62";
       hash = "sha256-T6IumsUW4nI79puZDifbAadd7YMkeGwVYmUdMtuELoY=";
+    };
+    thanks = mkWikimediaExtension {
+      name = "Thanks";
+      rev = "2f2d137ffd6715a011756ada94696c65063ea2d2";
+      hash = "sha256-yOy/57aj3U52QPkI9FhBq+TVpuKL9EByAcr6t9ARnm4=";
     };
     wikiEditor = mkWikimediaExtension {
       name = "WikiEditor";
@@ -248,6 +258,7 @@ php.buildComposerProject (finalAttrs: {
     ext.cite
     ext.codeEditor
     ext.confirmEdit
+    ext.echo
     ext.embedVideo
     ext.gadgets
     ext.imageMap
@@ -265,6 +276,7 @@ php.buildComposerProject (finalAttrs: {
     ext.spamBlacklist
     ext.syntaxHighlight
     ext.templateStyles
+    ext.thanks
     ext.wikiEditor
   ];
 
