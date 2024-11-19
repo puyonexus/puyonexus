@@ -57,6 +57,7 @@ in
           };
         };
         limits_config = {
+          retention_period = "744h";
           reject_old_samples = true;
           reject_old_samples_max_age = "168h";
         };
@@ -65,6 +66,10 @@ in
           retention_period = "0s";
         };
         compactor = {
+          retention_enabled = true;
+          retention_delete_delay = "2h";
+          retention_delete_worker_count = 150;
+          delete_request_store = "filesystem";
           working_directory = "/var/lib/loki";
           compactor_ring = {
             kvstore = {
