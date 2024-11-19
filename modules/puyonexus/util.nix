@@ -66,27 +66,7 @@
 
             cd ${final.puyonexusPackages.wiki}/share/php/puyonexus-wiki
             echo "Running migrations."
-            sudo -u puyonexus env PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" php maintenance/run.php update.php
-
-            echo "Done."
-          '';
-        };
-
-        multiUpdateWiki = final.writeShellApplication {
-          name = "multi-update-wiki";
-
-          runtimeInputs = [ config.puyonexus.php.package ];
-
-          text = ''
-            set -euo pipefail
-
-            cd ${final.puyonexusPackages.wiki1_35}/share/php/puyonexus-wiki
-            echo "Running migrations for MediaWiki 1.35."
-            sudo -u puyonexus env PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" php maintenance/update.php
-
-            cd ${final.puyonexusPackages.wiki}/share/php/puyonexus-wiki
-            echo "Running migrations for MediaWiki 1.42."
-            sudo -u puyonexus env PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" php maintenance/run.php update.php
+            sudo -u puyonexus env PUYONEXUS_WIKI_LOCALSETTINGS_PATH="$PUYONEXUS_WIKI_LOCALSETTINGS_PATH" php maintenance/run.php update.php --quick "''${@}"
 
             echo "Done."
           '';
