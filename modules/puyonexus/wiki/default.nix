@@ -122,7 +122,6 @@ in
       pkgs.puyonexusPackages.wiki
       pkgs.initWiki
       pkgs.updateWiki
-      pkgs.multiUpdateWiki
     ];
 
     services.redis.servers.wiki = {

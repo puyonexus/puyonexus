@@ -35,14 +35,6 @@ SSH will be available on port 2222. You can log in using `ssh -p 2222 root@puyon
 
         (Restoring from backup may fail if you already initialized from scratch.)
 
-        Temporary: you will need to run the multi-stage migration for current Puyo Nexus production backups.
-
-        ```console
-        $ ssh -tp 2222 root@puyonexus.localhost multi-update-wiki
-        ```
-
-        The multi-stage migration is very slow.
-
 1. Puyo Nexus should be running locally. Try browsing to it via <http://puyonexus.localhost:8080>.
 
 > [!IMPORTANT]

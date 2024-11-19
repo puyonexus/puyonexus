@@ -12,7 +12,5 @@ lib.makeScope pkgs.newScope (
     home = callPackage ./home { };
 
     wiki = callPackage ./wiki { };
-
-    wiki1_35 = callPackage ./wiki1_35 { };
   }
 )

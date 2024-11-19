@@ -175,7 +175,6 @@
         forum = pkgs.puyonexusPackages.forum;
         home = pkgs.puyonexusPackages.home;
         wiki = pkgs.puyonexusPackages.wiki;
-        wiki1_35 = pkgs.puyonexusPackages.wiki1_35;
       };
 
       deploy = {
