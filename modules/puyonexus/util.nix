@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 {
   config = lib.mkIf config.puyonexus.php.enable {
     nixpkgs.overlays = [
