@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchFromGitHub }:
+{ stdenvNoCC }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "puyonexus-home";
   version = "unstable";

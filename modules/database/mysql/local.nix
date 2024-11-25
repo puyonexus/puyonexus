@@ -29,6 +29,17 @@ in
         }
       ];
     };
+    # Always restart MySQL aggressively.
+    systemd.services.mysql = {
+      startLimitIntervalSec = 0;
+      unitConfig = {
+        Restart = "always";
+        RestartSec = 10;
+        # MySQL is almost always the wrong OOM target.
+        # Force OOM killer to heavily consider other targets.
+        OOMScoreAdjust = -800;
+      };
+    };
 
     puyonexus.wiki.mysql.server = "localhost:/run/mysqld/mysqld.sock";
     puyonexus.chainsim.database.dsn = "mysql:unix_socket=/run/mysqld/mysqld.sock;dbname=puyonexus";

@@ -79,6 +79,14 @@ in
         };
       };
     };
+    # Always restart Nginx aggressively.
+    systemd.services.nginx = {
+      startLimitIntervalSec = 0;
+      unitConfig = {
+        Restart = "always";
+        RestartSec = 3;
+      };
+    };
     networking.firewall.allowedTCPPorts = [
       cfg.httpPort
     ] ++ lib.optionals cfg.useHttps [ cfg.httpsPort ];

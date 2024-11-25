@@ -180,11 +180,12 @@ in
       environment = {
         inherit (config.environment.variables) PUYONEXUS_WIKI_LOCALSETTINGS_PATH;
       };
+      startLimitIntervalSec = 0;
       serviceConfig = {
         ProtectSystem = "full";
         User = config.users.users.puyonexus.name;
         Nice = 20;
-        OOMScoreAdjust = 200;
+        OOMScoreAdjust = 250;
         StandardOutput = "journal";
         Restart = "always";
         RestartSec = "1min";

@@ -1,6 +1,4 @@
 {
-  lib,
-  stdenv,
   fetchFromGitHub,
   php,
   writeText,

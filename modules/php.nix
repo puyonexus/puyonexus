@@ -41,11 +41,22 @@
       settings = {
         "listen.owner" = config.services.nginx.user;
         "pm" = "dynamic";
-        "pm.max_children" = 25;
+        "pm.max_children" = 20;
         "pm.start_servers" = 10;
         "pm.min_spare_servers" = 5;
-        "pm.max_spare_servers" = 20;
+        "pm.max_spare_servers" = 15;
         "pm.max_requests" = 500;
+      };
+    };
+    # Always restart PHP-FPM aggressively.
+    systemd.services.phpfpm-www = {
+      startLimitIntervalSec = 0;
+      unitConfig = {
+        Restart = "always";
+        RestartSec = 3;
+        # PHP-FPM is a likely OOM target, but it is de-prioritized for OOM
+        # killing because killing FPM processes directly impacts the user.
+        OOMScoreAdjust = 100;
       };
     };
   };

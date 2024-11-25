@@ -2,7 +2,6 @@
   stdenvNoCC,
   writeText,
   fetchurl,
-  fetchFromGitHub,
   unzip,
 }:
 let
