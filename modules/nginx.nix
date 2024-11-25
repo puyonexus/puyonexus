@@ -81,7 +81,7 @@ in
     };
     # Always restart Nginx aggressively.
     systemd.services.nginx = {
-      startLimitIntervalSec = 0;
+      startLimitIntervalSec = lib.mkForce 0;
       unitConfig = {
         Restart = "always";
         RestartSec = 3;
