@@ -129,7 +129,7 @@ in
       user = config.users.users.puyonexus.name;
       settings = {
         maxmemory = "512mb";
-        maxmemory-policy = "volatile-lru";
+        maxmemory-policy = "allkeys-lru";
       };
     };
 
