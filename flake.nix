@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,20 +29,6 @@
       localOverlay = import ./packages/overlay.nix;
       rev = self.shortRev or self.dirtyShortRev;
       overlays = [
-        (final: prev: {
-          # Workaround for an obscure issue in build-vm with nixos-24.05.
-          pipewire = prev.pipewire.overrideAttrs (prevAttrs: {
-            version = "1.2.1";
-            mesonFlags = prevAttrs.mesonFlags ++ [ (final.lib.mesonEnable "snap" false) ];
-            src = final.fetchFromGitLab {
-              domain = "gitlab.freedesktop.org";
-              owner = "pipewire";
-              repo = "pipewire";
-              rev = "1.2.1";
-              sha256 = "sha256-CkxsVD813LbWpuZhJkNLJnqjLF6jmEn+CajXb2XTCsY=";
-            };
-          });
-        })
         inputsOverlay
         localOverlay
       ];
