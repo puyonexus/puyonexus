@@ -69,6 +69,16 @@ let
       rev = "62ed8bc1cd1db365830513298514e01a252687b6";
       hash = "sha256-EnhaKMz/Hvo6gYb0Ji7n+gv9aIO0X+gweS6lTUes4Jc=";
     };
+    cargo = mkWikimediaExtension {
+      name = "Cargo";
+      rev = "b31b62b256a02e156dd3c4a63ca739b0e238e939";
+      hash = "sha256-JFDVc/Ifax1cnepE7+iWFTPYBGuhOF6bBHG+S76DBkA=";
+    };
+    categoryTree = mkWikimediaExtension {
+      name = "CategoryTree";
+      rev = "a3cbce6dccc678266d84f43b8fdc9f9a06c08be9";
+      hash = "sha256-TiP4N2cGOKViPhQoutew4ADFKEhD9Hjxo2MwE9CkwCg=";
+    };
     checkUser = mkWikimediaExtension {
       name = "CheckUser";
       rev = "43d777d0a8334eaff31994b92f4290efc50fc5df";
@@ -254,6 +264,8 @@ php.buildComposerProject (finalAttrs: {
 
   extensions = [
     ext.abuseFilter
+    ext.cargo
+    ext.categoryTree
     ext.checkUser
     ext.cite
     ext.codeEditor
