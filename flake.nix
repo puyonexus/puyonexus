@@ -139,12 +139,61 @@
               # Backup database.
               ssh "root@''${host}" \
                 sh -c \${"''"}mysqldump --opt --single-transaction --max-allowed-packet=512M --compress puyonexus | zstd'\' \
-              > "''${BACKUP_DIR}/puyonexus.sql.zstd"
+                  > "''${BACKUP_DIR}/puyonexus.sql.zstd"
 
               # Backup data directory afterwards.
               # That way, the data folder is always up-to-date with the DB.
               # (Files *could* get deleted in-between, but files are rarely deleted.)
               rsync -rav "root@''${host}:/data" "''${BACKUP_DIR}"
+            ''
+          );
+        };
+
+        restore = {
+          type = "app";
+          program = toString (
+            pkgs.writers.writeBash "restore-puyonexus" ''
+              set -e
+
+              if [ "$#" != "2" ] || [ "$1" == "--help" ]; then
+                echo "Usage: $0 <host> <backup>"
+              fi
+
+              host="$1"
+              backup="$(readlink -f "$2")"
+
+              if [ ! -f "''${backup}/puyonexus.sql.zstd" ]; then
+                echo "Database backup missing"
+                exit 1
+              fi
+
+              if [ ! -d "''${backup}/data" ]; then
+                echo "Storage backup missing"
+                exit 1
+              fi
+
+              # Confirmation prompt
+              echo "Will attempt to restore backup ''${backup} to host ''${host}."
+              read -p "Is this OK? (y/N): " -n 1 -r
+              echo
+              if [[ ! $REPLY =~ ^[Yy]$ ]]
+              then
+                echo "Aborting."
+                exit 1
+              fi
+
+              # Restore data directory.
+              set -x
+              rsync -rav \
+                --update \
+                --chown=puyonexus:users \
+                --chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r \
+                "''${backup}/data" "root@''${host}:/"
+
+              # Restore database.
+              ${pkgs.lib.getExe pkgs.pv} "''${backup}/puyonexus.sql.zstd" | \
+                ssh "root@''${host}" \
+                  sh -c \${"''"}zstd -d | mysql --database puyonexus --compress'\'
             ''
           );
         };
