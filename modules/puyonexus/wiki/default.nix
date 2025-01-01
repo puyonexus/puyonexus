@@ -68,6 +68,7 @@ in
 
   config = lib.mkIf cfg.enable {
     puyonexus.php.enable = true;
+    puyonexus.wiki.enableEmail = lib.mkDefault true;
 
     sops.secrets = {
       "wiki/secretKey" = { };
