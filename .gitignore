@@ -1,4 +1,5 @@
 /result
+/backup
 *.kate-swp
 *.qcow2
 *.sql

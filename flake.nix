@@ -60,7 +60,7 @@
       ];
     in
     {
-      apps."${system}" = rec {
+      apps."${system}" = {
         deployHostKeys = {
           type = "app";
           program = toString (
@@ -114,6 +114,37 @@
               "${self.nixosConfigurations."vm.ojama.local".config.system.build.vm}/bin/run-ojama-vm" \
                 -virtfs local,path=$PWD/data,security_model=none,mount_tag=puyonexus-data \
                 -display none
+            ''
+          );
+        };
+
+        backup = {
+          type = "app";
+          program = toString (
+            pkgs.writers.writeBash "backup-puyonexus" ''
+              set -e
+
+              if [ "$#" != "1" ] || [ "$1" == "--help" ]; then
+                echo "Usage: $0 <host>"
+                exit 1
+              fi
+
+              host="$1"
+
+              BACKUP_NAME="$(date +"%Y%m%dT%H%M%S")"
+              BACKUP_DIR="''${PWD}/backup/''${host}/''${BACKUP_NAME}"
+              mkdir -p "''${BACKUP_DIR}"
+              echo "''${BACKUP_DIR}"
+
+              # Backup database.
+              ssh "root@''${host}" \
+                sh -c \${"''"}mysqldump --opt --single-transaction --max-allowed-packet=512M --compress puyonexus | zstd'\' \
+              > "''${BACKUP_DIR}/puyonexus.sql.zstd"
+
+              # Backup data directory afterwards.
+              # That way, the data folder is always up-to-date with the DB.
+              # (Files *could* get deleted in-between, but files are rarely deleted.)
+              rsync -rav "root@''${host}:/data" "''${BACKUP_DIR}"
             ''
           );
         };
