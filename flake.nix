@@ -40,6 +40,12 @@
           "staging"
           "production"
         ];
+        modifier = [
+          null
+          "upgrade"
+          "maintenancePlanned"
+          "maintenanceUnplanned"
+        ];
       };
       machineEnvironmentModules = machine: environment: [
         (./modules/environment + "/${environment}")
@@ -201,15 +207,34 @@
 
       nixosConfigurations =
         let
-          inherit (nixpkgs.lib) mapCartesianProduct nameValuePair nixosSystem;
+          inherit (nixpkgs.lib)
+            mapCartesianProduct
+            nameValuePair
+            nixosSystem
+            optionals
+            singleton
+            ;
           mkSystems =
-            key: modules:
+            platform: systemModules:
             builtins.listToAttrs (
               mapCartesianProduct (
-                { machine, environment }:
-                nameValuePair "${key}.${machine}.${environment}" (nixosSystem {
+                {
+                  machine,
+                  environment,
+                  modifier,
+                }:
+                let
+                  name = "${platform}-${machine}-${environment}${
+                    pkgs.lib.optionalString (modifier != null) "-${modifier}"
+                  }";
+                  modifierModules = optionals (modifier != null) (
+                    singleton (./modules/modifiers + "/${modifier}.nix")
+                  );
+                  modules = (machineEnvironmentModules machine environment) ++ modifierModules ++ systemModules;
+                in
+                nameValuePair name (nixosSystem {
                   system = "x86_64-linux";
-                  modules = (machineEnvironmentModules machine environment) ++ modules;
+                  inherit modules;
                 })
               ) configMatrix
             );
@@ -243,34 +268,68 @@
         wiki = pkgs.puyonexusPackages.wiki;
       };
 
-      deploy = {
-        user = "root";
-        sshUser = "root";
-        nodes = {
-          ojamaLocal = {
-            sshOpts = [
-              "-p"
-              "2222"
-            ];
-            hostname = "puyonexus.localhost";
-            profiles.system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."vm.ojama.local";
+      deploy =
+        let
+          inherit (nixpkgs.lib)
+            nameValuePair
+            ;
+          mkMachineNodes =
+            {
+              platform,
+              machine,
+              environment,
+              hostname,
+              extraArgs ? { },
+            }:
+            builtins.listToAttrs (
+              map (
+                modifier:
+                let
+                  name = "${platform}-${machine}-${environment}${
+                    pkgs.lib.optionalString (modifier != null) "-${modifier}"
+                  }";
+                in
+                nameValuePair name (
+                  extraArgs
+                  // {
+                    inherit hostname;
+                    profiles.system = {
+                      path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${name}";
+                    };
+                  }
+                )
+              ) configMatrix.modifier
+            );
+        in
+        {
+          user = "root";
+          sshUser = "root";
+          nodes =
+            mkMachineNodes {
+              platform = "vm";
+              machine = "ojama";
+              environment = "local";
+              hostname = "puyonexus.localhost";
+              extraArgs = {
+                sshOpts = [
+                  "-p"
+                  "2222"
+                ];
+              };
+            }
+            // mkMachineNodes {
+              platform = "do";
+              machine = "ojama";
+              environment = "staging";
+              hostname = "ojama.puyonexus-staging.com";
+            }
+            // mkMachineNodes {
+              platform = "do";
+              machine = "ojama";
+              environment = "production";
+              hostname = "ojama.puyonexus.com";
             };
-          };
-          ojamaStaging = {
-            hostname = "ojama.puyonexus-staging.com";
-            profiles.system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."do.ojama.staging";
-            };
-          };
-          ojamaProduction = {
-            hostname = "ojama.puyonexus.com";
-            profiles.system = {
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."do.ojama.production";
-            };
-          };
         };
-      };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };

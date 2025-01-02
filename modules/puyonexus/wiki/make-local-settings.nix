@@ -16,6 +16,7 @@
   smtpPassword,
   redisSocket ? null,
   enableEmail,
+  maintenanceMessage ? null,
 }:
 let
   mkNowDoc = value: "<<<'ENDVAL'\n${value}\nENDVAL";
@@ -28,6 +29,21 @@ in
   $wgStylePath = ${mkNowDoc "${server}${scriptPath}/skins"};
   $wgArticlePath = '${path}/$1';
   $wgLogo = '/images/wiki/logo.png';
+
+  ${lib.optionalString (maintenanceMessage != null) ''
+    # MAINTENANCE MODE
+    # --
+    # Set read-only outside of CLI so we can still update the database/etc.
+    # https://www.mediawiki.org/wiki/Manual:$wgReadOnly
+    $wgReadOnly = ( PHP_SAPI === 'cli' ) ? false : ${mkNowDoc maintenanceMessage};
+    ${lib.optionalString (redisSocket == null) ''
+      # There is no Redis cache available: maintenance mode will disable caching.
+      # https://www.mediawiki.org/wiki/Manual:$wgReadOnly#DB_caching
+      $wgMessageCacheType = $wgMainCacheType = $wgParserCacheType = $wgSessionCacheType = CACHE_NONE;
+      $wgLocalisationCacheConf['storeClass'] = 'LCStoreNull';
+    ''}
+    # --
+  ''}
 
   # General Configuration
   $wgSitename = 'Puyo Nexus Wiki';

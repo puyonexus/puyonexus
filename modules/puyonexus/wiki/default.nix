@@ -22,6 +22,10 @@ in
         type = lib.types.str;
         default = "/wiki";
       };
+      maintenanceMessage = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+      };
       scriptPath = lib.mkOption {
         type = lib.types.str;
         default = "/mediawiki";
