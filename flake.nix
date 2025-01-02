@@ -117,7 +117,7 @@
               echo "Login with SSH: ssh -p 2222 root@puyonexus.localhost"
               echo "Hit Ctrl+C to shut down."
               echo "If your VM is corrupted, delete ojama.qcow2 to reset it."
-              "${self.nixosConfigurations."vm.ojama.local".config.system.build.vm}/bin/run-ojama-vm" \
+              "${self.nixosConfigurations."vm-ojama-local".config.system.build.vm}/bin/run-ojama-vm" \
                 -virtfs local,path=$PWD/data,security_model=none,mount_tag=puyonexus-data \
                 -display none
             ''
