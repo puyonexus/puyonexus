@@ -24,6 +24,12 @@
       ...
     }@inputs:
     let
+      inherit (nixpkgs.lib)
+        mapCartesianProduct
+        nameValuePair
+        nixosSystem
+        makeOverridable
+        ;
       system = "x86_64-linux";
       inputsOverlay = (final: prev: { inherit inputs; });
       localOverlay = import ./packages/overlay.nix;
@@ -33,6 +39,51 @@
         localOverlay
       ];
       pkgs = import nixpkgs { inherit system overlays; };
+      configurationModules =
+        { machine, environment }:
+        [
+          (./modules/environment + "/${environment}")
+          (./modules/machine + "/${machine}")
+          sops-nix.nixosModules.sops
+          { nixpkgs.overlays = pkgs.lib.mkBefore overlays; }
+          (
+            { lib, ... }:
+            {
+              options = {
+                puyonexus.rev = lib.mkOption { type = lib.types.nullOr lib.types.str; };
+              };
+              config = {
+                puyonexus.rev = rev;
+              };
+            }
+          )
+        ];
+      mkSystem = makeOverridable (
+        {
+          machine,
+          environment,
+          modules ? [ ],
+        }:
+        nixosSystem {
+          system = "x86_64-linux";
+          modules =
+            modules
+            ++ (configurationModules {
+              inherit machine environment;
+            });
+        }
+      );
+      mkSystemWithModules =
+        extraModules:
+        config@{
+          modules ? [ ],
+          ...
+        }:
+        mkSystem (config // { modules = modules ++ extraModules; });
+      mkSystemForPlatform = {
+        vm = mkSystemWithModules [ ./modules/qemu-vm.nix ];
+        do = mkSystemWithModules [ (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix") ];
+      };
       configMatrix = {
         machine = [ "ojama" ];
         environment = [
@@ -40,30 +91,25 @@
           "staging"
           "production"
         ];
-        modifier = [
-          null
-          "upgrade"
-          "maintenancePlanned"
-          "maintenanceUnplanned"
-        ];
+        platform = builtins.attrNames mkSystemForPlatform;
       };
-      machineEnvironmentModules = machine: environment: [
-        (./modules/environment + "/${environment}")
-        (./modules/machine + "/${machine}")
-        sops-nix.nixosModules.sops
-        { nixpkgs.overlays = pkgs.lib.mkBefore overlays; }
-        (
-          { lib, ... }:
+      configurations = builtins.listToAttrs (
+        mapCartesianProduct (
           {
-            options = {
-              puyonexus.rev = lib.mkOption { type = lib.types.nullOr lib.types.str; };
-            };
-            config = {
-              puyonexus.rev = rev;
-            };
-          }
-        )
-      ];
+            machine,
+            environment,
+            platform,
+          }:
+          let
+            name = "${platform}-${machine}-${environment}";
+          in
+          nameValuePair name (
+            mkSystemForPlatform."${platform}" {
+              inherit machine environment;
+            }
+          )
+        ) configMatrix
+      );
     in
     {
       apps."${system}" = {
@@ -205,53 +251,15 @@
         };
       };
 
-      nixosConfigurations =
-        let
-          inherit (nixpkgs.lib)
-            mapCartesianProduct
-            nameValuePair
-            nixosSystem
-            optionals
-            singleton
-            ;
-          mkSystems =
-            platform: systemModules:
-            builtins.listToAttrs (
-              mapCartesianProduct (
-                {
-                  machine,
-                  environment,
-                  modifier,
-                }:
-                let
-                  name = "${platform}-${machine}-${environment}${
-                    pkgs.lib.optionalString (modifier != null) "-${modifier}"
-                  }";
-                  modifierModules = optionals (modifier != null) (
-                    singleton (./modules/modifiers + "/${modifier}.nix")
-                  );
-                  modules = (machineEnvironmentModules machine environment) ++ modifierModules ++ systemModules;
-                in
-                nameValuePair name (nixosSystem {
-                  system = "x86_64-linux";
-                  inherit modules;
-                })
-              ) configMatrix
-            );
-          vm = mkSystems "vm" [ ./modules/qemu-vm.nix ];
-          do = mkSystems "do" [ (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix") ];
-        in
-        vm
-        // do
-        // {
-          base = nixosSystem {
-            system = "x86_64-linux";
-            modules = [
-              ./modules/machine/base
-              (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix")
-            ];
-          };
+      nixosConfigurations = configurations // {
+        base = nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./modules/machine/base
+            (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix")
+          ];
         };
+      };
 
       packages."${system}" = {
         digitalOceanImage = nixos-generators.nixosGenerate {
@@ -270,65 +278,46 @@
 
       deploy =
         let
-          inherit (nixpkgs.lib)
-            nameValuePair
-            ;
-          mkMachineNodes =
-            {
-              platform,
-              machine,
-              environment,
-              hostname,
-              extraArgs ? { },
-            }:
-            builtins.listToAttrs (
-              map (
-                modifier:
-                let
-                  name = "${platform}-${machine}-${environment}${
-                    pkgs.lib.optionalString (modifier != null) "-${modifier}"
-                  }";
-                in
-                nameValuePair name (
-                  extraArgs
-                  // {
-                    inherit hostname;
-                    profiles.system = {
-                      path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${name}";
-                    };
-                  }
-                )
-              ) configMatrix.modifier
-            );
+          addModules =
+            extraModules: system:
+            system.override (prev: {
+              modules = (prev.modules or [ ]) ++ extraModules;
+            });
         in
         {
           user = "root";
           sshUser = "root";
-          nodes =
-            mkMachineNodes {
-              platform = "vm";
-              machine = "ojama";
-              environment = "local";
+          nodes = {
+            ojamaLocal = {
+              sshOpts = [
+                "-p"
+                "2222"
+              ];
               hostname = "puyonexus.localhost";
-              extraArgs = {
-                sshOpts = [
-                  "-p"
-                  "2222"
-                ];
+              profiles.system = {
+                path = deploy-rs.lib.x86_64-linux.activate.nixos (
+                  addModules [ ] self.nixosConfigurations."vm-ojama-local"
+                );
               };
-            }
-            // mkMachineNodes {
-              platform = "do";
-              machine = "ojama";
-              environment = "staging";
-              hostname = "ojama.puyonexus-staging.com";
-            }
-            // mkMachineNodes {
-              platform = "do";
-              machine = "ojama";
-              environment = "production";
-              hostname = "ojama.puyonexus.com";
             };
+            ojamaStaging = {
+              hostname = "ojama.puyonexus-staging.com";
+              profiles.system = {
+                path = deploy-rs.lib.x86_64-linux.activate.nixos (
+                  addModules [
+                  ] self.nixosConfigurations."do-ojama-staging"
+                );
+              };
+            };
+            ojamaProduction = {
+              hostname = "ojama.puyonexus.com";
+              profiles.system = {
+                path = deploy-rs.lib.x86_64-linux.activate.nixos (
+                  addModules [ ] self.nixosConfigurations."do-ojama-production"
+                );
+              };
+            };
+          };
         };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;

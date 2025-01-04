@@ -164,6 +164,7 @@ in
         redisSocket = config.services.redis.servers.wiki.unixSocket;
         uploadDir = cfg.imagesDir;
         enableEmail = cfg.enableEmail;
+        maintenanceMessage = cfg.maintenanceMessage;
       };
       owner = config.users.users.puyonexus.name;
     };
