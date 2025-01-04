@@ -29,4 +29,4 @@ jobs:
       - name: Run Nix flake checks
         run: nix flake check
       - name: Build test VM setup
-        run: nix build .#nixosConfigurations.'"vm.ojama.local"'.config.system.build.vm
+        run: nix build .#nixosConfigurations.vm-ojama-local.config.system.build.vm
