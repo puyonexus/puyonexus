@@ -5,6 +5,7 @@
   writeText,
   php,
   callPackage,
+  jq,
 }:
 let
   fetchWikimediaModule =
@@ -66,202 +67,157 @@ let
   ext = {
     abuseFilter = mkWikimediaExtension {
       name = "AbuseFilter";
-      rev = "62ed8bc1cd1db365830513298514e01a252687b6";
-      hash = "sha256-EnhaKMz/Hvo6gYb0Ji7n+gv9aIO0X+gweS6lTUes4Jc=";
+      rev = "741d83bbb693261d68bd3e54ad83ec9a51e45c32";
+      hash = "sha256-2SUalWDI25QBOZ47/hfBaolCFohepJRXxiStc++2SDg=";
     };
     cargo = mkWikimediaExtension {
       name = "Cargo";
-      rev = "b31b62b256a02e156dd3c4a63ca739b0e238e939";
-      hash = "sha256-JFDVc/Ifax1cnepE7+iWFTPYBGuhOF6bBHG+S76DBkA=";
+      rev = "19ab7cbac964728c575bd4ebb75f700f7b633c30";
+      hash = "sha256-965B6IAuTHEj/oVaUik7oO4fq+OLiRtSOdPOfCAqCh4=";
     };
     categoryTree = mkWikimediaExtension {
       name = "CategoryTree";
-      rev = "a3cbce6dccc678266d84f43b8fdc9f9a06c08be9";
-      hash = "sha256-TiP4N2cGOKViPhQoutew4ADFKEhD9Hjxo2MwE9CkwCg=";
+      rev = "312e5b12347a1d83a738be19cbc153d3e8f780b5";
+      hash = "sha256-xOW2LxfduyVQZqTIqf0niR5G/MjM12kaUTK3Pd+EufY=";
     };
     checkUser = mkWikimediaExtension {
       name = "CheckUser";
-      rev = "43d777d0a8334eaff31994b92f4290efc50fc5df";
-      hash = "sha256-H1HXCUzSdsuyttvwGTMIiaimRQtcGsW1CGco4UnW8i8=";
+      rev = "3a20e8a0c5f9749f9c7b983088d2cb4a2847c001";
+      hash = "sha256-L0rzT5A8rGHQ4NEFLe7jbH66qsXpCNlGprNc71RHV2Q=";
     };
     cite = mkWikimediaExtension {
       name = "Cite";
-      rev = "c5b39084ea772cf80d9d25e7e590a1aa63ac7676";
-      hash = "sha256-bZCBeUKFZkTnb9/RXYHKFP1KKYE/YGMDbwQAIR7dTKc=";
+      rev = "fd6a69c68a8273f2651ed7a3cebb94df8b13ad18";
+      hash = "sha256-6J6rXj/YctTQdGTNkV/QxJHrE0wb0pphA19IWwp3DRE=";
     };
     codeEditor = mkWikimediaExtension {
       name = "CodeEditor";
-      rev = "549934791b8be819921e4d7910830dbd70c5f788";
-      hash = "sha256-5ubdgGlLzNgNLUTvzO8XiNKco5qTY2Jv+i0364wTbGo=";
+      rev = "28fd08b1ef466e33b435d5aba9211470680f9d01";
+      hash = "sha256-lUeXcH9k1sfZYDmhTSrJBB6Y+ObRgJpeyQigeTaHHB4=";
     };
     confirmEdit = mkWikimediaExtension {
       name = "ConfirmEdit";
-      rev = "48757725a81a500c5121517ea7c72c6926279718";
-      hash = "sha256-MTv3OGxnemWYNSHCov8XdYVmKui3q3rMDsgdvRYqwsg=";
+      rev = "1513e74d894d04d20a1d9bc6fcff5d56bb63b1e2";
+      hash = "sha256-WlDwg1f0N6d2GIUoctqMdxqAmze6D0Bu19YeN1Iwj6c=";
     };
     echo = mkWikimediaExtension {
       name = "Echo";
-      rev = "7491afeffdb5abc8e8a97d17c50d13c5fbc24cf4";
-      hash = "sha256-35FQl8qQRk79kYO0XGitZYwboqFIiw78aIR6+yD3Y7A=";
+      rev = "25521c5fc752d0d08f2e22a3d2d0a526dd2fffaf";
+      hash = "sha256-xNHlXjPAF18NQMGykS8BeOPu+5lrCMI9nSaA3kmmTV0=";
     };
     embedVideo = mkExtension "EmbedVideo" (fetchFromGitHub {
       owner = "StarCitizenWiki";
       repo = "mediawiki-extensions-EmbedVideo";
-      rev = "v3.4.2";
-      hash = "sha256-GN6Lhf0mcyzLDLzn8UhxLCdLH7sYtzVuOIbCBMK8wj0=";
+      rev = "v3.4.3";
+      hash = "sha256-GcEZA27eESfA4qmOPEAaGP1buzdo3iCj+wkUzLRFxmM=";
     });
     gadgets = mkWikimediaExtension {
       name = "Gadgets";
-      rev = "3f446f9c46822edfacf93ff15afb4670a5ce6687";
-      hash = "sha256-HEogi28zYg3fYT5hkK4mRhsBU3bu8nC07ME1Rs69bAE=";
+      rev = "d953121a2d649cb5bbffce22294f404caafc1508";
+      hash = "sha256-3DH/P7HyEWzWb+O5UOSOCXQ4lzcM4Xmpr/o2sHDfosI=";
     };
     imageMap = mkWikimediaExtension {
       name = "ImageMap";
-      rev = "832faa7c7a945d318312dfcc6c0174767cc5a50c";
-      hash = "sha256-oSaalATJCzsRiNM2x/lVH1owhgu8/fxhV3efuur6gRY=";
+      rev = "727266f88cd580f5f8b39937299fb263f3f8d1c6";
+      hash = "sha256-92VWJ23w1EMkUe1KfEESGNWm5gGMm7683qguPIswnf8=";
     };
     inputBox = mkWikimediaExtension {
       name = "InputBox";
-      rev = "b780b8e31b8537a3598eeea9b1efb20a40813e67";
-      hash = "sha256-A1+5dAazhAiOdyly+P/AUFWbcu57iyKFTlyHb8RnMEY=";
+      rev = "0d97c546b1a7a15daadf069670ee1416a88e56e3";
+      hash = "sha256-PbvdBJFdGW32ITpnsXtNusZWM31dN2XX0v/gsVBS9fo=";
     };
     math = mkWikimediaExtension {
       name = "Math";
-      rev = "8a0bc1400e4a75e3853e2787037927316800ec8e";
-      hash = "sha256-DS3vhpwgEZ4H0aKSknN7QPf/z5I+2g4cx4zrB1ZEKvQ=";
+      rev = "fe886ea3e989ec1aa0488396c1fe463882804b94";
+      hash = "sha256-7ANfPks1PrS2ltUYYdS4JAZqpewLrblIpxOM9o6T/uw=";
     };
     moderation = mkExtension "Moderation" (fetchFromGitHub {
       owner = "edwardspec";
       repo = "mediawiki-moderation";
-      rev = "v1.8.9";
-      hash = "sha256-aZZUlFqh831A+ICXh8VzvEHcafG+vCNo3hE267EyG08=";
+      rev = "v1.8.22";
+      hash = "sha256-qaubRQlSxlPso5ZEOuGdEM1bGfbmdntW7B17jyvGmaI=";
     });
     msUpload = mkWikimediaExtension {
       name = "MsUpload";
-      rev = "e8c2f23c46dfb56123115e1570485cee5b22edde";
-      hash = "sha256-d/aioNxoKdDfwJZN11MaSw5Sa+8T5dP8U4wWnf7+50s=";
+      rev = "c80f7fb08ae7330c641292dee7479ff0d4b2f032";
+      hash = "sha256-0GlOO75b7pP0k+FBrPx//ksP/EAT+5utD8gcwhu+M9Q=";
     };
     nuke = mkWikimediaExtension {
       name = "Nuke";
-      rev = "54a2121e0855e445c32f3b9630e4410e53536bf6";
-      hash = "sha256-88oMvnyhNofm0+19TSu9YwUpXQfb2cPgbb6jDUngLTQ=";
+      rev = "b52860fad87a49cf181c840f5c9be76b809850c4";
+      hash = "sha256-pPjdvoKFBkRWlec19XBjEINaoc5sXhK30XvH55EXfm4=";
     };
     parserFunctions = mkWikimediaExtension {
       name = "ParserFunctions";
-      rev = "ef17499879101f3100c214a3f9d696dc00570165";
-      hash = "sha256-2phLFNAtB8p8nsaXxw9dsQb6z1bKQuOavTsf/5UkVRo=";
+      rev = "20be20185a965fbe86f7b2d40c0ae0602e516ae9";
+      hash = "sha256-lHOe5S+khbIdDWC2PGAJT7BK0lrXiIpob6Kq6ujQYig=";
     };
     poem = mkWikimediaExtension {
       name = "Poem";
-      rev = "f18362eb6d4ca1aaa0a9cc528d483c9217d82c16";
-      hash = "sha256-BrNbD1jQPm/ec8tR3Li++olZgI6LwZVc0NIPGlo8nCw=";
+      rev = "d28b949f1aadbb53ea96f66b7b73240c1ecdfd74";
+      hash = "sha256-Z/UqEL2Hr2Zrga9P2AHqkuQVXUKd57uMe9x1LfefIS8=";
     };
     puyoChain = mkExtension "PuyoChain" ./extensions/PuyoChain;
     renameuser = mkWikimediaExtension {
       name = "Renameuser";
-      rev = "f1687b749a8af6c91596ca25325fa4264e43bbae";
-      hash = "sha256-BnzHwxmvLOf+9vkX2zEiR78coeoYxS8SwdWv/9kb7kw=";
+      rev = "d6a42621e8612f0dd15d608ec6140ff33d067ef0";
+      hash = "sha256-u8cz81K7d/XMrat8bA0U4hPZ4cm7/4bh92ZIXV0bzdw=";
     };
     replaceText = mkWikimediaExtension {
       name = "ReplaceText";
-      rev = "3450fd0f3209441213eb7924a1a35378a86d6f9a";
-      hash = "sha256-ClVPXS24KvJCqSL5a3yCZyRkDHt7TYKwFKQggTCy8wc=";
+      rev = "5fad974a9bdb9bd130ceec9c8ea0883ccf99fb50";
+      hash = "sha256-0psII8MVy3bp4ZlKhYIANYPMgU10eYvF74rrxCMfNeI=";
     };
     scaledImage = mkExtension "ScaledImage" ./extensions/ScaledImage;
     spamBlacklist = mkWikimediaExtension {
       name = "SpamBlacklist";
-      rev = "6f3fc80fcbd7406b8e451df96bc04f0a1f722541";
-      hash = "sha256-I+KQmeNNDondsd2Mtquow5jP4wJGfV0LR9kCBJLrefM=";
+      rev = "46c979dfca23e1c8219cf888ebebcb6544455f45";
+      hash = "sha256-u3ombB1kQyE/pLtJukTMfAeM/z+IKY9TrHUJfFobZ6E=";
     };
     syntaxHighlight = mkWikimediaExtension {
       name = "SyntaxHighlight_GeSHi";
-      rev = "e4fabbb7b4665e6066e931c5c48f39e0774c803a";
-      hash = "sha256-B9AwpXZBSI5gQgv8b3m6rxPng2ajXMPTO5l7OPE3bII=";
+      rev = "2e8fb3c42db2d04518afd37c1fe14ee251df2b75";
+      hash = "sha256-BsL04ep9TyR84NYMueu+am6CRHIhCIxPUcrmwtIg4uQ=";
     };
     templateStyles = mkWikimediaExtension {
       name = "TemplateStyles";
-      rev = "8cb3a92f8b963ed317f5645d737dbed4df404e62";
-      hash = "sha256-T6IumsUW4nI79puZDifbAadd7YMkeGwVYmUdMtuELoY=";
+      rev = "06c1e6fc12ac9ba16a755bc62d621e922b8ffda8";
+      hash = "sha256-zzKvUJTaoT2yK4KmZMGa8M9m6JZJfjQmEzl+xotaF/g=";
     };
     thanks = mkWikimediaExtension {
       name = "Thanks";
-      rev = "2f2d137ffd6715a011756ada94696c65063ea2d2";
-      hash = "sha256-yOy/57aj3U52QPkI9FhBq+TVpuKL9EByAcr6t9ARnm4=";
+      rev = "797242234aa45b5589f8b2ca928299bb8a8e05f5";
+      hash = "sha256-pB3Y/j9sk0Prsbm7HAD76kspR1+k7PpBfqcQ4iVIkBM=";
     };
     wikiEditor = mkWikimediaExtension {
       name = "WikiEditor";
-      rev = "4859a5ed5e77965cdee1f489940fe6440306e273";
-      hash = "sha256-qEdw9cE21QRwB6gbmC1UwEYBuMHOErA58tDWxE1yfX0=";
+      rev = "600f790ba8f31469fe71b6e24c1ea078b96ea398";
+      hash = "sha256-mcsP8f+NgX2LkxdMUTmul+pNL7eVlzPcmzrUCwSOPZU=";
     };
   };
   skin = {
     modern = mkWikimediaSkin {
       name = "Modern";
-      rev = "2a237ea7e4f49961b2492b66dfd3faba8d787253";
-      hash = "sha256-IZDWEOjkRqfZFkscAkjS02AkAj71wnCHkcMDVH32IPM=";
+      rev = "2c6912723fe21772ce564e526417976fb8316c47";
+      hash = "sha256-pGENIuCAalEi7J0tfjdQfvMSSdPFe3HCqBE0nx6n9/Y=";
     };
     vector = mkWikimediaSkin {
       name = "Vector";
-      rev = "02287c6b1cf9dfc0f391bd00e0bb481d3691adc5";
-      hash = "sha256-uKaOyU+33XAyBjVlZ5cUH+9INhpLuMn5hLUZ2uXsKS0=";
+      rev = "8cba83e9d342902f20f40db7cf0397891c0abbd5";
+      hash = "sha256-MD5izSINzkQw8OOwovHfDUDcag74w4kmCs/vwWFGlK0=";
     };
     vectorNexus = mkSkin "VectorNexus" (callPackage ./skins/VectorNexus/package.nix { });
     monoBook = mkWikimediaSkin {
       name = "MonoBook";
-      rev = "6b1adf8a5950102f19ca2125d6437843d669175c";
-      hash = "sha256-IwKQHV8Q6Mx1zmdoayOgcW9NQgAudC+tfuqwN3Q3PV0=";
+      rev = "b583f5fddcac4fae765337d41956511135e7c88c";
+      hash = "sha256-Tt7NoSbhk0GeUq0NF26z4ogHo5pnDiKcMjeYQBLiyhM=";
     };
     cologneBlue = mkWikimediaSkin {
       name = "CologneBlue";
-      rev = "dd4645e47a8b199ae98e46a3e3a3469bb9d14012";
-      hash = "sha256-7PCyy8KZ149Wa0x5woO0uWwvyaTOJkdcFFmCXIKIKjY=";
+      rev = "0a46bea23349cfd1136096550246334bd4584de3";
+      hash = "sha256-K4cboePaRjWjEyG76PVYllKmQNhXKTFNyJTo/H+FcW0=";
     };
   };
-in
-php.buildComposerProject (finalAttrs: {
-  pname = "puyonexus-wiki";
-  version = "1.42.1";
-
-  src = fetchFromGitHub {
-    owner = "Wikimedia";
-    repo = "mediawiki";
-    rev = "1.42.1";
-    hash = "sha256-tkVyhAHxYuikfy+HLcIYbsWII3+S67XZzwnnBVMEZSs=";
-  };
-
-  patchPhase = ''
-    runHook prePatch
-
-    for component in $extensions $skins;
-    do
-      cp -R $component/. .
-    done;
-    cp ${writeText "LocalSettings.php" finalAttrs.localSettings} LocalSettings.php
-    cp ${./composer.local.json} composer.local.json
-
-    runHook postPatch
-  '';
-
-  vendorHash = "sha256-d7NsCIQXcAotGVHKzIJ8TLf5yJjLW8Ox74jQs8NI+2A=";
-  composerLock = ./composer.lock;
-
-  composerRepository = php.mkComposerRepository {
-    inherit (finalAttrs)
-      pname
-      src
-      patchPhase
-      composerLock
-      vendorHash
-      version
-      extensions
-      skins
-      ;
-    composerNoDev = true;
-    composerNoPlugins = false;
-    composerNoScripts = true;
-    composerStrictValidation = true;
-  };
-
   extensions = [
     ext.abuseFilter
     ext.cargo
@@ -291,7 +247,6 @@ php.buildComposerProject (finalAttrs: {
     ext.thanks
     ext.wikiEditor
   ];
-
   skins = [
     skin.modern
     skin.vector
@@ -299,15 +254,14 @@ php.buildComposerProject (finalAttrs: {
     skin.monoBook
     skin.cologneBlue
   ];
-
   localSettings =
     let
       extName = ext: lib.strings.removePrefix "mediawiki-extensions-" ext.name;
       skinName = skin: lib.strings.removePrefix "mediawiki-skins-" skin.name;
       loadExt = ext: "wfLoadExtension('${extName ext}');";
       loadSkin = skin: "wfLoadSkin('${skinName skin}');";
-      loadExts = lib.strings.concatMapStringsSep "\n" loadExt finalAttrs.extensions;
-      loadSkins = lib.strings.concatMapStringsSep "\n" loadSkin finalAttrs.skins;
+      loadExts = lib.strings.concatMapStringsSep "\n" loadExt extensions;
+      loadSkins = lib.strings.concatMapStringsSep "\n" loadSkin skins;
     in
     ''
       <?php
@@ -330,4 +284,47 @@ php.buildComposerProject (finalAttrs: {
         }
       };
     '';
+in
+php.buildComposerProject2 (finalAttrs: {
+  pname = "puyonexus-wiki";
+  version = "1.42.6";
+
+  src = stdenvNoCC.mkDerivation {
+    name = "puyonexus-wiki-src";
+    src = fetchFromGitHub {
+      owner = "Wikimedia";
+      repo = "mediawiki";
+      rev = "1.42.6";
+      hash = "sha256-gyL/ljMKxZtXI5ukcZe2YXTUK9NFvjjvyMHMwMriQaU=";
+    };
+    buildPhase = "true";
+    installPhase = ''
+      mkdir -p $out
+      cp -R . $out
+      cd $out
+      for component in ${toString extensions} ${toString skins};
+      do
+        cp -R $component/. .
+      done;
+      cp ${writeText "LocalSettings.php" localSettings} LocalSettings.php
+      ${lib.getExe jq} -rs '.[0] * {require: (reduce .[] as $item ({}; . + ($item.require // {})))}' composer.json extensions/*/composer.json skins/*/composer.json > composer.local.json
+      mv composer.local.json composer.json
+    '';
+  };
+
+  composerVendor =
+    php.mkComposerVendor {
+      inherit (finalAttrs)
+        pname
+        src
+        version
+        ;
+      vendorHash = "sha256-FgxhXanwur+INHCuX6TM7FO/3Xywa3EJcim5u6VwnyE=";
+      composerLock = ./composer.lock;
+      composerNoDev = true;
+      composerNoPlugins = false;
+      composerNoScripts = true;
+      composerStrictValidation = true;
+      dontCheckForBrokenSymlinks = false;
+    };
 })

@@ -1,13 +1,14 @@
-{ stdenvNoCC, fetchgit }:
+{ stdenvNoCC, fetchFromGitHub }:
 stdenvNoCC.mkDerivation {
   pname = "mediawiki-skins-VectorNexus";
   version = "unstable";
   src = ./.;
 
-  vector = fetchgit {
-    url = "https://gerrit.wikimedia.org/r/mediawiki/skins/Vector";
-    rev = "02287c6b1cf9dfc0f391bd00e0bb481d3691adc5";
-    hash = "sha256-uKaOyU+33XAyBjVlZ5cUH+9INhpLuMn5hLUZ2uXsKS0=";
+  vector = fetchFromGitHub {
+    owner = "Wikimedia";
+    repo = "mediawiki-skins-Vector";
+    rev = "81ba66638332b4ad40fba30c1794d14f6f666d35";
+    hash = "sha256-vY1ADccHcOSCSWsmi12mWU8rRrIT6ebcvpRNms0EBZc=";
   };
 
   installPhase = ''
