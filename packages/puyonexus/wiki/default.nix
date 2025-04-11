@@ -72,8 +72,8 @@ let
     };
     cargo = mkWikimediaExtension {
       name = "Cargo";
-      rev = "19ab7cbac964728c575bd4ebb75f700f7b633c30";
-      hash = "sha256-965B6IAuTHEj/oVaUik7oO4fq+OLiRtSOdPOfCAqCh4=";
+      rev = "53883662f167216d493d11828618fb1a115c95ef";
+      hash = "sha256-PU7TtJVBnBiBhWh0dBBULbCHWhxf4WJVboQb0xUJWUY=";
     };
     categoryTree = mkWikimediaExtension {
       name = "CategoryTree";
