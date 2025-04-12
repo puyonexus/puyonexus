@@ -1,7 +1,7 @@
 @base-font-size-px: 14px;
 @base-font-size: 1rem;
 @base-line-height-px: 20px;
-@base-line-height: unit(@base-line-height-px / @base-font-size-px);
+@base-line-height: unit((@base-line-height-px / @base-font-size-px));
 
 @background-color-gray: #fafafa;
 @border-color-gray: #e0e0e0;
@@ -339,7 +339,7 @@ html {
     }
 
     // Hide heading on the article "Main Page"
-    .page-Main_Page .firstHeading {
+    &.page-Main_Page #firstHeading {
         display: none;
     }
 

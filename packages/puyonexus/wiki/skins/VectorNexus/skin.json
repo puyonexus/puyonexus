@@ -3,21 +3,33 @@
 	"author": [
 		"John Chadwick",
 		"Nick Woronekin",
-		"THe Vector authors"
+		"The Vector authors"
 	],
 	"url": "",
 	"description": "Adaptation of Vector theme for Puyo Nexus Wiki",
 	"license-name": "GPL-2.0+",
 	"type": "skin",
-	"ValidSkinNames": {
-		"vectornexus": "VectorNexus"
+	"requires": {
+		"MediaWiki": ">= 1.43.0"
+	},
+	"attributes": {
+		"DarkMode": {
+			"Disabled": [
+				"vector-2022"
+			]
+		}
 	},
 	"ValidSkinNames": {
 		"vectornexus": {
 			"class": "MediaWiki\\Skins\\Vector\\SkinVectorLegacy",
+			"services": [
+				"LanguageConverterFactory"
+			],
 			"args": [
 				{
 					"name": "vectornexus",
+					"supportsMwHeading": true,
+					"wrapSiteNotice": true,
 					"template": "skin-legacy",
 					"clientPrefEnabled": true,
 					"templateDirectory": "includes/templates",
@@ -75,11 +87,9 @@
 				"content-links": true,
 				"content-links-external": false,
 				"interface": true,
-				"interface-message-box": true,
 				"interface-category": true,
 				"content-tables": true,
 				"i18n-ordered-lists": true,
-				"i18n-all-lists-margins": true,
 				"i18n-headings": true
 			},
 			"styles": [

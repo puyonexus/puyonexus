@@ -7,8 +7,8 @@ stdenvNoCC.mkDerivation {
   vector = fetchFromGitHub {
     owner = "Wikimedia";
     repo = "mediawiki-skins-Vector";
-    rev = "81ba66638332b4ad40fba30c1794d14f6f666d35";
-    hash = "sha256-vY1ADccHcOSCSWsmi12mWU8rRrIT6ebcvpRNms0EBZc=";
+    rev = "a4a127342e106a27d89253921cc771a978523a68";
+    hash = "sha256-78LGB3/7tPt+T92mLtRfg4gXA/s0aNtYGtuyKYLk944=";
   };
 
   installPhase = ''

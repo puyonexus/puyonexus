@@ -67,8 +67,8 @@ let
   ext = {
     abuseFilter = mkWikimediaExtension {
       name = "AbuseFilter";
-      rev = "741d83bbb693261d68bd3e54ad83ec9a51e45c32";
-      hash = "sha256-2SUalWDI25QBOZ47/hfBaolCFohepJRXxiStc++2SDg=";
+      rev = "6ebcd929c7f7a2f8be715dfe39c59b53570829f0";
+      hash = "sha256-Hs2p2lyp6NVFIk1Pk+AlyX8aCJ7AUNBJrZQ1G+tbOt4=";
     };
     cargo = mkWikimediaExtension {
       name = "Cargo";
@@ -77,33 +77,33 @@ let
     };
     categoryTree = mkWikimediaExtension {
       name = "CategoryTree";
-      rev = "312e5b12347a1d83a738be19cbc153d3e8f780b5";
-      hash = "sha256-xOW2LxfduyVQZqTIqf0niR5G/MjM12kaUTK3Pd+EufY=";
+      rev = "577b42353f8201e5499e55cf91175293ee3c9ef7";
+      hash = "sha256-S/Tz0wMS4qRUCoYov66ccr/+71/9iczAAP9XMd+0O1M=";
     };
     checkUser = mkWikimediaExtension {
       name = "CheckUser";
-      rev = "3a20e8a0c5f9749f9c7b983088d2cb4a2847c001";
-      hash = "sha256-L0rzT5A8rGHQ4NEFLe7jbH66qsXpCNlGprNc71RHV2Q=";
+      rev = "9406c4c61802182ab253679b1c4812dcb372cff0";
+      hash = "sha256-wbCdK3JX8c7e434nqyvoR4K9lrGa1QQshslne4dh+iY=";
     };
     cite = mkWikimediaExtension {
       name = "Cite";
-      rev = "fd6a69c68a8273f2651ed7a3cebb94df8b13ad18";
-      hash = "sha256-6J6rXj/YctTQdGTNkV/QxJHrE0wb0pphA19IWwp3DRE=";
+      rev = "3966086815ff3cbb19f0bf47de37af1d1d4985f2";
+      hash = "sha256-T5o6Wuf2lpczIGXwtB/jUSRJ4l2S4CuPBc8MexPwKjs=";
     };
     codeEditor = mkWikimediaExtension {
       name = "CodeEditor";
-      rev = "28fd08b1ef466e33b435d5aba9211470680f9d01";
-      hash = "sha256-lUeXcH9k1sfZYDmhTSrJBB6Y+ObRgJpeyQigeTaHHB4=";
+      rev = "627d1ac42e6daf18ba439812d5d5b38001db6d71";
+      hash = "sha256-HPNGNgWhXvoNQz906Jlp12TmxRMhnv0GmpOpdx/NSlY=";
     };
     confirmEdit = mkWikimediaExtension {
       name = "ConfirmEdit";
-      rev = "1513e74d894d04d20a1d9bc6fcff5d56bb63b1e2";
-      hash = "sha256-WlDwg1f0N6d2GIUoctqMdxqAmze6D0Bu19YeN1Iwj6c=";
+      rev = "4787b2e4be1886ab077a01f9e7d81aa0b28ca7af";
+      hash = "sha256-WMZiBqXDgVyeuwKRN1mEjbO6a8wCfaBV6ej3txquXJg=";
     };
     echo = mkWikimediaExtension {
       name = "Echo";
-      rev = "25521c5fc752d0d08f2e22a3d2d0a526dd2fffaf";
-      hash = "sha256-xNHlXjPAF18NQMGykS8BeOPu+5lrCMI9nSaA3kmmTV0=";
+      rev = "951879a4181162f93b2d409a5374bce785eaf8f2";
+      hash = "sha256-wtAdCyq/uStpp2W2AyPlbo4EmcPzklhSP//M1s4GjU8=";
     };
     embedVideo = mkExtension "EmbedVideo" (fetchFromGitHub {
       owner = "StarCitizenWiki";
@@ -113,23 +113,23 @@ let
     });
     gadgets = mkWikimediaExtension {
       name = "Gadgets";
-      rev = "d953121a2d649cb5bbffce22294f404caafc1508";
-      hash = "sha256-3DH/P7HyEWzWb+O5UOSOCXQ4lzcM4Xmpr/o2sHDfosI=";
+      rev = "94c0d38d5a5810b4cce22963a44aceb5e8dc1fd1";
+      hash = "sha256-hxTB6xP5jxLF8frnZqtuz4Kt0r3V2KyebilNcMHMMn4=";
     };
     imageMap = mkWikimediaExtension {
       name = "ImageMap";
-      rev = "727266f88cd580f5f8b39937299fb263f3f8d1c6";
-      hash = "sha256-92VWJ23w1EMkUe1KfEESGNWm5gGMm7683qguPIswnf8=";
+      rev = "1aa7ea696c546c716a9e6168bfd0edfa73c7ff29";
+      hash = "sha256-KH59Sjth6T2e0OnA1bnwpn6G9ciemIIwSTviUvdC/Zo=";
     };
     inputBox = mkWikimediaExtension {
       name = "InputBox";
-      rev = "0d97c546b1a7a15daadf069670ee1416a88e56e3";
-      hash = "sha256-PbvdBJFdGW32ITpnsXtNusZWM31dN2XX0v/gsVBS9fo=";
+      rev = "a8184c4572811cf9df340702e882fe95baa885a0";
+      hash = "sha256-FnXYjRSy3eFkC6g8GPgIzRzhBanwaW+bWWL3+3oZs90=";
     };
     math = mkWikimediaExtension {
       name = "Math";
-      rev = "fe886ea3e989ec1aa0488396c1fe463882804b94";
-      hash = "sha256-7ANfPks1PrS2ltUYYdS4JAZqpewLrblIpxOM9o6T/uw=";
+      rev = "2360e60228dcac111f2063feb5104ab84878a898";
+      hash = "sha256-xULflrWdTUvLOlLr5vlpw2lH6+Zt28It4SVAoJ3S+/k=";
     };
     moderation = mkExtension "Moderation" (fetchFromGitHub {
       owner = "edwardspec";
@@ -139,83 +139,83 @@ let
     });
     msUpload = mkWikimediaExtension {
       name = "MsUpload";
-      rev = "c80f7fb08ae7330c641292dee7479ff0d4b2f032";
-      hash = "sha256-0GlOO75b7pP0k+FBrPx//ksP/EAT+5utD8gcwhu+M9Q=";
+      rev = "361dee8947892dd881ed427dc6040f0eb699c952";
+      hash = "sha256-tEATieYjhipaknZ/1q7EIxtXOi1+ylVMVuOGr0i0F2I=";
     };
     nuke = mkWikimediaExtension {
       name = "Nuke";
-      rev = "b52860fad87a49cf181c840f5c9be76b809850c4";
-      hash = "sha256-pPjdvoKFBkRWlec19XBjEINaoc5sXhK30XvH55EXfm4=";
+      rev = "45f54278c22d5f6d7af8ed47f2e0517ee725d070";
+      hash = "sha256-09SlJkg2bgYtv1CRsIJrqhgXWioiXPKiqkXfl2orAcg=";
     };
     parserFunctions = mkWikimediaExtension {
       name = "ParserFunctions";
-      rev = "20be20185a965fbe86f7b2d40c0ae0602e516ae9";
-      hash = "sha256-lHOe5S+khbIdDWC2PGAJT7BK0lrXiIpob6Kq6ujQYig=";
+      rev = "7199d854882d6e63ee9250f1ac8ef79188947465";
+      hash = "sha256-iLbaoIyvufvTeLaDv6Brz1oknOTosSItppb+th/dSzU=";
     };
     poem = mkWikimediaExtension {
       name = "Poem";
-      rev = "d28b949f1aadbb53ea96f66b7b73240c1ecdfd74";
-      hash = "sha256-Z/UqEL2Hr2Zrga9P2AHqkuQVXUKd57uMe9x1LfefIS8=";
+      rev = "8c1e853e2e7f08d20e0c78309509c90b46f73bae";
+      hash = "sha256-NBrVXeGSfvw9RSoZlEIUE1FBkQQQ9fMAKWD51ZTzVKw=";
     };
     puyoChain = mkExtension "PuyoChain" ./extensions/PuyoChain;
     renameuser = mkWikimediaExtension {
       name = "Renameuser";
-      rev = "d6a42621e8612f0dd15d608ec6140ff33d067ef0";
-      hash = "sha256-u8cz81K7d/XMrat8bA0U4hPZ4cm7/4bh92ZIXV0bzdw=";
+      rev = "e7b2820bf74bbc6a6c0e0969b08bc30c039b1ab1";
+      hash = "sha256-RAMIb5yHJ7JPpC0grQ8HTaOanaV/XafkRIbT6sC750g=";
     };
     replaceText = mkWikimediaExtension {
       name = "ReplaceText";
-      rev = "5fad974a9bdb9bd130ceec9c8ea0883ccf99fb50";
-      hash = "sha256-0psII8MVy3bp4ZlKhYIANYPMgU10eYvF74rrxCMfNeI=";
+      rev = "f5d1655cb951c223b651b995026a1277a9f54687";
+      hash = "sha256-/5bX3VHULfiP8FR6Ed5AD8i1pexqicl3O3XJaW9KtsY=";
     };
     scaledImage = mkExtension "ScaledImage" ./extensions/ScaledImage;
     spamBlacklist = mkWikimediaExtension {
       name = "SpamBlacklist";
-      rev = "46c979dfca23e1c8219cf888ebebcb6544455f45";
-      hash = "sha256-u3ombB1kQyE/pLtJukTMfAeM/z+IKY9TrHUJfFobZ6E=";
+      rev = "b7e906f612971a9de2c64eaeb5c2104b60fc6109";
+      hash = "sha256-ZRGeu802j5tNRQ3eGIyipH75FxcafGcIxU0GnrogbUA=";
     };
     syntaxHighlight = mkWikimediaExtension {
       name = "SyntaxHighlight_GeSHi";
-      rev = "2e8fb3c42db2d04518afd37c1fe14ee251df2b75";
-      hash = "sha256-BsL04ep9TyR84NYMueu+am6CRHIhCIxPUcrmwtIg4uQ=";
+      rev = "c9db27e9a2ebda84c34093152b271bf5144ec26a";
+      hash = "sha256-GWvznGIdIaOd7zGXm1hjunN2TLVJlx0+cknJDzCKlTY=";
     };
     templateStyles = mkWikimediaExtension {
       name = "TemplateStyles";
-      rev = "06c1e6fc12ac9ba16a755bc62d621e922b8ffda8";
-      hash = "sha256-zzKvUJTaoT2yK4KmZMGa8M9m6JZJfjQmEzl+xotaF/g=";
+      rev = "87f29540d1a04c8f727c7f6302ae504a990e8e69";
+      hash = "sha256-TcyKOTPg6ZhuD5tr+Ep7VGjHL7jH0KNed11VRMlKT5w=";
     };
     thanks = mkWikimediaExtension {
       name = "Thanks";
-      rev = "797242234aa45b5589f8b2ca928299bb8a8e05f5";
-      hash = "sha256-pB3Y/j9sk0Prsbm7HAD76kspR1+k7PpBfqcQ4iVIkBM=";
+      rev = "40a5ba7f417f895a14f5289ed87f01b28a390ecb";
+      hash = "sha256-NF5ku8ZlgP1UM4moQK1Wu6UN//KWnweYXm0QE6QSir0=";
     };
     wikiEditor = mkWikimediaExtension {
       name = "WikiEditor";
-      rev = "600f790ba8f31469fe71b6e24c1ea078b96ea398";
-      hash = "sha256-mcsP8f+NgX2LkxdMUTmul+pNL7eVlzPcmzrUCwSOPZU=";
+      rev = "67f6158919d1d2e0de0a716c7cf4f7fbd240445a";
+      hash = "sha256-5uH+xbE8PhDlW4Vzfp7F2Cni4Kx1bmmCFSddgcrPErM=";
     };
   };
   skin = {
     modern = mkWikimediaSkin {
       name = "Modern";
-      rev = "2c6912723fe21772ce564e526417976fb8316c47";
-      hash = "sha256-pGENIuCAalEi7J0tfjdQfvMSSdPFe3HCqBE0nx6n9/Y=";
+      rev = "eb6dc18880a3c6edda09de7ef5e5d71b2e3d0a8d";
+      hash = "sha256-cvFPDxxTYNXLQk3OTAfHdb4LJ6dsRKK4Urzs0EcVVME=";
     };
     vector = mkWikimediaSkin {
       name = "Vector";
-      rev = "8cba83e9d342902f20f40db7cf0397891c0abbd5";
-      hash = "sha256-MD5izSINzkQw8OOwovHfDUDcag74w4kmCs/vwWFGlK0=";
+      rev = "a4a127342e106a27d89253921cc771a978523a68";
+      hash = "sha256-78LGB3/7tPt+T92mLtRfg4gXA/s0aNtYGtuyKYLk944=";
     };
     vectorNexus = mkSkin "VectorNexus" (callPackage ./skins/VectorNexus/package.nix { });
     monoBook = mkWikimediaSkin {
       name = "MonoBook";
-      rev = "b583f5fddcac4fae765337d41956511135e7c88c";
-      hash = "sha256-Tt7NoSbhk0GeUq0NF26z4ogHo5pnDiKcMjeYQBLiyhM=";
+      rev = "4f2266626b36bb7556e54b87814b0016bd1adf2b";
+      hash = "sha256-gw5WPzWY+Ws/9E7FXy8RQzqMc1I7OgtCTDNZ/RczExI=";
     };
     cologneBlue = mkWikimediaSkin {
       name = "CologneBlue";
-      rev = "0a46bea23349cfd1136096550246334bd4584de3";
-      hash = "sha256-K4cboePaRjWjEyG76PVYllKmQNhXKTFNyJTo/H+FcW0=";
+      rev = "57a13971bebd561b0b6bb65ff0032fa11df6f71d";
+      hash = "sha256-bDJj4Q45355y/Y9r0vADxNDPTlPgtUSfIaOIeZq1adU=";
     };
   };
   extensions = [
@@ -287,15 +287,15 @@ let
 in
 php.buildComposerProject2 (finalAttrs: {
   pname = "puyonexus-wiki";
-  version = "1.42.6";
+  version = "1.43.1";
 
   src = stdenvNoCC.mkDerivation {
     name = "puyonexus-wiki-src";
     src = fetchFromGitHub {
       owner = "Wikimedia";
       repo = "mediawiki";
-      rev = "1.42.6";
-      hash = "sha256-gyL/ljMKxZtXI5ukcZe2YXTUK9NFvjjvyMHMwMriQaU=";
+      rev = "1.43.1";
+      hash = "sha256-LhUo/m8sgLFrSoX8LbsQEZawAiLzPKNjYR6HJSeS9hI=";
     };
     buildPhase = "true";
     installPhase = ''
@@ -319,7 +319,7 @@ php.buildComposerProject2 (finalAttrs: {
         src
         version
         ;
-      vendorHash = "sha256-FgxhXanwur+INHCuX6TM7FO/3Xywa3EJcim5u6VwnyE=";
+      vendorHash = "sha256-IR78W4125xC/kqXTCqB5bGTQO6SIMiS0j0bjP1acBHw=";
       composerLock = ./composer.lock;
       composerNoDev = true;
       composerNoPlugins = false;
