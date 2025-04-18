@@ -314,7 +314,7 @@
               profiles.system = {
                 path = deploy-rs.lib.x86_64-linux.activate.nixos (
                   addModules [
-                    ./modules/overrides/upgrade
+                    ./modules/overrides/upgrade.nix
                   ] self.nixosConfigurations."do-ojama-staging"
                 );
               };
@@ -332,7 +332,7 @@
               profiles.system = {
                 path = deploy-rs.lib.x86_64-linux.activate.nixos (
                   addModules [
-                    ./modules/overrides/upgrade
+                    ./modules/overrides/upgrade.nix
                   ]
                   self.nixosConfigurations."do-ojama-production"
                 );
