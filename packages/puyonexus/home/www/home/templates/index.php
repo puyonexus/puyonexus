@@ -47,19 +47,65 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-9">
-					<?php foreach ($news_posts as $news_post) : ?>
-						<article>
-							<div class="post-header">
-								<ul class="post-meta">
-									<li class="post-date"><?= format_news_date($news_post->post_time) ?></li>
-									<li class="post-comments"><a href="<?= $news_post->topic_link ?>"><i class="icon icon-comment" aria-hidden="true"></i><?= number_format($news_post->topic_replies) ?></a></li>
-								</ul>
-								<h2 class="post-title"><a href="<?= $news_post->topic_link ?>"><?= $news_post->topic_title ?></a></h2>
-							</div>
-							<div class="post-entry"><?= $news_post->post_text ?></div>
-						</article>
-					<?php endforeach; ?>
-					<p class="old-news"><a href="/forum/viewforum.php?f=12">View all news</a></p>
+					<article>
+						<div class="post-header">
+							<ul class="post-meta">
+								<li class="post-date">December 8, 2020</li>
+							</ul>
+							<h2 class="post-title">Puyo Puyo Tetris 2 - Review</h2>
+						</div>
+						<div class="post-entry"><span data-s9e-mediaembed="youtube" style="display:inline-block;width:100%;max-width:640px"><span style="display:block;overflow:hidden;position:relative;padding-bottom:56.25%"><iframe allowfullscreen="" loading="lazy" scrolling="no" style="background:url(https://i.ytimg.com/vi/C_XRByNtXDs/hqdefault.jpg) 50% 50% / cover;border:0;height:100%;left:0;position:absolute;width:100%" src="https://www.youtube.com/embed/C_XRByNtXDs"></iframe></span></span></div>
+					</article>
+					<article>
+						<div class="post-header">
+							<ul class="post-meta">
+								<li class="post-date">November 16, 2020</li>
+							</ul>
+							<h2 class="post-title">Puyo Puyo Tetris 2 - Story and Gameplay Early Look</h2>
+						</div>
+						<div class="post-entry"><span data-s9e-mediaembed="youtube" style="display:inline-block;width:100%;max-width:640px"><span style="display:block;overflow:hidden;position:relative;padding-bottom:56.25%"><iframe allowfullscreen="" loading="lazy" scrolling="no" style="background:url(https://i.ytimg.com/vi/JKm3S8BCqDg/hqdefault.jpg) 50% 50% / cover;border:0;height:100%;left:0;position:absolute;width:100%" src="https://www.youtube.com/embed/JKm3S8BCqDg"></iframe></span></span><br>
+						<br>
+						Here's a quick preview of Puyo Puyo Tetris 2, launching on consoles December 8th and Steam in 2021! This video covers the all new Story and Skill Battle mode in addition to Swap, Party, Fusion and Big Bang.<br>
+						<br>
+						Pre-order now! <a href="https://puyo.sega.com/tetris2/" class="postlink">https://puyo.sega.com/tetris2/</a></div>
+					</article>
+					<article>
+						<div class="post-header">
+							<ul class="post-meta">
+								<li class="post-date">August 26, 2020</li>
+							</ul>
+							<h2 class="post-title">Puyo Puyo Tetris 2 releases Dec 8th on current &amp; next-gen consoles!</h2>
+						</div>
+						<div class="post-entry"><span data-s9e-mediaembed="youtube" style="display:inline-block;width:100%;max-width:640px"><span style="display:block;overflow:hidden;position:relative;padding-bottom:56.25%"><iframe allowfullscreen="" loading="lazy" scrolling="no" style="background:url(https://i.ytimg.com/vi/lH8-HfVc_KA/hqdefault.jpg) 50% 50% / cover;border:0;height:100%;left:0;position:absolute;width:100%" src="https://www.youtube.com/embed/lH8-HfVc_KA"></iframe></span></span><br>
+						<br>
+						<a href="https://puyo.sega.com/tetris2/" class="postlink">https://puyo.sega.com/tetris2/</a></div>
+					</article>
+					<article>
+						<div class="post-header">
+							<ul class="post-meta">
+								<li class="post-date">December 7, 2019</li>
+							</ul>
+							<h2 class="post-title">#PlayPuyo Winter Fever Classic - December 14, 2019</h2>
+						</div>
+						<div class="post-entry"><a href="https://challonge.com/events/playpuyo_fever19" class="postlink"><img src="https://i.imgur.com/g1RB9kQl.png" class="postimage" alt="Image"></a><br>
+						<br>
+						It's back! Click on the banner for more details!</div>
+					</article>
+					<article>
+						<div class="post-header">
+							<ul class="post-meta">
+								<li class="post-date">September 4, 2019</li>
+							</ul>
+							<h2 class="post-title">Nintendo Direct - Super Puyo Puyo 2 announced as part of the Nintendo Online subscription service</h2>
+						</div>
+						<div class="post-entry">Nintendo recently announced the Nintendo Switch online subscription service will be adding SNES titles, which will be launching tomorrow (September 5th, 2019 for US, September 6th for Europe)<br>
+						<br>
+						Super Puyo Puyo 2 was announced as a launch title for this new online app!<br>
+						<br>
+						More information will be updated to this article as news progresses.<br>
+						<br>
+						<a href="https://twitter.com/NintendoAmerica/status/1169376428158115841" class="postlink">https://twitter.com/NintendoAmerica/sta ... 8158115841</a></div>
+					</article>
 				</div>
 				<div class="col-md-3 sidebar">
 					<div class="slogan">

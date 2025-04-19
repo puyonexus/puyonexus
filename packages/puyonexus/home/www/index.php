@@ -55,9 +55,6 @@ function format_activity_date($date)
 	return sprintf($formats[$index]['more'], $date_unit);
 }
 
-// Fetch news posts and forum activity
-$news_posts = json_decode(file_get_contents($baseURL . '/home/news_posts.php?limit=5'));
-
 // Fetch wiki activity
 // Mediawiki already has an api for this, so we will just call it directly
 $wiki_activity = json_decode(file_get_contents($baseURL . '/mediawiki/api.php?action=query&list=recentchanges&rcnamespace=0&rctype=edit|new&rcprop=title|user|timestamp&rclimit=5&rctoponly=1&format=json'));

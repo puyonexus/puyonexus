@@ -1269,8 +1269,7 @@ body {
 article {
   margin-bottom: 50px; }
   article .post-title {
-    margin-top: 5px; }
-  article .post-title a {
+    margin-top: 5px;
     color: #333;
     font-weight: 300; }
   article .post-meta {
