@@ -319,19 +319,18 @@ php.buildComposerProject2 (finalAttrs: {
     '';
   };
 
-  composerVendor =
-    php.mkComposerVendor {
-      inherit (finalAttrs)
-        pname
-        src
-        version
-        ;
-      vendorHash = "sha256-IR78W4125xC/kqXTCqB5bGTQO6SIMiS0j0bjP1acBHw=";
-      composerLock = ./composer.lock;
-      composerNoDev = true;
-      composerNoPlugins = false;
-      composerNoScripts = true;
-      composerStrictValidation = true;
-      dontCheckForBrokenSymlinks = false;
-    };
+  composerVendor = php.mkComposerVendor {
+    inherit (finalAttrs)
+      pname
+      src
+      version
+      ;
+    vendorHash = "sha256-IR78W4125xC/kqXTCqB5bGTQO6SIMiS0j0bjP1acBHw=";
+    composerLock = ./composer.lock;
+    composerNoDev = true;
+    composerNoPlugins = false;
+    composerNoScripts = true;
+    composerStrictValidation = true;
+    dontCheckForBrokenSymlinks = false;
+  };
 })
