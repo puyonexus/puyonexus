@@ -179,6 +179,12 @@ let
       rev = "c9db27e9a2ebda84c34093152b271bf5144ec26a";
       hash = "sha256-GWvznGIdIaOd7zGXm1hjunN2TLVJlx0+cknJDzCKlTY=";
     };
+    tabberNeue = mkExtension "TabberNeue" (fetchFromGitHub {
+      owner = "StarCitizenTools";
+      repo = "mediawiki-extensions-TabberNeue";
+      rev = "refs/tags/v3.0.0";
+      hash = "sha256-oPd2Xl5BqHNjr9B6Idc8U8NxMNw7jBcXqBwRr3SRu5g=";
+    });
     templateStyles = mkWikimediaExtension {
       name = "TemplateStyles";
       rev = "87f29540d1a04c8f727c7f6302ae504a990e8e69";
@@ -243,6 +249,7 @@ let
     ext.scaledImage
     ext.spamBlacklist
     ext.syntaxHighlight
+    ext.tabberNeue
     ext.templateStyles
     ext.thanks
     ext.wikiEditor
