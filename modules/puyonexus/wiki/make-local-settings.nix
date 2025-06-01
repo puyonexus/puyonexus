@@ -163,7 +163,9 @@ in
 
   # Add a PPQ namespace (Experimental!)
   define("NS_PPQ", 3000);
+  define("NS_PPQ_TALK", 3001);
   $wgExtraNamespaces[NS_PPQ] = "PPQ";
+  $wgExtraNamespaces[NS_PPQ_TALK] = "PPQ_talk";
   $wgContentNamespaces[] = NS_PPQ;
 
   # Misc
