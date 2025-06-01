@@ -161,6 +161,11 @@ in
   # Enable subpages in the main namespace
   $wgNamespacesWithSubpages[NS_MAIN] = true;
 
+  # Add a PPQ namespace (Experimental!)
+  define("NS_PPQ", 3000);
+  $wgExtraNamespaces[NS_PPQ] = "PPQ";
+  $wgContentNamespaces[] = NS_PPQ;
+
   # Misc
   $wgTemplateStylesAllowedUrls['audio'] = ["<^/mediawiki/images/>"];
   $wgTemplateStylesAllowedUrls['image'] = ["<^/mediawiki/images/>"];
