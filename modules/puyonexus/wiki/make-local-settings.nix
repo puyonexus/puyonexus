@@ -158,6 +158,9 @@ in
   $wgDefaultUserOptions['wikieditor-preview'] = 1;
   $wgDefaultUserOptions['vector-collapsiblenav'] = 1;
 
+  # Enable subpages in the main namespace
+  $wgNamespacesWithSubpages[NS_MAIN] = true;
+
   # Misc
   $wgTemplateStylesAllowedUrls['audio'] = ["<^/mediawiki/images/>"];
   $wgTemplateStylesAllowedUrls['image'] = ["<^/mediawiki/images/>"];
