@@ -167,6 +167,8 @@ in
   $wgExtraNamespaces[NS_PPQ] = "PPQ";
   $wgExtraNamespaces[NS_PPQ_TALK] = "PPQ_talk";
   $wgContentNamespaces[] = NS_PPQ;
+  $wgNamespacesWithSubpages[NS_PPQ] = true;
+  $wgNamespacesWithSubpages[NS_PPQ_TALK] = true;
 
   # Misc
   $wgTemplateStylesAllowedUrls['audio'] = ["<^/mediawiki/images/>"];
