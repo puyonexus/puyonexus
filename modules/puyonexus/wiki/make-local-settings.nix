@@ -169,6 +169,7 @@ in
   $wgContentNamespaces[] = NS_PPQ;
   $wgNamespacesWithSubpages[NS_PPQ] = true;
   $wgNamespacesWithSubpages[NS_PPQ_TALK] = true;
+  $wgNamespacesToBeSearchedDefault[NS_PPQ] = true;
 
   # Misc
   $wgTemplateStylesAllowedUrls['audio'] = ["<^/mediawiki/images/>"];
