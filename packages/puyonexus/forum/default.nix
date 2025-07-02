@@ -7,7 +7,10 @@
 let
   config = writeText "config.php" "<?php return require_once(getenv('PUYONEXUS_FORUM_CONFIG_PATH')); ?>";
   mediaembed = fetchurl {
-    url = "https://www.phpbb.com/customise/db/download/205090";
+    urls = [
+      "https://www.phpbb.com/customise/db/download/205090"
+      "https://web.archive.org/web/20250702032805if_/https://www.phpbb.com/customise/db/download/205090"
+    ];
     hash = "sha256-SrcZWUqk0H92ONx+TMM4Hcr0tOdMM2f5pTUFLF/oVCg=";
   };
 in
@@ -16,7 +19,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   version = "unstable";
 
   src = fetchurl {
-    url = "https://download.phpbb.com/pub/release/3.3/3.3.12/phpBB-3.3.12.tar.bz2";
+    urls = [
+      "https://download.phpbb.com/pub/release/3.3/3.3.12/phpBB-3.3.12.tar.bz2"
+      "https://web.archive.org/web/20250702032510if_/https://download.phpbb.com/pub/release/3.3/3.3.12/phpBB-3.3.12.tar.bz2"
+    ];
     hash = "sha256-F4KOlhQGKRRQh4qlm8uwTWQucRzAAovoMb23yAOxOzs=";
   };
 
