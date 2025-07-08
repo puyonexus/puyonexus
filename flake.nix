@@ -269,7 +269,7 @@
         };
         nixfmt = pkgs.nixfmt-rfc-style;
         genhostkeys = pkgs.genhostkeys;
-
+        genmwhashes = pkgs.genmwhashes;
         chainsim = pkgs.puyonexusPackages.chainsim;
         forum = pkgs.puyonexusPackages.forum;
         home = pkgs.puyonexusPackages.home;

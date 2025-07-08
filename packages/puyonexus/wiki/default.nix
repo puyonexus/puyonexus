@@ -8,6 +8,7 @@
   jq,
 }:
 let
+  wikimedia = import ./hashes.nix;
   fetchWikimediaModule =
     {
       name,
@@ -65,164 +66,100 @@ let
   mkWikimediaExtension = { name, ... }@inputs: mkExtension name (fetchWikimediaExtension inputs);
   mkWikimediaSkin = { name, ... }@inputs: mkSkin name (fetchWikimediaSkin inputs);
   ext = {
-    abuseFilter = mkWikimediaExtension {
-      name = "AbuseFilter";
-      rev = "6ebcd929c7f7a2f8be715dfe39c59b53570829f0";
-      hash = "sha256-Hs2p2lyp6NVFIk1Pk+AlyX8aCJ7AUNBJrZQ1G+tbOt4=";
-    };
+    # Bundled extensions
+    abuseFilter = mkWikimediaExtension wikimedia.extensions.AbuseFilter;
+    categoryTree = mkWikimediaExtension wikimedia.extensions.CategoryTree;
+    cite = mkWikimediaExtension wikimedia.extensions.Cite;
+    codeEditor = mkWikimediaExtension wikimedia.extensions.CodeEditor;
+    confirmEdit = mkWikimediaExtension wikimedia.extensions.ConfirmEdit;
+    echo = mkWikimediaExtension wikimedia.extensions.Echo;
+    gadgets = mkWikimediaExtension wikimedia.extensions.Gadgets;
+    imageMap = mkWikimediaExtension wikimedia.extensions.ImageMap;
+    inputBox = mkWikimediaExtension wikimedia.extensions.InputBox;
+    nuke = mkWikimediaExtension wikimedia.extensions.Nuke;
+    parserFunctions = mkWikimediaExtension wikimedia.extensions.ParserFunctions;
+    poem = mkWikimediaExtension wikimedia.extensions.Poem;
+    replaceText = mkWikimediaExtension wikimedia.extensions.ReplaceText;
+    spamBlacklist = mkWikimediaExtension wikimedia.extensions.SpamBlacklist;
+    syntaxHighlight = mkWikimediaExtension wikimedia.extensions.SyntaxHighlight_GeSHi;
+    thanks = mkWikimediaExtension wikimedia.extensions.Thanks;
+    wikiEditor = mkWikimediaExtension wikimedia.extensions.WikiEditor;
+
+    # Unbundled Wikimedia extensions
     cargo = mkWikimediaExtension {
       name = "Cargo";
       rev = "53883662f167216d493d11828618fb1a115c95ef";
       hash = "sha256-PU7TtJVBnBiBhWh0dBBULbCHWhxf4WJVboQb0xUJWUY=";
-    };
-    categoryTree = mkWikimediaExtension {
-      name = "CategoryTree";
-      rev = "577b42353f8201e5499e55cf91175293ee3c9ef7";
-      hash = "sha256-S/Tz0wMS4qRUCoYov66ccr/+71/9iczAAP9XMd+0O1M=";
     };
     checkUser = mkWikimediaExtension {
       name = "CheckUser";
       rev = "9406c4c61802182ab253679b1c4812dcb372cff0";
       hash = "sha256-wbCdK3JX8c7e434nqyvoR4K9lrGa1QQshslne4dh+iY=";
     };
-    cite = mkWikimediaExtension {
-      name = "Cite";
-      rev = "3966086815ff3cbb19f0bf47de37af1d1d4985f2";
-      hash = "sha256-T5o6Wuf2lpczIGXwtB/jUSRJ4l2S4CuPBc8MexPwKjs=";
+    math = mkWikimediaExtension {
+      name = "Math";
+      rev = "2360e60228dcac111f2063feb5104ab84878a898";
+      hash = "sha256-xULflrWdTUvLOlLr5vlpw2lH6+Zt28It4SVAoJ3S+/k=";
     };
-    codeEditor = mkWikimediaExtension {
-      name = "CodeEditor";
-      rev = "627d1ac42e6daf18ba439812d5d5b38001db6d71";
-      hash = "sha256-HPNGNgWhXvoNQz906Jlp12TmxRMhnv0GmpOpdx/NSlY=";
+    msUpload = mkWikimediaExtension {
+      name = "MsUpload";
+      rev = "361dee8947892dd881ed427dc6040f0eb699c952";
+      hash = "sha256-tEATieYjhipaknZ/1q7EIxtXOi1+ylVMVuOGr0i0F2I=";
     };
-    confirmEdit = mkWikimediaExtension {
-      name = "ConfirmEdit";
-      rev = "4787b2e4be1886ab077a01f9e7d81aa0b28ca7af";
-      hash = "sha256-WMZiBqXDgVyeuwKRN1mEjbO6a8wCfaBV6ej3txquXJg=";
+    renameuser = mkWikimediaExtension {
+      name = "Renameuser";
+      rev = "e7b2820bf74bbc6a6c0e0969b08bc30c039b1ab1";
+      hash = "sha256-RAMIb5yHJ7JPpC0grQ8HTaOanaV/XafkRIbT6sC750g=";
     };
-    echo = mkWikimediaExtension {
-      name = "Echo";
-      rev = "951879a4181162f93b2d409a5374bce785eaf8f2";
-      hash = "sha256-wtAdCyq/uStpp2W2AyPlbo4EmcPzklhSP//M1s4GjU8=";
+    templateStyles = mkWikimediaExtension {
+      name = "TemplateStyles";
+      rev = "87f29540d1a04c8f727c7f6302ae504a990e8e69";
+      hash = "sha256-TcyKOTPg6ZhuD5tr+Ep7VGjHL7jH0KNed11VRMlKT5w=";
     };
+
+    # Third-party extensions
     embedVideo = mkExtension "EmbedVideo" (fetchFromGitHub {
       owner = "StarCitizenWiki";
       repo = "mediawiki-extensions-EmbedVideo";
       rev = "v3.4.3";
       hash = "sha256-GcEZA27eESfA4qmOPEAaGP1buzdo3iCj+wkUzLRFxmM=";
     });
-    gadgets = mkWikimediaExtension {
-      name = "Gadgets";
-      rev = "94c0d38d5a5810b4cce22963a44aceb5e8dc1fd1";
-      hash = "sha256-hxTB6xP5jxLF8frnZqtuz4Kt0r3V2KyebilNcMHMMn4=";
-    };
-    imageMap = mkWikimediaExtension {
-      name = "ImageMap";
-      rev = "1aa7ea696c546c716a9e6168bfd0edfa73c7ff29";
-      hash = "sha256-KH59Sjth6T2e0OnA1bnwpn6G9ciemIIwSTviUvdC/Zo=";
-    };
-    inputBox = mkWikimediaExtension {
-      name = "InputBox";
-      rev = "a8184c4572811cf9df340702e882fe95baa885a0";
-      hash = "sha256-FnXYjRSy3eFkC6g8GPgIzRzhBanwaW+bWWL3+3oZs90=";
-    };
-    math = mkWikimediaExtension {
-      name = "Math";
-      rev = "2360e60228dcac111f2063feb5104ab84878a898";
-      hash = "sha256-xULflrWdTUvLOlLr5vlpw2lH6+Zt28It4SVAoJ3S+/k=";
-    };
     moderation = mkExtension "Moderation" (fetchFromGitHub {
       owner = "edwardspec";
       repo = "mediawiki-moderation";
-      rev = "v1.8.22";
-      hash = "sha256-qaubRQlSxlPso5ZEOuGdEM1bGfbmdntW7B17jyvGmaI=";
+      rev = "v1.8.31";
+      hash = "sha256-I75ssZi8uqlCxKZRVhH9o1C5GDiTFeGaOpXApnYuzPc=";
     });
-    msUpload = mkWikimediaExtension {
-      name = "MsUpload";
-      rev = "361dee8947892dd881ed427dc6040f0eb699c952";
-      hash = "sha256-tEATieYjhipaknZ/1q7EIxtXOi1+ylVMVuOGr0i0F2I=";
-    };
-    nuke = mkWikimediaExtension {
-      name = "Nuke";
-      rev = "45f54278c22d5f6d7af8ed47f2e0517ee725d070";
-      hash = "sha256-09SlJkg2bgYtv1CRsIJrqhgXWioiXPKiqkXfl2orAcg=";
-    };
-    parserFunctions = mkWikimediaExtension {
-      name = "ParserFunctions";
-      rev = "7199d854882d6e63ee9250f1ac8ef79188947465";
-      hash = "sha256-iLbaoIyvufvTeLaDv6Brz1oknOTosSItppb+th/dSzU=";
-    };
-    poem = mkWikimediaExtension {
-      name = "Poem";
-      rev = "8c1e853e2e7f08d20e0c78309509c90b46f73bae";
-      hash = "sha256-NBrVXeGSfvw9RSoZlEIUE1FBkQQQ9fMAKWD51ZTzVKw=";
-    };
-    puyoChain = mkExtension "PuyoChain" ./extensions/PuyoChain;
-    renameuser = mkWikimediaExtension {
-      name = "Renameuser";
-      rev = "e7b2820bf74bbc6a6c0e0969b08bc30c039b1ab1";
-      hash = "sha256-RAMIb5yHJ7JPpC0grQ8HTaOanaV/XafkRIbT6sC750g=";
-    };
-    replaceText = mkWikimediaExtension {
-      name = "ReplaceText";
-      rev = "f5d1655cb951c223b651b995026a1277a9f54687";
-      hash = "sha256-/5bX3VHULfiP8FR6Ed5AD8i1pexqicl3O3XJaW9KtsY=";
-    };
-    scaledImage = mkExtension "ScaledImage" ./extensions/ScaledImage;
-    spamBlacklist = mkWikimediaExtension {
-      name = "SpamBlacklist";
-      rev = "b7e906f612971a9de2c64eaeb5c2104b60fc6109";
-      hash = "sha256-ZRGeu802j5tNRQ3eGIyipH75FxcafGcIxU0GnrogbUA=";
-    };
-    syntaxHighlight = mkWikimediaExtension {
-      name = "SyntaxHighlight_GeSHi";
-      rev = "c9db27e9a2ebda84c34093152b271bf5144ec26a";
-      hash = "sha256-GWvznGIdIaOd7zGXm1hjunN2TLVJlx0+cknJDzCKlTY=";
-    };
     tabberNeue = mkExtension "TabberNeue" (fetchFromGitHub {
       owner = "StarCitizenTools";
       repo = "mediawiki-extensions-TabberNeue";
-      rev = "refs/tags/v3.0.0";
-      hash = "sha256-oPd2Xl5BqHNjr9B6Idc8U8NxMNw7jBcXqBwRr3SRu5g=";
+      rev = "refs/tags/v3.1.2";
+      hash = "sha256-jyDlbILh40Xj/ZKXc83BsnV5lFQ8SCZv4pvN2l2uW4M=";
     });
-    templateStyles = mkWikimediaExtension {
-      name = "TemplateStyles";
-      rev = "87f29540d1a04c8f727c7f6302ae504a990e8e69";
-      hash = "sha256-TcyKOTPg6ZhuD5tr+Ep7VGjHL7jH0KNed11VRMlKT5w=";
-    };
-    thanks = mkWikimediaExtension {
-      name = "Thanks";
-      rev = "40a5ba7f417f895a14f5289ed87f01b28a390ecb";
-      hash = "sha256-NF5ku8ZlgP1UM4moQK1Wu6UN//KWnweYXm0QE6QSir0=";
-    };
-    wikiEditor = mkWikimediaExtension {
-      name = "WikiEditor";
-      rev = "67f6158919d1d2e0de0a716c7cf4f7fbd240445a";
-      hash = "sha256-5uH+xbE8PhDlW4Vzfp7F2Cni4Kx1bmmCFSddgcrPErM=";
-    };
+
+    # Puyo Nexus extensions
+    puyoChain = mkExtension "PuyoChain" ./extensions/PuyoChain;
+    scaledImage = mkExtension "ScaledImage" ./extensions/ScaledImage;
   };
   skin = {
+    #
     modern = mkWikimediaSkin {
       name = "Modern";
       rev = "eb6dc18880a3c6edda09de7ef5e5d71b2e3d0a8d";
       hash = "sha256-cvFPDxxTYNXLQk3OTAfHdb4LJ6dsRKK4Urzs0EcVVME=";
-    };
-    vector = mkWikimediaSkin {
-      name = "Vector";
-      rev = "a4a127342e106a27d89253921cc771a978523a68";
-      hash = "sha256-78LGB3/7tPt+T92mLtRfg4gXA/s0aNtYGtuyKYLk944=";
-    };
-    vectorNexus = mkSkin "VectorNexus" (callPackage ./skins/VectorNexus/package.nix { });
-    monoBook = mkWikimediaSkin {
-      name = "MonoBook";
-      rev = "4f2266626b36bb7556e54b87814b0016bd1adf2b";
-      hash = "sha256-gw5WPzWY+Ws/9E7FXy8RQzqMc1I7OgtCTDNZ/RczExI=";
     };
     cologneBlue = mkWikimediaSkin {
       name = "CologneBlue";
       rev = "57a13971bebd561b0b6bb65ff0032fa11df6f71d";
       hash = "sha256-bDJj4Q45355y/Y9r0vADxNDPTlPgtUSfIaOIeZq1adU=";
     };
+    vector = mkWikimediaSkin wikimedia.skins.Vector;
+    monoBook = mkWikimediaSkin wikimedia.skins.MonoBook;
+    vectorNexus = mkSkin "VectorNexus" (
+      callPackage ./skins/VectorNexus/package.nix {
+        vector = fetchWikimediaSkin wikimedia.skins.Vector;
+      }
+    );
   };
   extensions = [
     ext.abuseFilter
@@ -294,15 +231,15 @@ let
 in
 php.buildComposerProject2 (finalAttrs: {
   pname = "puyonexus-wiki";
-  version = "1.43.1";
+  version = "1.43.3";
 
   src = stdenvNoCC.mkDerivation {
     name = "puyonexus-wiki-src";
     src = fetchFromGitHub {
       owner = "Wikimedia";
       repo = "mediawiki";
-      rev = "1.43.1";
-      hash = "sha256-LhUo/m8sgLFrSoX8LbsQEZawAiLzPKNjYR6HJSeS9hI=";
+      rev = "refs/tags/1.43.3";
+      hash = "sha256-lNFJPuev5JdttyTkzt9NK+Yt6Z5+5g1mTnWVhGt+aak=";
     };
     buildPhase = "true";
     installPhase = ''
@@ -325,7 +262,7 @@ php.buildComposerProject2 (finalAttrs: {
       src
       version
       ;
-    vendorHash = "sha256-IR78W4125xC/kqXTCqB5bGTQO6SIMiS0j0bjP1acBHw=";
+    vendorHash = "sha256-uN3Zjqykg3BKE+KdhwaWXsrkmehczQIEaGSBczHznmY=";
     composerLock = ./composer.lock;
     composerNoDev = true;
     composerNoPlugins = false;
