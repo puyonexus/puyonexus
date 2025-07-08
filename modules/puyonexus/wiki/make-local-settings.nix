@@ -176,5 +176,7 @@ in
   $wgTemplateStylesAllowedUrls['image'] = ["<^/mediawiki/images/>"];
   $wgTemplateStylesAllowedUrls['svg'] = ["<^/mediawiki/images/>"];
   $wgTemplateStylesAllowedUrls['font'] = [];
-  $wtTemplateStylesAllowedUrls['namespace'] = ["<.>"];
+  $wgTemplateStylesAllowedUrls['namespace'] = ["<.>"];
+
+  $wgTabberNeueEnableAnimation = false;
 ''
