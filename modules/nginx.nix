@@ -89,6 +89,7 @@ in
     };
     networking.firewall.allowedTCPPorts = [
       cfg.httpPort
-    ] ++ lib.optionals cfg.useHttps [ cfg.httpsPort ];
+    ]
+    ++ lib.optionals cfg.useHttps [ cfg.httpsPort ];
   };
 }

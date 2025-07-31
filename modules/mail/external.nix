@@ -31,16 +31,20 @@ in
           "smtp/password" = { };
           "grafana/smtp/host" = {
             key = "smtp/host";
-          } // grafanaOwnership;
+          }
+          // grafanaOwnership;
           "grafana/smtp/port" = {
             key = "smtp/port";
-          } // grafanaOwnership;
+          }
+          // grafanaOwnership;
           "grafana/smtp/username" = {
             key = "smtp/username";
-          } // grafanaOwnership;
+          }
+          // grafanaOwnership;
           "grafana/smtp/password" = {
             key = "smtp/password";
-          } // grafanaOwnership;
+          }
+          // grafanaOwnership;
         };
       templates = {
         "msmtp-config" = {
