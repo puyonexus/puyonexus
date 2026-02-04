@@ -41,11 +41,13 @@
       settings = {
         "listen.owner" = config.services.nginx.user;
         "pm" = "dynamic";
-        "pm.max_children" = 20;
+        "pm.max_children" = 25;
         "pm.start_servers" = 10;
         "pm.min_spare_servers" = 5;
         "pm.max_spare_servers" = 15;
         "pm.max_requests" = 500;
+        "request_terminate_timeout" = "45s";
+        "request_slowlog_timeout" = "20s";
       };
     };
     # Always restart PHP-FPM aggressively.
