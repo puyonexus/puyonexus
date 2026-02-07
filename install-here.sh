@@ -46,7 +46,7 @@ curl -fsSL "$DISKO_URL" -o /tmp/disko.nix
 
 # Run disko
 echo "Running disko to partition and format disks..."
-nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/disko.nix
+nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --yes-wipe-all-disks /tmp/disko.nix
 
 # Install base configuration
 echo "Installing base NixOS configuration..."
