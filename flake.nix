@@ -252,7 +252,16 @@
         };
       };
 
-      nixosConfigurations = configurations;
+      nixosConfigurations = configurations // {
+        base = nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            disko.nixosModules.disko
+            ./modules/machine/base
+            ./modules/hetzner.nix
+          ];
+        };
+      };
 
       packages."${system}" = {
         nixfmt = pkgs.nixfmt-rfc-style;
