@@ -131,7 +131,7 @@ in
 
     services.redis.servers.wiki = {
       enable = true;
-      user = config.users.users.puyonexus.name;
+      user = "puyonexus";
       settings = {
         maxmemory = "512mb";
         maxmemory-policy = "allkeys-lru";
