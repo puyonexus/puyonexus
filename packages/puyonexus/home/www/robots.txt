@@ -1,6 +1,9 @@
 User-agent: *
 Disallow: /mediawiki/
+Disallow: /wiki/Special:
+Disallow: /wiki/Help:
+Disallow: /wiki/MediaWiki:
 Disallow: /wiki/Special:Search
 Disallow: /wiki/Special:Random
+Disallow: /wiki/Special:Drilldown
 Disallow: /forum/
-
