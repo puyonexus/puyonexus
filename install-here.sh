@@ -2,6 +2,7 @@
 # curl -fsSL https://raw.githubusercontent.com/puyonexus/puyonexus/refs/heads/master/install-here.sh | sudo bash -s -- [--branch <branch>]
 
 set -euo pipefail
+exec 0< /dev/tty
 
 # Check for root privileges
 if [[ $EUID -ne 0 ]]; then
