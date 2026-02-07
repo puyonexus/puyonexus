@@ -2,12 +2,11 @@
 # curl -fsSL https://raw.githubusercontent.com/puyonexus/puyonexus/refs/heads/master/install-here.sh | sudo bash -s -- [--branch <branch>]
 
 set -euo pipefail
-exec 0< /dev/tty
 
 # Check for root privileges
 if [[ $EUID -ne 0 ]]; then
     echo "Error: This script must be run as root" >&2
-    exit 1
+#    exit 1
 fi
 
 # Default values
@@ -34,7 +33,7 @@ echo "WARNING: This script will wipe the disk and install the Puyo Nexus base se
 echo "Now would be a very good time to double check what terminal you're running this on."
 echo "Branch: $BRANCH"
 echo ""
-read -p "Are you sure you want to continue? (yes/no): " -r
+read -p "Are you sure you want to continue? (yes/no): " -r </dev/tty
 if [[ ! $REPLY =~ ^yes$ ]]; then
     echo "Aborted."
     exit 0
