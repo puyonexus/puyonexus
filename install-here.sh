@@ -39,6 +39,9 @@ if [[ ! $REPLY =~ ^yes$ ]]; then
     exit 0
 fi
 
+# Why is this ever needed?
+modprobe ext4
+
 # Download disko configuration
 echo "Downloading disko.nix from branch $BRANCH..."
 DISKO_URL="https://raw.githubusercontent.com/puyonexus/puyonexus/refs/heads/${BRANCH}/modules/disko.nix"
