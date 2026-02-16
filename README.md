@@ -51,3 +51,26 @@ SOPS_AGE_KEY_FILE=$PWD/localkey.txt sops ./secrets/local.yaml
 ```
 
 The local key can not be used to decrypt production or staging secrets.
+
+## Deploying to a Server
+
+There are many ways to install Puyo Nexus to a server. Here is the current setup we are using:
+
+1. Boot from the standard NixOS installation media. A minimal ISO works.
+
+1. Install the base configuration: `curl -fsSL https://raw.githubusercontent.com/puyonexus/puyonexus/refs/heads/master/install-here.sh | sudo bash -s`
+
+1. Reboot into the base install.
+
+1. Deploy host keys: `nix run .#deployHostKeys [configuration] [hostname] [server IP]` - for example, to deploy staging ojama to 1.2.3.4, the command would be `nix run .#deployHostKeys staging ojama 1.2.3.4`.
+
+   Host keys are typically used also as keys for sops-nix. Beware that you shouldn't use the same SSH host key on a different machine, so for each machine you should have a unique hostname and host key pair stored in sops, and each host key should also be a recipient in sops as well so it can unlock the secrets.
+
+1. Restore the database and files from a backup: `nix run .#restore [hostname] [backup folder]`. The backup folder should have a `puyonexus.sql.zstd` database file, and a `data` folder with the file storage.
+
+1. Finally, deploy the actual full configuration. The available configurations are defined in `flake.nix` under the `deploy` output key. `nix run github:serokell/deploy-rs -- .#ojamaStaging`
+
+## Maintenance Page
+There is a static site in `maintenance` that contains a basic maintenance page. Right now, it is set up for use with Cloudflare Pages.
+
+To turn it on, go to the Cloudflare Pages app for it and add puyonexus.com as a custom domain. Don't forget to customize the text and deploy it first.

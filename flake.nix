@@ -306,35 +306,14 @@
                 );
               };
             };
-            ojamaStagingUpgrade = {
-              hostname = "ojama.puyonexus-staging.com";
+            ojamaProduction = {
+              hostname = "ojama.puyonexus.com";
               profiles.system = {
                 path = deploy-rs.lib.x86_64-linux.activate.nixos (
-                  addModules [
-                    ./modules/overrides/upgrade.nix
-                  ] self.nixosConfigurations."hz-ojama-staging"
+                  addModules [ ] self.nixosConfigurations."hz-ojama-production"
                 );
               };
             };
-            # Temporarily disabled while migrating to Hetzner.
-            # ojamaProduction = {
-            #   hostname = "ojama.puyonexus.com";
-            #   profiles.system = {
-            #     path = deploy-rs.lib.x86_64-linux.activate.nixos (
-            #       addModules [ ] self.nixosConfigurations."hz-ojama-production"
-            #     );
-            #   };
-            # };
-            # ojamaProductionUpgrade = {
-            #   hostname = "ojama.puyonexus.com";
-            #   profiles.system = {
-            #     path = deploy-rs.lib.x86_64-linux.activate.nixos (
-            #       addModules [
-            #         ./modules/overrides/upgrade.nix
-            #       ] self.nixosConfigurations."hz-ojama-production"
-            #     );
-            #   };
-            # };
           };
         };
 
