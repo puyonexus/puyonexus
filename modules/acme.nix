@@ -11,15 +11,17 @@ in
 
   config = lib.mkIf cfg.enable {
     sops.secrets = {
-      "digitalocean/authToken" = { };
+      "cloudflare/zoneApiToken" = { };
+      "cloudflare/dnsApiToken" = { };
     };
     security.acme = {
       acceptTerms = true;
       defaults = {
         email = "acme@${config.puyonexus.domain.root}";
-        dnsProvider = "digitalocean";
+        dnsProvider = "cloudflare";
         credentialFiles = {
-          "DO_AUTH_TOKEN_FILE" = config.sops.secrets."digitalocean/authToken".path;
+          "CF_ZONE_API_TOKEN_FILE" = config.sops.secrets."cloudflare/zoneApiToken".path;
+          "CF_DNS_API_TOKEN_FILE" = config.sops.secrets."cloudflare/dnsApiToken".path;
         };
       };
     };

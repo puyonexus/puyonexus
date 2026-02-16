@@ -29,22 +29,30 @@ in
           "smtp/port" = { };
           "smtp/username" = { };
           "smtp/password" = { };
-          "grafana/smtp/host" = {
-            key = "smtp/host";
-          }
-          // grafanaOwnership;
-          "grafana/smtp/port" = {
-            key = "smtp/port";
-          }
-          // grafanaOwnership;
-          "grafana/smtp/username" = {
-            key = "smtp/username";
-          }
-          // grafanaOwnership;
-          "grafana/smtp/password" = {
-            key = "smtp/password";
-          }
-          // grafanaOwnership;
+          "grafana/smtp/host" = lib.mkIf config.puyonexus.grafana.enable (
+            {
+              key = "smtp/host";
+            }
+            // grafanaOwnership
+          );
+          "grafana/smtp/port" = lib.mkIf config.puyonexus.grafana.enable (
+            {
+              key = "smtp/port";
+            }
+            // grafanaOwnership
+          );
+          "grafana/smtp/username" = lib.mkIf config.puyonexus.grafana.enable (
+            {
+              key = "smtp/username";
+            }
+            // grafanaOwnership
+          );
+          "grafana/smtp/password" = lib.mkIf config.puyonexus.grafana.enable (
+            {
+              key = "smtp/password";
+            }
+            // grafanaOwnership
+          );
         };
       templates = {
         "msmtp-config" = {

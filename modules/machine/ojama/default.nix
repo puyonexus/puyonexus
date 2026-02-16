@@ -19,10 +19,9 @@
     puyonexus.home.enable = true;
     puyonexus.wiki.enable = true;
 
-    # Internal web apps
-    puyonexus.grafana.enable = true;
-
     # Observability (Prometheus, Loki, Grafana, etc.)
-    puyonexus.observability.enableMonolith = true;
+    # Disabled for now since it's not working very well.
+    puyonexus.grafana.enable = false;
+    puyonexus.observability.enableMonolith = false;
   };
 }

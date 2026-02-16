@@ -1,8 +1,8 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
@@ -18,7 +18,7 @@
     {
       self,
       nixpkgs,
-      nixos-generators,
+      disko,
       sops-nix,
       deploy-rs,
       ...
@@ -44,6 +44,7 @@
         [
           (./modules/environment + "/${environment}")
           (./modules/machine + "/${machine}")
+          disko.nixosModules.disko
           sops-nix.nixosModules.sops
           { nixpkgs.overlays = pkgs.lib.mkBefore overlays; }
           (
@@ -82,7 +83,7 @@
         mkSystem (config // { modules = modules ++ extraModules; });
       mkSystemForPlatform = {
         vm = mkSystemWithModules [ ./modules/qemu-vm.nix ];
-        do = mkSystemWithModules [ (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix") ];
+        hz = mkSystemWithModules [ ./modules/hetzner.nix ];
       };
       configMatrix = {
         machine = [ "ojama" ];
@@ -255,18 +256,14 @@
         base = nixosSystem {
           system = "x86_64-linux";
           modules = [
+            disko.nixosModules.disko
             ./modules/machine/base
-            (nixpkgs + "/nixos/modules/virtualisation/digital-ocean-config.nix")
+            ./modules/hetzner.nix
           ];
         };
       };
 
       packages."${system}" = {
-        digitalOceanImage = nixos-generators.nixosGenerate {
-          pkgs = nixpkgs.legacyPackages."${system}";
-          modules = [ ./modules/machine/base ];
-          format = "do";
-        };
         nixfmt = pkgs.nixfmt-rfc-style;
         genhostkeys = pkgs.genhostkeys;
         genmwhashes = pkgs.genmwhashes;
@@ -305,17 +302,7 @@
               profiles.system = {
                 path = deploy-rs.lib.x86_64-linux.activate.nixos (
                   addModules [
-                  ] self.nixosConfigurations."do-ojama-staging"
-                );
-              };
-            };
-            ojamaStagingUpgrade = {
-              hostname = "ojama.puyonexus-staging.com";
-              profiles.system = {
-                path = deploy-rs.lib.x86_64-linux.activate.nixos (
-                  addModules [
-                    ./modules/overrides/upgrade.nix
-                  ] self.nixosConfigurations."do-ojama-staging"
+                  ] self.nixosConfigurations."hz-ojama-staging"
                 );
               };
             };
@@ -323,17 +310,7 @@
               hostname = "ojama.puyonexus.com";
               profiles.system = {
                 path = deploy-rs.lib.x86_64-linux.activate.nixos (
-                  addModules [ ] self.nixosConfigurations."do-ojama-production"
-                );
-              };
-            };
-            ojamaProductionUpgrade = {
-              hostname = "ojama.puyonexus.com";
-              profiles.system = {
-                path = deploy-rs.lib.x86_64-linux.activate.nixos (
-                  addModules [
-                    ./modules/overrides/upgrade.nix
-                  ] self.nixosConfigurations."do-ojama-production"
+                  addModules [ ] self.nixosConfigurations."hz-ojama-production"
                 );
               };
             };

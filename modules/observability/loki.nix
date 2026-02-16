@@ -21,6 +21,7 @@ in
         auth_enabled = false;
         common = {
           path_prefix = "/var/lib/loki/";
+          instance_interface_names = builtins.attrNames config.networking.interfaces;
         };
         ingester = {
           lifecycler = {

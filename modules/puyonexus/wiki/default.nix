@@ -131,7 +131,7 @@ in
 
     services.redis.servers.wiki = {
       enable = true;
-      user = config.users.users.puyonexus.name;
+      user = "puyonexus";
       settings = {
         maxmemory = "512mb";
         maxmemory-policy = "allkeys-lru";
@@ -196,7 +196,7 @@ in
         Restart = "always";
         RestartSec = "1min";
         Type = "exec";
-        ExecStart = ''${
+        ExecStart = "${
           pkgs.writeShellApplication {
             name = "mwjobrunner";
             runtimeInputs = [ config.puyonexus.php.package ];
@@ -210,7 +210,7 @@ in
               done
             '';
           }
-        }/bin/mwjobrunner'';
+        }/bin/mwjobrunner";
       };
     };
   };
