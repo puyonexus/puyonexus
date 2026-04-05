@@ -65,7 +65,7 @@ in
   $wgJobRunRate = 0;
   $wgModerationEnable = true;
   $wgMiserMode = true;
-  $wgMaxImageArea = 50000000;
+  $wgMaxImageArea = 200000000;
   $wgPFEnableStringFunctions = true;
 
   # Permissions
