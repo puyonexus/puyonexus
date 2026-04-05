@@ -24,6 +24,8 @@
               apc.enable_cli = 1
               opcache.enable_cli = 1
               opcache.jit_buffer_size = 100M
+              upload_max_filesize = 100M
+              post_max_size = 100M
             '';
           }
         );
