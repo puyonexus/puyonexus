@@ -262,7 +262,7 @@ php.buildComposerProject2 (finalAttrs: {
       src
       version
       ;
-    vendorHash = "sha256-l0LtYooaTZLIS08z1EjpfITwBrKRgBLP79CakgF5a94=";
+    vendorHash = "sha256-Fr8ON1tWuok5t+fKOzMP95upYD4jHuZyGgXNsM7iqJk=";
     composerLock = ./composer.lock;
     composerNoDev = true;
     composerNoPlugins = false;

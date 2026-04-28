@@ -39,6 +39,18 @@
         localOverlay
       ];
       pkgs = import nixpkgs { inherit system overlays; };
+      deployPkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          deploy-rs.overlays.default
+          (self: super: {
+            deploy-rs = {
+              inherit (pkgs) deploy-rs;
+              lib = super.deploy-rs.lib;
+            };
+          })
+        ];
+      };
       configurationModules =
         { machine, environment }:
         [
@@ -264,6 +276,7 @@
       };
 
       packages."${system}" = {
+        inherit (pkgs) deploy-rs;
         nixfmt = pkgs.nixfmt-rfc-style;
         genhostkeys = pkgs.genhostkeys;
         genmwhashes = pkgs.genmwhashes;
@@ -292,7 +305,7 @@
               ];
               hostname = "puyonexus.localhost";
               profiles.system = {
-                path = deploy-rs.lib.x86_64-linux.activate.nixos (
+                path = deployPkgs.deploy-rs.lib.activate.nixos (
                   addModules [ ] self.nixosConfigurations."vm-ojama-local"
                 );
               };
@@ -300,7 +313,7 @@
             ojamaStaging = {
               hostname = "ojama.puyonexus-staging.com";
               profiles.system = {
-                path = deploy-rs.lib.x86_64-linux.activate.nixos (
+                path = deployPkgs.deploy-rs.lib.activate.nixos (
                   addModules [
                   ] self.nixosConfigurations."hz-ojama-staging"
                 );
@@ -309,7 +322,7 @@
             ojamaProduction = {
               hostname = "ojama.puyonexus.com";
               profiles.system = {
-                path = deploy-rs.lib.x86_64-linux.activate.nixos (
+                path = deployPkgs.deploy-rs.lib.activate.nixos (
                   addModules [ ] self.nixosConfigurations."hz-ojama-production"
                 );
               };

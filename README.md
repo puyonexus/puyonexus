@@ -68,7 +68,7 @@ There are many ways to install Puyo Nexus to a server. Here is the current setup
 
 1. Restore the database and files from a backup: `nix run .#restore [hostname] [backup folder]`. The backup folder should have a `puyonexus.sql.zstd` database file, and a `data` folder with the file storage.
 
-1. Finally, deploy the actual full configuration. The available configurations are defined in `flake.nix` under the `deploy` output key. `nix run github:serokell/deploy-rs -- .#ojamaStaging`
+1. Finally, deploy the actual full configuration. The available configurations are defined in `flake.nix` under the `deploy` output key. `nix run .#deploy-rs -- .#ojamaStaging`
 
 ## Maintenance Page
 There is a static site in `maintenance` that contains a basic maintenance page. Right now, it is set up for use with Cloudflare Pages.
