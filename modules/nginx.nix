@@ -65,6 +65,12 @@ in
       enable = true;
       enableReload = true;
       package = config.puyonexus.nginx.package;
+      eventsConfig = ''
+        worker_connections 4096;
+      '';
+      appendConfig = ''
+        worker_rlimit_nofile 65535;
+      '';
       virtualHosts = {
         ${cfg.domain} = {
           useACMEHost = lib.mkIf cfg.useAcme cfg.domain;
@@ -85,6 +91,9 @@ in
       unitConfig = {
         Restart = "always";
         RestartSec = 3;
+      };
+      serviceConfig = {
+        LimitNOFILE = 65535;
       };
     };
     networking.firewall.allowedTCPPorts = [
