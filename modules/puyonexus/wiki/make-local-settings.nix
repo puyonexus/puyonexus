@@ -68,6 +68,10 @@ in
   $wgMaxImageArea = 200000000;
   $wgPFEnableStringFunctions = true;
 
+  $wgMaxArticleSize = 4096;
+  $wgMaxPPNodeCount = 2000000;
+  $wgAPIMaxResultSize = $wgMaxArticleSize * 4096;
+
   # Permissions
   $wgLogRestrictions["newusers"] = 'moderation';
   $wgAddGroups['sysop'][] = 'automoderated';
