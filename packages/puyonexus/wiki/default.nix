@@ -88,53 +88,53 @@ let
     # Unbundled Wikimedia extensions
     cargo = mkWikimediaExtension {
       name = "Cargo";
-      rev = "53883662f167216d493d11828618fb1a115c95ef";
-      hash = "sha256-PU7TtJVBnBiBhWh0dBBULbCHWhxf4WJVboQb0xUJWUY=";
+      rev = "de2e27a2535d0c1ec98fab0b0757beb4622fe9d0";
+      hash = "sha256-tJemViS3aiI1oq738FzdBrJ7EN29z4SIyKFkap+CSF8=";
     };
     checkUser = mkWikimediaExtension {
       name = "CheckUser";
-      rev = "9406c4c61802182ab253679b1c4812dcb372cff0";
-      hash = "sha256-wbCdK3JX8c7e434nqyvoR4K9lrGa1QQshslne4dh+iY=";
+      rev = "9d7c1d311e0ff2687498215c72bcc3e82cf8c90e";
+      hash = "sha256-StjiqUwD/FsYS6B2+cRO0InjysKUXpeY7FeC2KU1UzY=";
     };
     math = mkWikimediaExtension {
       name = "Math";
-      rev = "2360e60228dcac111f2063feb5104ab84878a898";
-      hash = "sha256-xULflrWdTUvLOlLr5vlpw2lH6+Zt28It4SVAoJ3S+/k=";
+      rev = "7f5cd1a4800f8b9a0ecd16de3175e5fdf83f4f03";
+      hash = "sha256-xNDwfnKmJyof8tcxuR2kcBV7axSTPE+3WDWpmyuVN+k=";
     };
     msUpload = mkWikimediaExtension {
       name = "MsUpload";
-      rev = "361dee8947892dd881ed427dc6040f0eb699c952";
-      hash = "sha256-tEATieYjhipaknZ/1q7EIxtXOi1+ylVMVuOGr0i0F2I=";
+      rev = "d0d145f4ed79e4f6f6e9a41a87145a41cb1517f3";
+      hash = "sha256-yuDXPVXGVTGZo+qUaLpL8XTWSOMwqXmIBtp9d+ORK+A=";
     };
     renameuser = mkWikimediaExtension {
       name = "Renameuser";
-      rev = "e7b2820bf74bbc6a6c0e0969b08bc30c039b1ab1";
-      hash = "sha256-RAMIb5yHJ7JPpC0grQ8HTaOanaV/XafkRIbT6sC750g=";
+      rev = "9c1b65e8ee99e04c3f36227015cef3fc2d4b6959";
+      hash = "sha256-MJ1tp2bcVMHbjsbFmuClyPLXB9rp3oG2ADMtQID3MzA=";
     };
     templateStyles = mkWikimediaExtension {
       name = "TemplateStyles";
-      rev = "87f29540d1a04c8f727c7f6302ae504a990e8e69";
-      hash = "sha256-TcyKOTPg6ZhuD5tr+Ep7VGjHL7jH0KNed11VRMlKT5w=";
+      rev = "e74200b2bcc2d5b36c1b0c02086c2907caa49eb1";
+      hash = "sha256-qzJjFMTb0PtdVO5tWaqfsZB6gJndrje4PFqYE6Mg7Gs=";
     };
 
     # Third-party extensions
     embedVideo = mkExtension "EmbedVideo" (fetchFromGitHub {
       owner = "StarCitizenWiki";
       repo = "mediawiki-extensions-EmbedVideo";
-      rev = "v3.4.3";
-      hash = "sha256-GcEZA27eESfA4qmOPEAaGP1buzdo3iCj+wkUzLRFxmM=";
+      rev = "d0aa2a3245c1308362b2ce77df1f6bb3e2bf6579";
+      hash = "sha256-l/npA13t/mKfKd5VooRqYcblbWqWeHFNo8isRp/NDn8=";
     });
     moderation = mkExtension "Moderation" (fetchFromGitHub {
       owner = "edwardspec";
       repo = "mediawiki-moderation";
-      rev = "v1.8.31";
-      hash = "sha256-I75ssZi8uqlCxKZRVhH9o1C5GDiTFeGaOpXApnYuzPc=";
+      rev = "f0d423d11eb954ed7429d7618c1868303a5a5832";
+      hash = "sha256-LrXtMvqWsnILhq+Z+BrAV5dUUtImSPqjPK/GU/M2CTU=";
     });
     tabberNeue = mkExtension "TabberNeue" (fetchFromGitHub {
       owner = "StarCitizenTools";
       repo = "mediawiki-extensions-TabberNeue";
-      rev = "refs/tags/v3.1.2";
-      hash = "sha256-jyDlbILh40Xj/ZKXc83BsnV5lFQ8SCZv4pvN2l2uW4M=";
+      rev = "cbdb62ba4b45c3060aa27001a0519e16cdc63523";
+      hash = "sha256-ZC/Z9Ktq/1vvxsEhzqbn3/KoBANCvZU0HJY0jH1J1HE=";
     });
 
     # Puyo Nexus extensions
@@ -145,13 +145,13 @@ let
     #
     modern = mkWikimediaSkin {
       name = "Modern";
-      rev = "eb6dc18880a3c6edda09de7ef5e5d71b2e3d0a8d";
-      hash = "sha256-cvFPDxxTYNXLQk3OTAfHdb4LJ6dsRKK4Urzs0EcVVME=";
+      rev = "9504bc2fa08f423a47fcee3e1da365a3b8b7a5a2";
+      hash = "sha256-mW+ESISEoKAV9BjkeGZfEcjW9LE1iEg4n1aVTezoRCc=";
     };
     cologneBlue = mkWikimediaSkin {
       name = "CologneBlue";
-      rev = "57a13971bebd561b0b6bb65ff0032fa11df6f71d";
-      hash = "sha256-bDJj4Q45355y/Y9r0vADxNDPTlPgtUSfIaOIeZq1adU=";
+      rev = "a2419bb88ecf589dcfd18462c58fc764e4d3c2dc";
+      hash = "sha256-WigDK4KQpzH2VSUAHgtAbP3V66AjT6CkHsH9TI3mWFM=";
     };
     vector = mkWikimediaSkin wikimedia.skins.Vector;
     monoBook = mkWikimediaSkin wikimedia.skins.MonoBook;
@@ -231,15 +231,15 @@ let
 in
 php.buildComposerProject2 (finalAttrs: {
   pname = "puyonexus-wiki";
-  version = "1.43.3";
+  version = "1.43.11";
 
   src = stdenvNoCC.mkDerivation {
     name = "puyonexus-wiki-src";
     src = fetchFromGitHub {
       owner = "Wikimedia";
       repo = "mediawiki";
-      rev = "refs/tags/1.43.3";
-      hash = "sha256-lNFJPuev5JdttyTkzt9NK+Yt6Z5+5g1mTnWVhGt+aak=";
+      rev = "8c65f3e15450df456092626693350a8c729bd003";
+      hash = "sha256-USGjzI+YFMAOPcWbWq/9dMcUYKBvbfCgCAz42WwZ7xo=";
     };
     buildPhase = "true";
     installPhase = ''
@@ -262,7 +262,7 @@ php.buildComposerProject2 (finalAttrs: {
       src
       version
       ;
-    vendorHash = "sha256-45OskorlFZ+g2RuImf/ZYVE3HzjeznufGkbdo5sD/lQ=";
+    vendorHash = "sha256-evTUcBiidzgL4YMdvAr+w2dLCLc+O3bVb2wpaKmYfXs=";
     composerLock = ./composer.lock;
     composerNoDev = true;
     composerNoPlugins = false;
