@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -277,7 +277,7 @@
 
       packages."${system}" = {
         inherit (pkgs) deploy-rs;
-        nixfmt = pkgs.nixfmt-rfc-style;
+        nixfmt = pkgs.nixfmt;
         genhostkeys = pkgs.genhostkeys;
         genmwhashes = pkgs.genmwhashes;
         chainsim = pkgs.puyonexusPackages.chainsim;
