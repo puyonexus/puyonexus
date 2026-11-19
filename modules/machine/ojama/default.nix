@@ -5,6 +5,10 @@
     system.stateVersion = "24.05";
     networking.hostName = "ojama";
 
+    # Temporarily disable SCTP entirely while waiting on a vulnerability fix
+    boot.blacklistedKernelModules = [ "sctp" ];
+    boot.extraModprobeConfig = "install sctp /bin/false";
+
     # TLS certificates via ACME
     puyonexus.acme.enable = true;
 

@@ -13,7 +13,19 @@ in
       enable = lib.mkEnableOption "Puyo Nexus Nginx setup";
       package = lib.mkOption {
         type = lib.types.package;
-        default = pkgs.nginx;
+        # CVE-2026-123007
+        default =
+          if lib.versionOlder pkgs.nginx.version "1.30.7" then
+            pkgs.nginx.overrideAttrs (_: {
+              version = "1.30.7";
+              nginxVersion = "1.30.7";
+              src = pkgs.fetchurl {
+                url = "https://nginx.org/download/nginx-1.30.7.tar.gz";
+                hash = "sha256-JWW1yDcFDpWPcPsPc8SOK8pFQq00n9NW9G+wxyYQvG4=";
+              };
+            })
+          else
+            pkgs.nginx;
       };
       httpPort = lib.mkOption {
         type = lib.types.int;
